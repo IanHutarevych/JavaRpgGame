@@ -19,7 +19,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[40];
         this.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/world01.txt"); // CHANGE WORLD MAPS
@@ -27,15 +27,38 @@ public class TileManager {
 
     public void getTileImage(){
 
-        setup(0, "grass", false);
-        setup(1, "wall", true);
-        setup(2, "water", true);
-        setup(3, "flor", false);
-        setup(4, "sand", false);
-        setup(5, "tree_1", true);
-        setup(6, "stair", false);
-        setup(7, "pathway", false);
-        setup(8, "tree_2", true);
+
+        setup(0, "grass1", false);
+        setup(1, "grass1", false);
+        setup(2, "grass1", false);
+        setup(3, "grass1", false);
+        setup(4, "grass1", false);
+        setup(5, "grass1", false);
+        setup(6, "grass1", false);
+        setup(7, "grass1", false);
+        setup(8, "grass1", false);
+        setup(9, "grass1", false);
+
+
+        setup(10, "grass1", false);
+        setup(11, "grass2", false);
+        setup(12, "tree1", true);
+        setup(13, "tree2", true);
+        setup(14, "pathway1", false);
+        setup(15, "pathway2", false);
+        setup(16, "wall", true);
+        setup(17, "wall", true); // CHANGE
+        setup(18, "flor", false);
+        setup(19, "sand", false);
+        setup(20, "water", true);
+        setup(21, "stair", false);
+        setup(22, "pathway3", false);
+        setup(23, "pathway4", false);
+        setup(24, "pathway5", false);
+        setup(25, "pathway6", false);
+        setup(26, "pathway7", false);
+        setup(27, "pathway8", false);
+        setup(28, "pathway9", false);
     }
 
     public void setup (int index, String imagePath, boolean collision){
