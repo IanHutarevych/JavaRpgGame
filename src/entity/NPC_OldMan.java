@@ -13,6 +13,7 @@ public class NPC_OldMan extends Entity {
         speed = 1;
 
         getImage();
+        setDialogue();
     }
     public void getImage(){
         up1 = setup("/npc/oldman_up_1");
@@ -23,6 +24,15 @@ public class NPC_OldMan extends Entity {
         left2 = setup("/npc/oldman_left_2");
         right1 = setup("/npc/oldman_right_1");
         right2 = setup("/npc/oldman_right_2");
+    }
+
+    public void setDialogue(){
+
+        dialogues[0] = "Hello, traveler!";
+        dialogues[1] = "I dont know what plot to write";
+        dialogues[2] = "But i`ll create a good one plot \n ";
+        dialogues[3] = "So now i can just say break a leg)";
+
     }
 
     @Override
@@ -48,5 +58,9 @@ public class NPC_OldMan extends Entity {
             }
             actionLockCounter = 0;
         }
+    }
+
+    public void speak(){
+        super.speak();
     }
 }
