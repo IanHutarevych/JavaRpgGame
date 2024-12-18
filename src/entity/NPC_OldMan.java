@@ -28,10 +28,10 @@ public class NPC_OldMan extends Entity {
 
     public void setDialogue(){
 
-        dialogues[0] = "Hello, traveler!";
-        dialogues[1] = "I dont know what plot to write";
-        dialogues[2] = "But i`ll create a good one plot \n ";
-        dialogues[3] = "So now i can just say break a leg)";
+        dialogues[0] = "    Oh, you've arrived! Another traveler \nlooking for a relic? Or perhaps something \n        else has brought you here?";
+        dialogues[1] = "    They say that this forest hides more \nthan just pine trees. If you listen and look \n  carefully, you will find the path to your \n                      destiny.";
+        dialogues[2] = "    You will find a well in the clearing. They \nsay that the well remembers everyone who \n    sought answers in it. But remember:\n           knowledge has a price.";
+        dialogues[3] = "    On the other side, there is a descent \nunder the roots of a pine tree. But don't \nrush - it's dangerous there without \n                    preparation.";
 
     }
 

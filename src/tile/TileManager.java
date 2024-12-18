@@ -19,7 +19,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[40];
+        tile = new Tile[80];
         this.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/world01.txt"); // CHANGE WORLD MAPS
@@ -40,18 +40,18 @@ public class TileManager {
         setup(9, "grass1", false);
 
 
-        setup(10, "grass1", false);
-        setup(11, "grass2", false);
-        setup(12, "tree1", true);
-        setup(13, "tree2", true);
+        setup(10, "grass2", false);
+        setup(11, "grass1", false);
+        setup(12, "tree2", true);
+        setup(13, "tree1", true);
         setup(14, "pathway1", false);
         setup(15, "pathway2", false);
-        setup(16, "wall", true);
-        setup(17, "wall", true); // CHANGE
+        setup(16, "wall1", true);
+        setup(17, "wall2", true);
         setup(18, "flor", false);
-        setup(19, "sand", false);
-        setup(20, "water", true);
-        setup(21, "stair", false);
+        setup(19, "tree3", true);
+        setup(20, "tree4", true);
+        setup(21, "water10", false); // u can change
         setup(22, "pathway3", false);
         setup(23, "pathway4", false);
         setup(24, "pathway5", false);
@@ -59,6 +59,44 @@ public class TileManager {
         setup(26, "pathway7", false);
         setup(27, "pathway8", false);
         setup(28, "pathway9", false);
+        setup(29, "path-flor2", false);
+        setup(30, "path-flor1", false);
+        setup(31, "wall3", true);
+        setup(32, "wall4", true);
+        setup(33, "wall5", true);
+        setup(34, "wall6", true);
+        setup(35, "wall7", true);
+        setup(36, "water1", true);
+        setup(37, "water2", true);
+        setup(38, "water3", true);
+        setup(39, "water4", true);
+        setup(40, "water5", true);
+        setup(41, "water6", true);
+        setup(42, "water7", true);
+        setup(43, "water8", true);
+        setup(44, "water9", true);
+        setup(45, "tree5", true);
+        setup(46, "tree6", true);
+        setup(47, "tree7", true);
+        setup(48, "tree8", true);
+        setup(49, "tree9", true);
+        setup(50, "tree10", true);
+        setup(51, "tree11", true);
+        setup(52, "tree12", true);
+        setup(53, "tree13", false);
+        setup(54, "tree14", true);
+        setup(55, "tree15", true);
+        setup(56, "tree16", false);
+        setup(57, "tree17", true);
+        setup(58, "tree18", true);
+        setup(59, "tree19", false);
+        setup(60, "tree20", true);
+        setup(61, "tree21", true);
+        setup(62, "router", false);
+        setup(63, "well", true);
+        setup(64, "bridge1", false);
+        setup(65, "bridge2", false);
+        setup(66, "bridge3", false);
     }
 
     public void setup (int index, String imagePath, boolean collision){
