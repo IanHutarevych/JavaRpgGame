@@ -11,6 +11,8 @@ public class KeyHandler implements KeyListener {
     // DEBUG
     boolean checkDrawTime = false;
 
+    boolean hasMusic = false;
+
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
@@ -79,7 +81,13 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0  ) {
                     gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                    /*if (hasMusic == false) {
+                        gp.playMusic(0);
+                        hasMusic = true;
+                    } else if (hasMusic) {
+                        gp.stopMusic();
+                        hasMusic = false;
+                    }*/
                 }
                 if (gp.ui.commandNum == 1) {
                     // add later
@@ -112,7 +120,7 @@ public class KeyHandler implements KeyListener {
                 enterPressed = true;
             }
             if (code == KeyEvent.VK_ESCAPE) {
-                gp.stopMusic();
+                //gp.stopMusic();
                 gp.gameState = gp.menuState;
 
             }
