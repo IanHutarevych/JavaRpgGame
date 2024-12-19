@@ -2,17 +2,15 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX, screenY;
     int standCounter = 0;
+    public final int defSpeed = 4;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -40,7 +38,7 @@ public class Player extends Entity {
 
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-        speed = 4;
+        speed = defSpeed;
         direction = "down";
 
         // PLAYER STATES
@@ -91,7 +89,7 @@ public class Player extends Entity {
             interactNPC(npcIndex);
 
             // CHECK EVENT
-            gp.eHandler.chechEvent();
+            gp.eHandler.checkEvent();
 
             gp.keyH.enterPressed = false;
 

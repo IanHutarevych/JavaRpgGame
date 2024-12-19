@@ -51,7 +51,7 @@ public class TileManager {
         setup(18, "flor", false);
         setup(19, "tree3", true);
         setup(20, "tree4", true);
-        setup(21, "water10", false); // u can change
+        setup(21, "billboard", false); // u can change
         setup(22, "pathway3", false);
         setup(23, "pathway4", false);
         setup(24, "pathway5", false);
