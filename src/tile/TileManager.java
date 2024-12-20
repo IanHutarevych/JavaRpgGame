@@ -92,11 +92,17 @@ public class TileManager {
         setup(59, "tree19", false);
         setup(60, "tree20", true);
         setup(61, "tree21", true);
-        setup(62, "router", false);
+        setup(62, "router", false); // u can change
         setup(63, "well", true);
         setup(64, "bridge1", false);
         setup(65, "bridge2", false);
         setup(66, "bridge3", false);
+        setup(67, "flor1", false);
+
+        setup(68, "swamp3", false);
+        setup(69, "swamp2", false);
+        setup(70, "swamp1", false);
+
     }
 
     public void setup (int index, String imagePath, boolean collision){

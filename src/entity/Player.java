@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX, screenY;
+    public int hasKey = 0;
     int standCounter = 0;
     public final int defSpeed = 4;
 
@@ -88,6 +89,11 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
+
             // CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -120,12 +126,43 @@ public class Player extends Entity {
                 spriteNum = 1;
                 standCounter = 0;
             }
+        }
 
+        // This needs to be outside of key if statement!
+
+        if (invincible){
+            invincibleCounter++;
+            if (invincibleCounter > 60){
+                invincible = false;
+                invincibleCounter = 0;
+            }
         }
     }
 
+    private void contactMonster(int i) {
+        if (i != 999){
+            if (!invincible) {
+                life -= 1;
+                invincible = true;
+            }
+        }
+    }
+
+    // This needs to be outside of key if statement!
+
+
+
     public void pickUpObject(int i){
         if (i != 999){
+
+            /*String objectName = gp.obj[i].name;
+
+            switch (objectName){
+                case "key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    break;
+            }*/
 
         }
     }
@@ -142,7 +179,7 @@ public class Player extends Entity {
 
     }
 
-    public void draw(Graphics g2){
+    public void draw(Graphics2D g2){
         BufferedImage image = null;
         switch (direction){
             case "up": if(spriteNum == 1){
@@ -166,6 +203,15 @@ public class Player extends Entity {
                     image = right2;
                 } break;
         }
+
+        if (invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);
+
+        // RESET alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
     }
 }

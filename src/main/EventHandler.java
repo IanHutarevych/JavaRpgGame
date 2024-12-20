@@ -1,6 +1,10 @@
 package main;
 
 import object.OBJ_ChestOpen;
+import object.OBJ_DoorOpen;
+import object.OBJ_Key;
+
+import java.awt.image.BufferedImage;
 
 public class EventHandler {
 
@@ -10,8 +14,14 @@ public class EventHandler {
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
 
+    BufferedImage keyImage;
+
+
     public EventHandler(GamePanel gp) {
         this.gp = gp;
+
+        OBJ_Key key = new OBJ_Key(gp);
+        keyImage = key.image;
 
         eventRect = new EventRect[gp.maxWorldCol][gp.maxWorldRow];
 
@@ -19,12 +29,13 @@ public class EventHandler {
         int row = 0;
         while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
             eventRect[col][row] = new EventRect();
-            eventRect[col][row].x = 23;
-            eventRect[col][row].y = 23;
-            eventRect[col][row].width = 2;
-            eventRect[col][row].height = 2;
+            eventRect[col][row].x = 12;
+            eventRect[col][row].y = 10;
+            eventRect[col][row].width = 18;
+            eventRect[col][row].height = 24;
             eventRect[col][row].eventRectDefaultX = eventRect[col][row].x;
             eventRect[col][row].eventRectDefaultY = eventRect[col][row].y;
+
 
             col++;
             if (col == gp.maxWorldCol) {
@@ -62,6 +73,7 @@ public class EventHandler {
             if (hit(35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
 
             if (hit(35, 29, "any")) {openChest(35, 28, gp.dialogueState);}
+            if (hit(4, 23, "any")) {openDoor(4, 22, gp.playState);}
         }
 
 
@@ -169,16 +181,38 @@ public class EventHandler {
             }
 
             // Відображаємо повідомлення
-            gp.ui.currentDialog = "You found a treasure!";
+            gp.ui.currentDialog = "You found a key!";
+            gp.player.hasKey++;
 
-            // Додаємо скарб у інвентар (опціонально)
-            // Наприклад: gp.player.addItem("Gold");
 
             canTouchEvent = false;
         }
         gp.keyH.enterPressed = false;
     }
 
+    public void openDoor(int col, int row, int gameState) {
+        if (gp.player.hasKey >= 1 && gp.keyH.enterPressed) {
+            for (int i = 0; i < gp.obj.length; i++) {
+                if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
+                        gp.obj[i].worldX == col * gp.tileSize &&
+                        gp.obj[i].worldY == row * gp.tileSize) {
 
+                    // Зміна текстури дверей одразу
+                    gp.obj[i] = new OBJ_DoorOpen(gp);
+                    gp.obj[i].worldX = col * gp.tileSize;
+                    gp.obj[i].worldY = row * gp.tileSize;
+
+                    // Зменшення кількості ключів
+                    gp.player.hasKey--;
+
+                    // Завершення перевірки для уникнення зайвих ітерацій
+                    break;
+                }
+            }
+
+            canTouchEvent = false; // Відключення повторних подій
+            gp.keyH.enterPressed = false; // Скидання стану кнопки
+        }
+    }
 
 }
