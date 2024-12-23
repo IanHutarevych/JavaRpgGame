@@ -1,8 +1,10 @@
 package main;
 
-import entity.NPC_OldMan;
+import entity.NPC_PumpkinHead;
 import monster.MON_GreenSlime;
 import object.*;
+
+import java.io.IOException;
 
 public class AssetSetter {
 
@@ -51,9 +53,9 @@ public class AssetSetter {
         gp.obj[8].worldY = 22 * gp.tileSize;
 
     }
-    public void setNPC(){
+    public void setNPC() throws IOException {
 
-        gp.npc[0] = new NPC_OldMan(gp);
+        gp.npc[0] = new NPC_PumpkinHead(gp);
         gp.npc[0].worldX = gp.tileSize*26;
         gp.npc[0].worldY = gp.tileSize*21;
 

@@ -11,7 +11,7 @@ public class OBJ_ChestClose extends Entity {
         super(gp);
 
         name = "chest_close";
-        down1 = setup("/objects/chest_close");
+        down1 = setup("/objects/chest_close",gp.tileSize, gp.tileSize);
         collision = true;
     }
 }

@@ -12,7 +12,7 @@ public class OBJ_Swamp3 extends Entity {
         super(gp);
 
         name = "swamp3";
-        down1 = setup("/objects/swamp3");
+        down1 = setup("/objects/swamp3",gp.tileSize, gp.tileSize);
     }
 
 }

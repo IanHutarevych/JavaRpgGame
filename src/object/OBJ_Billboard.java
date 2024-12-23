@@ -9,7 +9,7 @@ public class OBJ_Billboard extends Entity {
         super(gp);
 
         name = "billboard";
-        down1 = setup("/objects/billboard");
+        down1 = setup("/objects/billboard",gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 19;

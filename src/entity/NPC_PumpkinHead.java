@@ -4,9 +4,9 @@ import main.GamePanel;
 
 import java.util.Random;
 
-public class NPC_OldMan extends Entity {
-    GamePanel gp;
-    public NPC_OldMan(GamePanel gp) {
+public class NPC_PumpkinHead extends Entity {
+
+    public NPC_PumpkinHead(GamePanel gp) {
         super(gp);
 
         direction = "down";
@@ -22,15 +22,25 @@ public class NPC_OldMan extends Entity {
         getImage();
         setDialogue();
     }
-    public void getImage(){
-        up1 = setup("/npc/oldman_up_1");
-        up2 = setup("/npc/oldman_up_2");
-        down1 = setup("/npc/oldman_down_1");
-        down2 = setup("/npc/oldman_down_2");
-        left1 = setup("/npc/oldman_left_1");
-        left2 = setup("/npc/oldman_left_2");
-        right1 = setup("/npc/oldman_right_1");
-        right2 = setup("/npc/oldman_right_2");
+    public void getImage() {
+        try {
+            up1 = setup("/npc/pumpkinHeadUp1", gp.tileSize, gp.tileSize);
+            up2 = setup("/npc/pumpkinHeadUp2", gp.tileSize, gp.tileSize);
+            down1 = setup("/npc/pumpkinHeadDown1", gp.tileSize, gp.tileSize);
+            down2 = setup("/npc/pumpkinHeadDown2", gp.tileSize, gp.tileSize);
+            left1 = setup("/npc/pumpkinHeadLeft1", gp.tileSize, gp.tileSize);
+            left2 = setup("/npc/pumpkinHeadLeft2", gp.tileSize, gp.tileSize);
+            right1 = setup("/npc/pumpkinHeadRight1", gp.tileSize, gp.tileSize);
+            right2 = setup("/npc/pumpkinHeadRight2", gp.tileSize, gp.tileSize);
+
+            // Перевірка
+            if (up1 == null || up2 == null || down1 == null || down2 == null ||
+                    left1 == null || left2 == null || right1 == null || right2 == null) {
+                throw new NullPointerException("Error: Missing sprite(s) for NPC 'Old Man'");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDialogue(){
@@ -50,7 +60,7 @@ public class NPC_OldMan extends Entity {
         if (actionLockCounter == 120){
             Random r = new Random();
 
-            int i = r.nextInt(100)+1; // pick up a nimber from 1 tp 100
+            int i = r.nextInt(100)+1; // pick up a number from 1 tp 100
 
 
             // EASY AI FOR NPC

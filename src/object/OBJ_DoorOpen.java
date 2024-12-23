@@ -15,7 +15,7 @@ public class OBJ_DoorOpen extends Entity {
 
         name = "door_open";
         if (doorOpenImage == null) {
-            doorOpenImage = setup("/objects/door_open");
+            doorOpenImage = setup("/objects/door_open",gp.tileSize, gp.tileSize);
         }
         down1 = doorOpenImage;
     }

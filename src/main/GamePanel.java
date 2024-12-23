@@ -6,6 +6,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void setupGame(){
+    public void setupGame() throws IOException {
 
 
         aSetter.setObject();
@@ -133,7 +134,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
-                    monster[i].update();
+                    if (monster[i].alive && !monster[i].dying) {
+                        monster[i].update();
+                    }
+                    if (!monster[i].alive) {
+                        monster[i] = null ;
+                    }
                 }
             }
 
@@ -205,9 +211,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(g2);
             }
             // EMPTY LIST
-            for (int i = 0; i < entityList.size(); i++) {
-                entityList.remove(i);
-            }
+            entityList.clear();
 
             // UI
             ui.draw(g2);

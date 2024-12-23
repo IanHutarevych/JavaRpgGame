@@ -9,7 +9,7 @@ public class OBJ_Router  extends Entity {
         super(gp);
 
         name = "router";
-        down1 = setup("/objects/router");
+        down1 = setup("/objects/router",gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 19;

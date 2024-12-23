@@ -164,7 +164,7 @@ public class EventHandler {
     }
 
     public void openChest(int col, int row, int gameState) {
-        if (gp.keyH.enterPressed) {
+        if (gp.keyH.ePressed) {
             gp.gameState = gameState;
 
             // Змінюємо об'єкт із закритого сундука на відкритий
@@ -187,11 +187,11 @@ public class EventHandler {
 
             canTouchEvent = false;
         }
-        gp.keyH.enterPressed = false;
+        gp.keyH.ePressed = false;
     }
 
     public void openDoor(int col, int row, int gameState) {
-        if (gp.player.hasKey >= 1 && gp.keyH.enterPressed) {
+        if (gp.player.hasKey >= 1 && gp.keyH.ePressed) {
             for (int i = 0; i < gp.obj.length; i++) {
                 if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
                         gp.obj[i].worldX == col * gp.tileSize &&
@@ -211,7 +211,7 @@ public class EventHandler {
             }
 
             canTouchEvent = false; // Відключення повторних подій
-            gp.keyH.enterPressed = false; // Скидання стану кнопки
+            gp.keyH.ePressed = false; // Скидання стану кнопки
         }
     }
 

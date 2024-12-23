@@ -11,7 +11,7 @@ public class OBJ_DoorClose extends Entity {
         super(gp);
 
         name = "door_close";
-        down1 = setup("/objects/door_close");
+        down1 = setup("/objects/door_close",gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 0;

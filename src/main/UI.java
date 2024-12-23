@@ -70,6 +70,7 @@ public class UI {
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
+
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
