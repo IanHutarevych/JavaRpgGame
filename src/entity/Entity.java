@@ -5,6 +5,7 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -19,13 +20,13 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
-    String dialogues[] = new String[20];
+    public String dialogues[] = new String[20];
 
     // STATE
     public int worldX, worldY;
     public String direction = "down";
     public int spriteNum = 1;
-    int dialogueIndex = 0;
+    public int dialogueIndex = 0;
     public boolean invincible = false;
     public boolean collisionOn = false;
     boolean attacking = false;
@@ -48,31 +49,49 @@ public class Entity {
     public int type; // 0 - player, 1 - npc, 2 - monster
     public int maxLife;
     public int life;
+    public int level;
+    public int strength;
+    public int dexterity;
+    public int attack;
+    public int defence;
+    public int exp;
+    public int nextLevelUp;
+    public int coin;
+    public Entity currentWeapon;
+    public Entity currentShield;
+
+    // ITEM ATTRIBUTES
+    public int attackValue;
+    public int defenceValue;
+
 
 
     public Entity(GamePanel gp) {
-
         this.gp = gp;
 
     }
 
     public void setAction () {}
     public void damageReaction() {}
-    public void speak(){
-        if (dialogues[dialogueIndex] == null){
+    public void speak() {
+        if (dialogues[dialogueIndex] != null) {
+            gp.ui.currentDialog = dialogues[dialogueIndex];
+            dialogueIndex++;
+
+        }
+        if(dialogues[dialogueIndex] == null) {
             gp.gameState = gp.playState;
             dialogueIndex = 0;
         }
-        gp.ui.currentDialog = dialogues[dialogueIndex];
-        dialogueIndex++;
-
-        switch (gp.player.direction){
-            case "up": direction = "down";break;
-            case "down": direction = "up";break;
-            case "left": direction = "right";break;
-            case "right": direction = "left";break;
+        switch (gp.player.direction) {
+            case "up": direction = "down"; break;
+            case "down": direction = "up"; break;
+            case "left": direction = "right"; break;
+            case "right": direction = "left"; break;
         }
     }
+
+
     public void update() {
 
         setAction();

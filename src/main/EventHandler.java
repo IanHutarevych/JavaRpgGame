@@ -58,7 +58,6 @@ public class EventHandler {
         }
 
         if (canTouchEvent){
-            if (hit(26, 21, "any")) {damagePit(26, 21, gp.dialogueState);}
             if (hit(24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
             if (hit(24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
             if (hit(34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
@@ -137,6 +136,7 @@ public class EventHandler {
     public void healingPool(int col, int row, int gameState) {
         if (gp.keyH.enterPressed){
             gp.gameState = gameState;
+            gp.player.attackCanceled = true;
             gp.ui.currentDialog = "You healed by 1";
             if (gp.player.life < gp.player.maxLife){
                 gp.player.life += 1;
@@ -164,8 +164,9 @@ public class EventHandler {
     }
 
     public void openChest(int col, int row, int gameState) {
-        if (gp.keyH.ePressed) {
+        if (gp.keyH.enterPressed) {
             gp.gameState = gameState;
+            gp.player.attackCanceled = true;
 
             // Змінюємо об'єкт із закритого сундука на відкритий
             for (int i = 0; i < gp.obj.length; i++) {
@@ -191,7 +192,9 @@ public class EventHandler {
     }
 
     public void openDoor(int col, int row, int gameState) {
-        if (gp.player.hasKey >= 1 && gp.keyH.ePressed) {
+        if (gp.player.hasKey >= 1 && gp.keyH.enterPressed) {
+
+            gp.player.attackCanceled = true;
             for (int i = 0; i < gp.obj.length; i++) {
                 if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
                         gp.obj[i].worldX == col * gp.tileSize &&
@@ -211,7 +214,7 @@ public class EventHandler {
             }
 
             canTouchEvent = false; // Відключення повторних подій
-            gp.keyH.ePressed = false; // Скидання стану кнопки
+            gp.keyH.enterPressed = false; // Скидання стану кнопки
         }
     }
 

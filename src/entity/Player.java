@@ -2,6 +2,8 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Shield;
+import object.OBJ_Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +14,7 @@ public class Player extends Entity {
     public int hasKey = 0;
     int standCounter = 0;
     public final int defSpeed = 4;
+    public boolean attackCanceled = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -48,8 +51,25 @@ public class Player extends Entity {
         direction = "down";
 
         // PLAYER STATES
+        level = 1;
         maxLife = 10;
         life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelUp = 5;
+        coin = 0;
+        currentWeapon = new OBJ_Sword_Normal(gp);
+        currentShield = new OBJ_Shield(gp);
+        attack = getAttack();
+        defence = getDefene();
+    }
+
+    private int getAttack() {
+        return attack = strength * currentWeapon.attackValue;
+    }
+    private int getDefene() {
+        return defence = dexterity * currentWeapon.defenceValue;
     }
 
     public void getPlayerImage(){
@@ -129,7 +149,12 @@ public class Player extends Entity {
                     case "right":worldX += speed;break;
                 }
             }
+            if (keyH.enterPressed && !attackCanceled){
+                attacking = true;
+                spriteCounter = 0;
+            }
 
+            attackCanceled = false;
             gp.keyH.enterPressed = false;
 
             spriteCounter++;
@@ -249,18 +274,25 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i){
+    public void interactNPC(int i) {
         if (gp.keyH.enterPressed) {
             if (i != 999) {
+                attackCanceled = true;
+
+                if (gp.gameState == gp.dialogueState) {
+                    gp.npc[i].speak();
+                    if (gp.ui.currentDialog == null) {
+                        gp.gameState = gp.playState;
+                    }
+                } else {
                     gp.gameState = gp.dialogueState;
                     gp.npc[i].speak();
-            } else {
-
-                attacking = true;
+                }
             }
         }
-
     }
+
+
 
     public void draw(Graphics2D g2){
         BufferedImage image = null;
