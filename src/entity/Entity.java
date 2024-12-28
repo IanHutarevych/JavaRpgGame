@@ -63,6 +63,7 @@ public class Entity {
     // ITEM ATTRIBUTES
     public int attackValue;
     public int defenceValue;
+    public String description = "";
 
 
 
@@ -107,7 +108,13 @@ public class Entity {
             if (!gp.player.invincible){
                 // player can give damage
                 gp.playSE(6);
-                gp.player.life -=1;
+
+                int damage = attack - gp.player.defence;
+                if (damage<0){
+                    damage = 0;
+                }
+                gp.player.life -= damage;
+
                 gp.player.invincible = true;
             }
         }

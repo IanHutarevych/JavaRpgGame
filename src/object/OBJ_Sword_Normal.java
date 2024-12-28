@@ -6,8 +6,9 @@ public class OBJ_Sword_Normal extends Entity {
     public OBJ_Sword_Normal(GamePanel gp) {
         super(gp);
 
-        name = "Normal Sword";
+        name = "Knight's sword";
         down1 = setup("/objects/sword",gp.tileSize, gp.tileSize);
         attackValue = 1;
+        description = "[" + name + "]\nAn old knight`s sword.";
     }
 }

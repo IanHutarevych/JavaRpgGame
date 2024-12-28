@@ -7,8 +7,9 @@ public class OBJ_Shield extends Entity {
     public OBJ_Shield(GamePanel gp) {
         super(gp);
 
-        name = "Normal Shield";
+        name = "Knight's shield";
         down1 = setup("/objects/shield",gp.tileSize, gp.tileSize);
-        defenceValue = 1;
+        defenceValue = 3;
+        description = "[" + name + "]\nProtected you.";
     }
 }
