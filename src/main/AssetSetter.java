@@ -14,43 +14,54 @@ public class AssetSetter {
     }
 
     public void setObject(){
-
-        /*gp.obj[0] = new OBJ_Swamp3(gp);
-        gp.obj[0].worldX = 35 * gp.tileSize;
-        gp.obj[0].worldY = 30 * gp.tileSize;
-
-        gp.obj[1] = new OBJ_Swamp2(gp);
-        gp.obj[1].worldX = 35 * gp.tileSize;
-        gp.obj[1].worldY = 31 * gp.tileSize;
-
-        gp.obj[2] = new OBJ_Swamp2(gp);
-        gp.obj[2].worldX = 35 * gp.tileSize;
-        gp.obj[2].worldY = 32 * gp.tileSize;*/
-
-        /*gp.obj[3] = new OBJ_Key(gp);
-        gp.obj[3].worldX = 9 * gp.tileSize;
-        gp.obj[3].worldY = 35 * gp.tileSize;*/
-
-        gp.obj[4] = new OBJ_ChestClose(gp);
-        gp.obj[4].worldX = 35 * gp.tileSize;
-        gp.obj[4].worldY = 28 * gp.tileSize;
-
-        gp.obj[5] = new OBJ_Billboard(gp);
-        gp.obj[5].worldX = 34 * gp.tileSize;
-        gp.obj[5].worldY = 34 * gp.tileSize;
+        int i = 0;
+        gp.obj[i] = new OBJ_Axe(gp);
+        gp.obj[i].worldX = 39 * gp.tileSize;
+        gp.obj[i].worldY = 39 * gp.tileSize;
+        i++;
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].worldX = 9 * gp.tileSize;
+        gp.obj[i].worldY = 35 * gp.tileSize;
+        i++;
 
 
-        gp.obj[6] = new OBJ_Router(gp);
-        gp.obj[6].worldX = 24 * gp.tileSize;
-        gp.obj[6].worldY = 25 * gp.tileSize;
+        gp.obj[i] = new OBJ_Potion_Health(gp);
+        gp.obj[i].worldX = 4 * gp.tileSize;
+        gp.obj[i].worldY = 19 * gp.tileSize;
+        i++;
+        /*
+        gp.obj[i] = new OBJ_Swamp2(gp);
+        gp.obj[i].worldX = 35 * gp.tileSize;
+        gp.obj[i].worldY = 32 * gp.tileSize;
+        i++;*/
 
-        gp.obj[7] = new OBJ_Router(gp);
-        gp.obj[7].worldX = 24 * gp.tileSize;
-        gp.obj[7].worldY = 38 * gp.tileSize;
 
-        gp.obj[8] = new OBJ_DoorClose(gp);
-        gp.obj[8].worldX = 4 * gp.tileSize;
-        gp.obj[8].worldY = 22 * gp.tileSize;
+
+        gp.obj[i] = new OBJ_ChestClose(gp);
+        gp.obj[i].worldX = 35 * gp.tileSize;
+        gp.obj[i].worldY = 28 * gp.tileSize;
+        i++;
+
+        gp.obj[i] = new OBJ_Billboard(gp);
+        gp.obj[i].worldX = 34 * gp.tileSize;
+        gp.obj[i].worldY = 34 * gp.tileSize;
+        i++;
+
+
+        gp.obj[i] = new OBJ_Router(gp);
+        gp.obj[i].worldX = 24 * gp.tileSize;
+        gp.obj[i].worldY = 25 * gp.tileSize;
+        i++;
+
+        gp.obj[i] = new OBJ_Router(gp);
+        gp.obj[i].worldX = 24 * gp.tileSize;
+        gp.obj[i].worldY = 38 * gp.tileSize;
+        i++;
+
+        gp.obj[i] = new OBJ_DoorClose(gp);
+        gp.obj[i].worldX = 4 * gp.tileSize;
+        gp.obj[i].worldY = 22 * gp.tileSize;
+        i++;
 
     }
     public void setNPC() throws IOException {

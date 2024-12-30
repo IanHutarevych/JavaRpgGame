@@ -40,15 +40,17 @@ public class Entity {
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
     public int spriteCounter = 0;
+    public int shotAvailableCounter;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
     // CHARACTER ATTRIBUTE
     public int speed;
     public String name;
-    public int type; // 0 - player, 1 - npc, 2 - monster
     public int maxLife;
     public int life;
+    public int maxMana;
+    public int mana;
     public int level;
     public int strength;
     public int dexterity;
@@ -59,11 +61,23 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
 
     // ITEM ATTRIBUTES
     public int attackValue;
     public int defenceValue;
     public String description = "";
+    public int useCost;
+
+    // TYPE
+    public int type; // 0 - player, 1 - npc, 2 - monster
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_sword = 3;
+    public final int type_axe = 4;
+    public final int type_shield = 5;
+    public final int type_consumable = 6;
 
 
 
@@ -91,8 +105,6 @@ public class Entity {
             case "right": direction = "left"; break;
         }
     }
-
-
     public void update() {
 
         setAction();
@@ -104,7 +116,7 @@ public class Entity {
         gp.cChecker.checkEntity(this, gp.monster);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if (this.type == 2 && contactPlayer){
+        if (this.type == type_monster && contactPlayer){
             if (!gp.player.invincible){
                 // player can give damage
                 gp.playSE(6);
@@ -148,7 +160,6 @@ public class Entity {
         }
 
     }
-
     public void draw (Graphics2D g2) {
 
         BufferedImage image = null;
@@ -217,7 +228,6 @@ public class Entity {
         }
 
     }
-
     private void dyingAnimation(Graphics2D g2) {
 
         dyingCounter++;
@@ -232,16 +242,13 @@ public class Entity {
         if (dyingCounter > i*6 && dyingCounter <= i*7) {changeAlpha(g2, 0f);}
         if (dyingCounter > i*7 && dyingCounter <= i*8) {changeAlpha(g2, 1f);}
         if (dyingCounter > i*8){
-            dying = false;
             alive = false;
         }
 
     }
-
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
-
     public BufferedImage setup(String imagePath, int width, int height) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -256,5 +263,6 @@ public class Entity {
         }
         return image;
     }
+    public void use (Entity e){}
 
 }

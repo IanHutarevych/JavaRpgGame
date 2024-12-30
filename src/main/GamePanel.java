@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity obj[] = new Entity[10]; // 10 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
     public Entity npc[] = new Entity[1];
     public Entity monster[] = new Entity[20];
+    public ArrayList<Entity> projectileList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATE
@@ -69,7 +70,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
     }
-
     public void setupGame() throws IOException {
 
 
@@ -82,13 +82,10 @@ public class GamePanel extends JPanel implements Runnable {
         gameState = titleState;
 
     }
-
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
-
-
     @Override
     public void run() {
         double drawInterval = 1000000000 / FPS;
@@ -119,7 +116,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-
     public void update(){
 
 
@@ -143,13 +139,23 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    if (projectileList.get(i).alive) {
+                        projectileList.get(i).update();
+                    }
+                    if (!projectileList.get(i).alive) {
+                        projectileList.remove(i);
+                    }
+                }
+            }
+
         }
         if (gameState == pauseState){
 
         }
 
     }
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -197,6 +203,11 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(entity);
                 }
             }
+            for (Entity value : projectileList) {
+                if (value != null) {
+                    entityList.add(value);
+                }
+            }
 
             // SORT
             entityList.sort(new Comparator<Entity>() {
@@ -237,17 +248,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
         g2.dispose();
     }
-
     public void playMusic(int i){
         music.setFile(i);
         music.play();
         music.loop();
     }
-
     public void stopMusic(){
         music.stop();
     }
-
     public void playSE(int i){
         se.setFile(i);
         se.play();

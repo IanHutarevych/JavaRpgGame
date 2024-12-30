@@ -3,6 +3,7 @@ package main;
 import object.OBJ_ChestOpen;
 import object.OBJ_DoorOpen;
 import object.OBJ_Key;
+import object.OBJ_Shield_Metal;
 
 import java.awt.image.BufferedImage;
 
@@ -169,7 +170,6 @@ public class EventHandler {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
 
-            // Змінюємо об'єкт із закритого сундука на відкритий
             for (int i = 0; i < gp.obj.length; i++) {
                 if (gp.obj[i] != null && gp.obj[i].name.equals("chest_close") &&
                         gp.obj[i].worldX == col * gp.tileSize &&
@@ -182,41 +182,52 @@ public class EventHandler {
                 }
             }
 
-            // Відображаємо повідомлення
-            gp.ui.currentDialog = "You found a key!";
-            gp.player.hasKey++;
-
+            gp.ui.currentDialog = "You found a Knight`s shield!";
+            gp.player.inventory.add(new OBJ_Shield_Metal(gp));
 
             canTouchEvent = false;
+            gp.keyH.enterPressed = false;
         }
-        gp.keyH.ePressed = false;
     }
 
+
     public void openDoor(int col, int row, int gameState) {
-        if (gp.player.hasKey >= 1 && gp.keyH.enterPressed) {
+        if (gp.keyH.enterPressed) {
 
             gp.player.attackCanceled = true;
-            for (int i = 0; i < gp.obj.length; i++) {
-                if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
-                        gp.obj[i].worldX == col * gp.tileSize &&
-                        gp.obj[i].worldY == row * gp.tileSize) {
 
-                    // Зміна текстури дверей одразу
-                    gp.obj[i] = new OBJ_DoorOpen(gp);
-                    gp.obj[i].worldX = col * gp.tileSize;
-                    gp.obj[i].worldY = row * gp.tileSize;
 
-                    // Зменшення кількості ключів
-                    gp.player.hasKey--;
-
-                    // Завершення перевірки для уникнення зайвих ітерацій
+            boolean keyFound = false;
+            for (int j = 0; j < gp.player.inventory.size(); j++) {
+                if (gp.player.inventory.get(j) instanceof OBJ_Key) {
+                    gp.player.inventory.remove(j);
+                    keyFound = true;
                     break;
                 }
             }
 
-            canTouchEvent = false; // Відключення повторних подій
-            gp.keyH.enterPressed = false; // Скидання стану кнопки
+
+            if (keyFound) {
+                for (int i = 0; i < gp.obj.length; i++) {
+                    if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
+                            gp.obj[i].worldX == col * gp.tileSize &&
+                            gp.obj[i].worldY == row * gp.tileSize) {
+
+
+                        gp.obj[i] = new OBJ_DoorOpen(gp);
+                        gp.obj[i].worldX = col * gp.tileSize;
+                        gp.obj[i].worldY = row * gp.tileSize;
+
+                        break;
+                    }
+                }
+            }
+
+            canTouchEvent = false;
+            gp.keyH.enterPressed = false;
         }
     }
+
+
 
 }

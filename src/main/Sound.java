@@ -8,7 +8,7 @@ import java.net.URL;
 public class Sound {
 
     Clip clip;
-    URL soundURL[] = new URL[10];
+    URL soundURL[] = new URL[11];
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/theme.wav");
@@ -21,6 +21,7 @@ public class Sound {
         soundURL[7] = getClass().getResource("/sound/levelup.wav"); //lvlup
         soundURL[8] = getClass().getResource("/sound/Footstep.wav");
         soundURL[9] = getClass().getResource("/sound/cursor.wav");
+        soundURL[10] = getClass().getResource("/sound/burning.wav");
 
         for (int i = 0; i < soundURL.length; i++) {
             if (soundURL[i] == null) {

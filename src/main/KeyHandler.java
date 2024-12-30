@@ -7,12 +7,11 @@ import entity.Entity;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, shotKeyPressed;
 
     // DEBUG
     boolean showDebugText = false;
 
-    boolean hasMusic = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -56,14 +55,11 @@ public class KeyHandler implements KeyListener {
              characterState(code);
          }
     }
-
-
     public void dialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
             gp.gameState = gp.playState;
         }
     }
-
     public void titleState(int code){
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
@@ -118,6 +114,8 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.menuState;
         }if (code == KeyEvent.VK_E) {
             ePressed = true;
+        } if (code == KeyEvent.VK_F) {
+            shotKeyPressed = true;
         }
 
 
@@ -138,10 +136,8 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.playState;
         }
     }
-
-
     public void characterState(int code){
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_C || code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
         if (code == KeyEvent.VK_W) {
@@ -168,8 +164,10 @@ public class KeyHandler implements KeyListener {
                 gp.playSE(9);
             }
         }
+        if (code == KeyEvent.VK_ENTER) {
+            gp.player.selectItem();
+        }
     }
-
     public void menuState(int code) {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
@@ -195,8 +193,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -215,6 +211,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_E) {
             ePressed = false;
+        }
+        if (code == KeyEvent.VK_F) {
+            shotKeyPressed = false;
         }
     }
 }
