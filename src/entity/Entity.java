@@ -68,6 +68,7 @@ public class Entity {
     public int defenceValue;
     public String description = "";
     public int useCost;
+    public int value;
 
     // TYPE
     public int type; // 0 - player, 1 - npc, 2 - monster
@@ -78,12 +79,27 @@ public class Entity {
     public final int type_axe = 4;
     public final int type_shield = 5;
     public final int type_consumable = 6;
+    public final int  type_pickupOnly = 7;
 
 
 
     public Entity(GamePanel gp) {
         this.gp = gp;
 
+    }
+    public void damagePlayer(int attack){
+        if (!gp.player.invincible){
+            // player can give damage
+            gp.playSE(6);
+
+            int damage = attack - gp.player.defence;
+            if (damage<0){
+                damage = 0;
+            }
+            gp.player.life -= damage;
+
+            gp.player.invincible = true;
+        }
     }
 
     public void setAction () {}
@@ -117,18 +133,7 @@ public class Entity {
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
         if (this.type == type_monster && contactPlayer){
-            if (!gp.player.invincible){
-                // player can give damage
-                gp.playSE(6);
-
-                int damage = attack - gp.player.defence;
-                if (damage<0){
-                    damage = 0;
-                }
-                gp.player.life -= damage;
-
-                gp.player.invincible = true;
-            }
+            damagePlayer(attack);
         }
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
@@ -159,6 +164,9 @@ public class Entity {
             }
         }
 
+        if (shotAvailableCounter < 30){
+            shotAvailableCounter++;
+        }
     }
     public void draw (Graphics2D g2) {
 
@@ -222,7 +230,7 @@ public class Entity {
                 dyingAnimation(g2);
             }
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY,null);
 
             changeAlpha(g2, 1f);
         }
@@ -264,5 +272,17 @@ public class Entity {
         return image;
     }
     public void use (Entity e){}
+    public void checkDrop(){
+    }
+    public void dropItem(Entity droppedItem){
+        for (int i = 0; i <gp.obj.length; i++) {
+            if (gp.obj[i] == null){
+                gp.obj[i] = droppedItem;
+                gp.obj[i].worldX = worldX;
+                gp.obj[i].worldY = worldY;
+                break;
+            }
+        }
+    }
 
 }

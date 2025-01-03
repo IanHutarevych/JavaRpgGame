@@ -78,10 +78,6 @@ public class EventHandler {
 
 
     }
-
-
-
-
     public boolean hit(int col, int row, String reqDirection) {
         boolean hit = false;
 
@@ -106,7 +102,6 @@ public class EventHandler {
 
         return hit;
     }
-
     private void damagePit(int col, int row, int gameState) {
 
         gp.gameState = gameState;
@@ -117,7 +112,6 @@ public class EventHandler {
         canTouchEvent = false;
 
     }
-
     private void receiveMessage1(int col, int row, int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialog = "← Ruins  \nShop ↓";
@@ -133,38 +127,37 @@ public class EventHandler {
         gp.ui.currentDialog = "Sticky Swamp. Awful...";
         canTouchEvent = false;
     }
-
     public void healingPool(int col, int row, int gameState) {
         if (gp.keyH.enterPressed){
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialog = "You healed by 1";
-            if (gp.player.life < gp.player.maxLife){
+            gp.ui.currentDialog = "You healed";
+            if (gp.player.life < gp.player.maxLife ){
                 gp.player.life += 1;
+
+            }
+            if (gp.player.mana < gp.player.maxMana) {
+                gp.player.mana = gp.player.maxMana;
             }
             gp.aSetter.setMonster();
 
         }
         gp.keyH.enterPressed = false;
     }
-
     public void teleport(int gameState, int x, int y) {
         gp.gameState = gameState;
         gp.ui.currentDialog = "You teleported!";
         gp.player.worldX = gp.tileSize*x;
         gp.player.worldY = gp.tileSize*y;
     }
-
     public void slowlySpeed(int x, int y, int gameState) {
         gp.gameState = gameState;
         gp.player.speed = 1;
     }
-
     public void normalSpeed(int x, int y, int gameState) {
         gp.gameState = gameState;
         gp.player.speed = gp.player.defSpeed;
     }
-
     public void openChest(int col, int row, int gameState) {
         if (gp.keyH.enterPressed) {
             gp.gameState = gameState;
@@ -189,8 +182,6 @@ public class EventHandler {
             gp.keyH.enterPressed = false;
         }
     }
-
-
     public void openDoor(int col, int row, int gameState) {
         if (gp.keyH.enterPressed) {
 
@@ -227,7 +218,4 @@ public class EventHandler {
             gp.keyH.enterPressed = false;
         }
     }
-
-
-
 }

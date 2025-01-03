@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import object.OBJ_Heart;
+import object.OBJ_ManaStar;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font maruMonica;
-    BufferedImage heart01, heart02, heart03;
+    BufferedImage heart01, heart02, heart03, manaFull, manaEmpty;
 
     public boolean messageOn = false;
     ArrayList<String> message = new ArrayList<>();
@@ -42,6 +43,9 @@ public class UI {
         heart01 = heart.image;
         heart02 = heart.image2;
         heart03 = heart.image3;
+        Entity star = new OBJ_ManaStar(gp);
+        manaFull = star.image;
+        manaEmpty = star.image2;
 
     }
 
@@ -51,8 +55,6 @@ public class UI {
         messageCounter.add(0);
 
     }
-
-
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
@@ -89,7 +91,6 @@ public class UI {
             drawInventory();
         }
     }
-
     private void drawInventory() {
         int frameX = gp.tileSize*9;
         int frameY = gp.tileSize;
@@ -164,7 +165,6 @@ public class UI {
         int ItemIndex = slotCol+slotRow*5;
         return ItemIndex;
     }
-
     private void drawMessage() {
 
         int messageX = gp.tileSize;
@@ -191,7 +191,6 @@ public class UI {
         }
 
     }
-
     private void drawCharacterScreen() {
 
         final int frameX = gp.tileSize;
@@ -213,6 +212,8 @@ public class UI {
         textY += lineHeight;
         g2.drawString("Life", textX, textY);
         textY += lineHeight;
+        g2.drawString("Mana", textX, textY);
+        textY += lineHeight;
         g2.drawString("Strength", textX, textY);
         textY += lineHeight;
         g2.drawString("Dexterity", textX, textY);
@@ -221,12 +222,10 @@ public class UI {
         textY += lineHeight;
         g2.drawString("Defence", textX, textY);
         textY += lineHeight;
-        g2.drawString("Exp", textX, textY);
-        textY += lineHeight;
         g2.drawString("Next Level", textX, textY);
         textY += lineHeight;
         g2.drawString("Coin", textX, textY);
-        textY += lineHeight + 20;
+        textY += lineHeight + 10;
         g2.drawString("Weapon", textX, textY);
         textY += lineHeight + 15;
         g2.drawString("Shield", textX, textY);
@@ -244,6 +243,11 @@ public class UI {
         textY += lineHeight;
 
         value = String.valueOf(gp.player.life + "/" + gp.player.maxLife);
+        textX = getXforAlightToRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(gp.player.mana + "/" + gp.player.maxMana);
         textX = getXforAlightToRightText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
@@ -268,12 +272,7 @@ public class UI {
         g2.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gp.player.exp);
-        textX = getXforAlightToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.nextLevelUp);
+        value = String.valueOf(gp.player.exp  + "/" + gp.player.nextLevelUp);
         textX = getXforAlightToRightText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
@@ -289,7 +288,6 @@ public class UI {
 
 
     }
-
     private void drawPlayerLife() {
 
         //gp.player.life = 7;
@@ -320,8 +318,26 @@ public class UI {
             x += gp.tileSize + 5;
         }
 
-    }
+        // DRAW Max MANA
+        x = gp.tileSize / 2;
+        y = (int)(gp.tileSize * 1.5);
+        i = 0;
+        while (i < gp.player.maxMana) {
+            g2.drawImage(manaEmpty, x, y, null);
+            i++;
+            y += gp.tileSize;
+        }
 
+// DRAW MANA
+        x = gp.tileSize / 2;
+        y = (int)(gp.tileSize * 1.5);
+        i = 0;
+        while (i < gp.player.mana) {
+            g2.drawImage(manaFull, x, y, null);
+            i++;
+            y += gp.tileSize;
+        }
+    }
     public void drawTitleScreen() {
 
         g2.setColor(Color.black);
@@ -374,7 +390,6 @@ public class UI {
         }
 
     }
-
     public void drawMenuScreen() {
 
 
@@ -424,7 +439,6 @@ public class UI {
         }
 
     }
-
     public void drawPausedScreen (){
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
@@ -436,7 +450,6 @@ public class UI {
         g2.drawString(text, x, y);
 
     }
-
     public void drawDialogueScreen() {
 
         // WINDOW
@@ -456,7 +469,6 @@ public class UI {
             y += 40;
         }
     }
-
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0,0,0, 200);
         g2.setColor(c);
@@ -468,13 +480,11 @@ public class UI {
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
 
     }
-
     public int getXforCenterText(String text) {
 
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.screenWidth/2 - length/2;
     }
-
     public int getXforAlightToRightText(String text, int tailX) {
 
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();

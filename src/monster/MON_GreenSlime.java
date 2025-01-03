@@ -2,6 +2,10 @@ package monster;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Coin_Bronze;
+import object.OBJ_Heart;
+import object.OBJ_ManaStar;
+import object.OBJ_Slize;
 
 import java.util.Random;
 
@@ -22,6 +26,7 @@ public class MON_GreenSlime extends Entity {
         attack = 5;
         defence = 0;
         exp = 2;
+        projectile = new OBJ_Slize(gp);
 
 
         solidArea.x = 3;
@@ -69,11 +74,31 @@ public class MON_GreenSlime extends Entity {
             }
             actionLockCounter = 0;
         }
+
+        int i = new Random().nextInt(100)+1;
+        if (i > 99 && !projectile.alive && shotAvailableCounter == 30){
+            projectile.set(worldX,worldY, direction, true, this);
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 0;
+        }
     }
 
     public void damageReaction(){
 
         actionLockCounter = 0;
         direction = gp.player.direction;
+    }
+    @Override
+    public void checkDrop(){
+        int i = new Random().nextInt(100)+1;
+        if (i < 50){
+            dropItem(new OBJ_Coin_Bronze(gp));
+        }
+        if (i >=50 && i < 75){
+            dropItem(new OBJ_Heart(gp));
+        }
+        if (i >=75 && i < 100){
+            dropItem(new OBJ_ManaStar(gp));
+        }
     }
 }

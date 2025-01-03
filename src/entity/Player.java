@@ -58,6 +58,8 @@ public class Player extends Entity {
         level = 1;
         maxLife = 10;
         life = maxLife;
+        maxMana = 4;
+        mana = maxMana;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -219,10 +221,13 @@ public class Player extends Entity {
             }
         }
 
-        if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30){
+        if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30 && projectile.haveResources(this)){
 
             // SET DEF COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
+
+            // SUBTRACT THE COSt
+            projectile.subtractResources(this);
 
             // ADD IT TO THE LIST
             gp.projectileList.add(projectile);
@@ -241,6 +246,12 @@ public class Player extends Entity {
         }
         if (shotAvailableCounter < 30){
             shotAvailableCounter++;
+        }
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (mana > maxMana) {
+            mana = maxMana;
         }
     }
     private void attacking() {
@@ -342,20 +353,30 @@ public class Player extends Entity {
     }
     public void pickUpObject(int i) {
         if (i != 999) {
-            String text;
-            if (!gp.obj[i].collision && !"door_open".equals(gp.obj[i].name)) {
-                if (inventory.size() != maxInventorySize) {
 
-                    inventory.add(gp.obj[i]);
-                    gp.playSE(5); // coin sound
-                    text = "Got a " + gp.obj[i].name + "!";
+            // PICK UP ONLY ITEMS
 
-                } else {
-                    text = "You cannot carry anymore";
-                }
-                gp.ui.addMessage(text);
+            if (gp.obj[i].type == type_pickupOnly){
+                gp.obj[i].use(this);
                 gp.obj[i] = null;
+            } else {
 
+                // INVENTORY ITEMS
+                String text;
+                if (!gp.obj[i].collision && !"door_open".equals(gp.obj[i].name)) {
+                    if (inventory.size() != maxInventorySize) {
+
+                        inventory.add(gp.obj[i]);
+                        gp.playSE(5); // coin sound
+                        text = "Got a " + gp.obj[i].name + "!";
+
+                    } else {
+                        text = "You cannot carry anymore";
+                    }
+                    gp.ui.addMessage(text);
+                    gp.obj[i] = null;
+
+                }
             }
         }
     }
