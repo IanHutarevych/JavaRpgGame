@@ -179,6 +179,9 @@ public class Player extends Entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
+            // CHECK INTERACTIVE TILE COLLISION
+            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile) ;
+
 
             // CHECK EVENT
             gp.eHandler.checkEvent();
@@ -283,6 +286,9 @@ public class Player extends Entity {
         int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
         damageMonster(monsterIndex, attack);
 
+        int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+        damageInteractiveTile(iTileIndex);
+
         worldX = currentWorldX;
         worldY = currentWorldY;
         solidArea.width = solidAreaWidth;
@@ -296,6 +302,20 @@ public class Player extends Entity {
         attacking = false;
     }
     }
+    private void damageInteractiveTile(int i) {
+        if (i != 999 && gp.iTile[i].destructible && !gp.iTile[i].invincible &&gp.iTile[i].isCorrectWeapon(this)){
+            gp.iTile[i].playSE();
+            gp.iTile[i].life--;
+            gp.iTile[i].invincible = true;
+
+            generateParticle(gp.iTile[i], gp.iTile[i]);
+
+            if (gp.iTile[i].life == 0){
+                gp.iTile[i] = gp.iTile[i].getDestroyedForm();
+            }
+        }
+    }
+
     public void damageMonster(int i, int attack) {
 
         if (i != 999) {
@@ -325,12 +345,15 @@ public class Player extends Entity {
 
         if (exp >= nextLevelUp){
             level++;
-            nextLevelUp = nextLevelUp*2;
+            nextLevelUp = nextLevelUp*3;
             maxLife += 2;
+            maxMana++;
             strength++;
             dexterity++;
             attack = getAttack();
             defence = getDefence();
+            life = maxLife;
+            mana = maxMana;
 
             gp.playSE(7);
             gp.gameState = gp.dialogueState;

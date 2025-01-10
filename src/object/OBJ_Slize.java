@@ -3,6 +3,8 @@ package object;
 import entity.Projectile;
 import main.GamePanel;
 
+import java.awt.*;
+
 public class OBJ_Slize  extends Projectile {
     GamePanel gp;
 
@@ -30,5 +32,21 @@ public class OBJ_Slize  extends Projectile {
         right2 = setup("/projectile/SlizeRight2",gp.tileSize, gp.tileSize);
         left1 = setup("/projectile/SlizeLeft1",gp.tileSize, gp.tileSize);
         left2 = setup("/projectile/SlizeLeft2",gp.tileSize, gp.tileSize);
+    }
+    public Color getParticleColor(){
+        Color color = new Color(106,190,48);
+        return color;
+    }
+    public int getParticleSize(){
+        int size = 6;
+        return size;
+    }
+    public int getParticleSpeed(){
+        int speed = 1;
+        return speed;
+    }
+    public int getParticleMaxLife(){
+        int maxLife = 20;
+        return maxLife;
     }
 }

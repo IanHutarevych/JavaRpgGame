@@ -19,7 +19,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[80];
+        tile = new Tile[90];
         this.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/world01.txt"); // CHANGE WORLD MAPS
@@ -102,6 +102,8 @@ public class TileManager {
         setup(68, "swamp3", false);
         setup(69, "swamp2", false);
         setup(70, "swamp1", false);
+
+        //setup(71, "trunk", false);
 
     }
 

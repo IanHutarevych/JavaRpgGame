@@ -3,6 +3,8 @@ package main;
 import entity.NPC_PumpkinHead;
 import monster.MON_GreenSlime;
 import object.*;
+import tile_interactive.IT_DryTree;
+import tile_interactive.InteractiveTile;
 
 import java.io.IOException;
 
@@ -83,6 +85,14 @@ public class AssetSetter {
         gp.monster[i].worldY = 36 * gp.tileSize;
         i++;
 
+    }
+    public void setInteractiveTile(){
+
+        int i = 0;
+
+        gp.iTile[i] = new IT_DryTree(gp,34,37);i++;
+        gp.iTile[i] = new IT_DryTree(gp,38,38);i++;
+        gp.iTile[i] = new IT_DryTree(gp,37,35);i++;
     }
 
 }
