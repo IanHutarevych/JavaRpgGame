@@ -2,6 +2,9 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.security.Key;
+
 import entity.Entity;
 
 public class KeyHandler implements KeyListener {
@@ -27,13 +30,6 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-
-
-        // MENU STATE
-        if (gp.gameState == gp.menuState) {
-            menuState(code);
-        }
-
         // TITLE STATE
          if (gp.gameState == gp.titleState) {
              titleState(code);
@@ -58,6 +54,42 @@ public class KeyHandler implements KeyListener {
          else if (gp.gameState == gp.optionsState) {
              opionState(code);
          }
+         // GAME OVER STATE
+         else if (gp.gameState == gp.gameOverState) {
+             try {
+                 gameOverState(code);
+             } catch (IOException ex) {
+                 throw new RuntimeException(ex);
+             }
+         }
+
+    }
+
+    private void gameOverState(int code) throws IOException {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0){
+                gp.ui.commandNum = 1;
+            }
+            gp.playSE(9);
+        }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 1){
+                gp.ui.commandNum = 0;
+            }
+            gp.playSE(9);
+        }
+        if (code == KeyEvent.VK_ENTER){
+            if (gp.ui.commandNum == 0){
+                gp.gameState= gp.playState;
+                gp.retry();
+            }
+            else if (gp.ui.commandNum == 1){
+                gp.gameState = gp.titleState;
+                gp.restart();
+            }
+        }
     }
 
     private void opionState(int code) {

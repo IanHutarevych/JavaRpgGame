@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
-    public final int menuState = 4;
+    public final int gameOverState = 4;
     public final int characterState = 5;
     public final int optionsState = 6;
 
@@ -135,6 +135,25 @@ public class GamePanel extends JPanel implements Runnable {
                 timer = 0;
             }
         }
+    }
+    public void retry() throws IOException {
+
+        player.setDefaultPositions();
+        player.restoreLifeAndMane();
+        aSetter.setNPC();
+        aSetter.setMonster();
+    }
+    public void restart() throws IOException {
+
+        player.setDefaultValues();
+        player.setDefaultPositions();
+        player.restoreLifeAndMane();
+        player.setItems();
+        aSetter.setMonster();
+        aSetter.setInteractiveTile();
+        aSetter.setNPC();
+        aSetter.setObject();
+
     }
     public void setFullScreen(){
         // GET LOCAL SCREEN DEVICE
@@ -213,12 +232,6 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == titleState){
             ui.draw(g2);
         }
-
-        // MENU SCREEN
-        if (gameState == menuState){
-            ui.draw(g2);
-        }
-
         // OTHERS
         else{
 

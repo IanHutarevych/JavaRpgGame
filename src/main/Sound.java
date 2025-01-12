@@ -9,7 +9,7 @@ import java.net.URL;
 public class Sound {
 
     Clip clip;
-    URL soundURL[] = new URL[12];
+    URL soundURL[] = new URL[13];
     FloatControl fc;
     int volumeScale = 3;
     float volume;
@@ -27,6 +27,7 @@ public class Sound {
         soundURL[9] = getClass().getResource("/sound/cursor.wav");
         soundURL[10] = getClass().getResource("/sound/burning.wav");
         soundURL[11] = getClass().getResource("/sound/treeSound.wav");
+        soundURL[12] = getClass().getResource("/sound/GameOver.wav");
 
         for (int i = 0; i < soundURL.length; i++) {
             if (soundURL[i] == null) {

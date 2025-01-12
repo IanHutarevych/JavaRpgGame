@@ -4,7 +4,6 @@ import entity.NPC_PumpkinHead;
 import monster.MON_GreenSlime;
 import object.*;
 import tile_interactive.IT_DryTree;
-import tile_interactive.InteractiveTile;
 
 import java.io.IOException;
 
