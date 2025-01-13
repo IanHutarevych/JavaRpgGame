@@ -23,7 +23,7 @@ public class Sound {
         soundURL[5] = getClass().getResource("/sound/dealdamage.wav");
         soundURL[6] = getClass().getResource("/sound/Ouch.wav");
         soundURL[7] = getClass().getResource("/sound/levelup.wav"); //lvlup
-        soundURL[8] = getClass().getResource("/sound/Footstep.wav");
+        soundURL[8] = getClass().getResource("/sound/taverna.wav");
         soundURL[9] = getClass().getResource("/sound/cursor.wav");
         soundURL[10] = getClass().getResource("/sound/burning.wav");
         soundURL[11] = getClass().getResource("/sound/treeSound.wav");

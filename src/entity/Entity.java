@@ -30,6 +30,7 @@ public class Entity {
     public boolean invincible = false;
     public boolean collisionOn = false;
     boolean attacking = false;
+    boolean idle = true;
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
@@ -149,7 +150,7 @@ public class Entity {
         }
 
         spriteCounter++;
-        if (spriteCounter > 10){
+        if (spriteCounter > 20){
             if (spriteNum == 1){
                 spriteNum = 2;
             } else if (spriteNum == 2) {
@@ -275,11 +276,11 @@ public class Entity {
     public void use (Entity e){}
     public void checkDrop(){}
     public void dropItem(Entity droppedItem){
-        for (int i = 0; i <gp.obj.length; i++) {
-            if (gp.obj[i] == null){
-                gp.obj[i] = droppedItem;
-                gp.obj[i].worldX = worldX;
-                gp.obj[i].worldY = worldY;
+        for (int i = 0; i <gp.obj[1].length; i++) {
+            if (gp.obj[gp.currentMap][i] == null){
+                gp.obj[gp.currentMap][i] = droppedItem;
+                gp.obj[gp.currentMap][i].worldX = worldX;
+                gp.obj[gp.currentMap][i].worldY = worldY;
                 break;
             }
         }

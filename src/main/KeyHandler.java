@@ -24,7 +24,6 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
 
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -64,7 +63,6 @@ public class KeyHandler implements KeyListener {
          }
 
     }
-
     private void gameOverState(int code) throws IOException {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
@@ -84,6 +82,7 @@ public class KeyHandler implements KeyListener {
             if (gp.ui.commandNum == 0){
                 gp.gameState= gp.playState;
                 gp.retry();
+                gp.playMusic(0);
             }
             else if (gp.ui.commandNum == 1){
                 gp.gameState = gp.titleState;
@@ -91,7 +90,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     private void opionState(int code) {
         if (code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.playState;
@@ -221,7 +219,11 @@ public class KeyHandler implements KeyListener {
             }
         }
         if (code == KeyEvent.VK_R) {
-            gp.tileM.loadMap("/maps/world01.txt");
+            switch (gp.currentMap){
+                case 0: gp.tileM.loadMap("/maps/world01.txt", 0); break;
+                case 1: gp.tileM.loadMap("/maps/shop.txt",1); break;
+            }
+
             gp.update();
         }
     }

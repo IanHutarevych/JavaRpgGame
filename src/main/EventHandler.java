@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class EventHandler {
 
     GamePanel gp;
-    EventRect eventRect[][];
+    EventRect[][][] eventRect;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
@@ -24,24 +24,29 @@ public class EventHandler {
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
 
-        eventRect = new EventRect[gp.maxWorldCol][gp.maxWorldRow];
+        eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
+        int map = 0;
         int col = 0;
         int row = 0;
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
-            eventRect[col][row] = new EventRect();
-            eventRect[col][row].x = 12;
-            eventRect[col][row].y = 10;
-            eventRect[col][row].width = 18;
-            eventRect[col][row].height = 24;
-            eventRect[col][row].eventRectDefaultX = eventRect[col][row].x;
-            eventRect[col][row].eventRectDefaultY = eventRect[col][row].y;
+        while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
+            eventRect[map][col][row] = new EventRect();
+            eventRect[map][col][row].x = 12;
+            eventRect[map][col][row].y = 10;
+            eventRect[map][col][row].width = 18;
+            eventRect[map][col][row].height = 24;
+            eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
+            eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 
 
             col++;
             if (col == gp.maxWorldCol) {
                 col = 0;
                 row++;
+                if (row == gp.maxWorldRow){
+                    row = 0;
+                    map++;
+                }
             }
         }
 
@@ -59,50 +64,56 @@ public class EventHandler {
         }
 
         if (canTouchEvent){
-            if (hit(24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
-            if (hit(24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
-            if (hit(34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
-            if (hit(35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
-            if (hit(36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
-            if (hit(37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
-            if (hit(36, 38, "up")) {healingPool(36, 38,gp.dialogueState);}
+            if (hit(0,24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
+            else if (hit(0,24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
+            else if (hit(0,34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
+            else if (hit(0,35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
+            else if (hit(0,36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
+            else if (hit(0,37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
+            else if (hit(0,36, 38, "up")) {healingPool(36, 38,gp.dialogueState);}
 
-            if (hit(35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
-            if (hit(35, 30, "any")) {slowlySpeed(35, 30,gp.playState);}
-            if (hit(35, 29, "any")) {normalSpeed(35, 29,gp.playState);}
-            if (hit(35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
+            else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
+            else if (hit(0,35, 30, "any")) {slowlySpeed(35, 30,gp.playState);}
+            else if (hit(0,35, 29, "any")) {normalSpeed(35, 29,gp.playState);}
+            else if (hit(0,35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
 
-            if (hit(35, 29, "any")) {openChest(35, 28, gp.dialogueState);}
-            if (hit(4, 23, "any")) {openDoor(4, 22, gp.playState);}
+            else if (hit(0,35, 29, "any")) {openChest(35, 28, gp.dialogueState);}
+            else if (hit(0,4, 23, "any")) {openDoor(4, 22, gp.playState);}
+
+            else if (hit(0,28, 19, "any")) {teleport(1, 23, 20); }
+            else if (hit(0,27, 20, "any")) {teleport(1, 23, 20); }
+            else if (hit(0,26, 19, "any")) {teleport(1, 23, 20); }
+            else if (hit(1, 23, 20, "any")) {teleport(0, 27, 20); }
         }
 
 
     }
-    public boolean hit(int col, int row, String reqDirection) {
+    public boolean hit(int map ,int col, int row, String reqDirection) {
         boolean hit = false;
 
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-        eventRect[col][row].x = col*gp.tileSize + eventRect[col][row].x;
-        eventRect[col][row].y = row*gp.tileSize + eventRect[col][row].y;
+        if (map == gp.currentMap){
+            gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+            gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+            eventRect[map][col][row].x = col*gp.tileSize + eventRect[map][col][row].x;
+            eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
 
-        if (gp.player.solidArea.intersects(eventRect[col][row]) && !eventRect[col][row].eventDone) {
-            if (gp.player.direction.contentEquals(reqDirection) || reqDirection.equals("any")) {
-                hit = true;
+            if (gp.player.solidArea.intersects(eventRect[map][col][row]) && !eventRect[map][col][row].eventDone) {
+                if (gp.player.direction.contentEquals(reqDirection) || reqDirection.equals("any")) {
+                    hit = true;
 
-                previousEventX = gp.player.worldX;
-                previousEventY = gp.player.worldY;
+                    previousEventX = gp.player.worldX;
+                    previousEventY = gp.player.worldY;
+                }
             }
+
+            gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+            gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+            eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
+            eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
         }
-
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-        eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
-        eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;
-
         return hit;
     }
-    private void damagePit(int col, int row, int gameState) {
+    private void damagePit(int gameState) {
 
         gp.gameState = gameState;
         gp.ui.currentDialog = "You fall into a pit";
@@ -144,11 +155,18 @@ public class EventHandler {
         }
         gp.keyH.enterPressed = false;
     }
-    public void teleport(int gameState, int x, int y) {
-        gp.gameState = gameState;
-        gp.ui.currentDialog = "You teleported!";
-        gp.player.worldX = gp.tileSize*x;
-        gp.player.worldY = gp.tileSize*y;
+    public void teleport(int map, int col, int row) {
+        if (gp.keyH.enterPressed) {
+            gp.player.attackCanceled = true;
+
+            gp.currentMap = map;
+            gp.player.worldX = gp.tileSize * col;
+            gp.player.worldY = gp.tileSize * row;
+            previousEventX = gp.player.worldX;
+            previousEventY = gp.player.worldY;
+            canTouchEvent = false;
+            gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
+        }
     }
     public void slowlySpeed(int x, int y, int gameState) {
         gp.gameState = gameState;
@@ -163,14 +181,14 @@ public class EventHandler {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
 
-            for (int i = 0; i < gp.obj.length; i++) {
-                if (gp.obj[i] != null && gp.obj[i].name.equals("chest_close") &&
-                        gp.obj[i].worldX == col * gp.tileSize &&
-                        gp.obj[i].worldY == row * gp.tileSize) {
+            for (int i = 0; i < gp.obj[1].length; i++) {
+                if (gp.obj[i] != null && gp.obj[gp.currentMap][i].name.equals("chest_close") &&
+                        gp.obj[gp.currentMap][i].worldX == col * gp.tileSize &&
+                        gp.obj[gp.currentMap][i].worldY == row * gp.tileSize) {
 
-                    gp.obj[i] = new OBJ_ChestOpen(gp);
-                    gp.obj[i].worldX = col * gp.tileSize;
-                    gp.obj[i].worldY = row * gp.tileSize;
+                    gp.obj[gp.currentMap][i] = new OBJ_ChestOpen(gp);
+                    gp.obj[gp.currentMap][i].worldX = col * gp.tileSize;
+                    gp.obj[gp.currentMap][i].worldY = row * gp.tileSize;
                     break;
                 }
             }
@@ -200,14 +218,14 @@ public class EventHandler {
 
             if (keyFound) {
                 for (int i = 0; i < gp.obj.length; i++) {
-                    if (gp.obj[i] != null && gp.obj[i].name.equals("door_close") &&
-                            gp.obj[i].worldX == col * gp.tileSize &&
-                            gp.obj[i].worldY == row * gp.tileSize) {
+                    if (gp.obj[i] != null && gp.obj[gp.currentMap][i].name.equals("door_close") &&
+                            gp.obj[gp.currentMap][i].worldX == col * gp.tileSize &&
+                            gp.obj[gp.currentMap][i].worldY == row * gp.tileSize) {
 
 
-                        gp.obj[i] = new OBJ_DoorOpen(gp);
-                        gp.obj[i].worldX = col * gp.tileSize;
-                        gp.obj[i].worldY = row * gp.tileSize;
+                        gp.obj[gp.currentMap][i] = new OBJ_DoorOpen(gp);
+                        gp.obj[gp.currentMap][i].worldX = col * gp.tileSize;
+                        gp.obj[gp.currentMap][i].worldY = row * gp.tileSize;
 
                         break;
                     }

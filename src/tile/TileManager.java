@@ -15,14 +15,17 @@ public class TileManager {
 
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int[][][] mapTileNum;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[90];
-        this.mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+
+        tile = new Tile[199];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+
         getTileImage();
-        loadMap("/maps/world01.txt"); // CHANGE WORLD MAPS
+        loadMap("/maps/world01.txt", 0); // CHANGE WORLD MAPS
+        loadMap("/maps/shop.txt", 1);
     }
 
     public void getTileImage(){
@@ -92,7 +95,7 @@ public class TileManager {
         setup(59, "tree19", false);
         setup(60, "tree20", true);
         setup(61, "tree21", true);
-        setup(62, "router", false); // u can change
+        setup(62, "hat", true); // u can change
         setup(63, "well", true);
         setup(64, "bridge1", false);
         setup(65, "bridge2", false);
@@ -103,10 +106,42 @@ public class TileManager {
         setup(69, "swamp2", false);
         setup(70, "swamp1", false);
 
-        //setup(71, "trunk", false);
+        setup(100, "/ShopTiles/darkness", true);
+        setup(101, "/ShopTiles/s1", true);
+        setup(102, "/ShopTiles/s2", true);
+        setup(103, "/ShopTiles/s3", true);
+        setup(104, "/ShopTiles/s4", true);
+        setup(105, "/ShopTiles/s5", true);
+        setup(106, "/ShopTiles/s6", true);
+        setup(107, "/ShopTiles/s7", true);
+        setup(108, "/ShopTiles/s8", true);
+        setup(109, "/ShopTiles/s9", true);
+        setup(110, "/ShopTiles/s10", true);
+        setup(111, "/ShopTiles/s11", true);
+        setup(112, "/ShopTiles/s12", false);
+        setup(113, "/ShopTiles/s13", false);
+        setup(114, "/ShopTiles/s14", false);
+        setup(115, "/ShopTiles/s15", true);
+        setup(116, "/ShopTiles/s16", false);
+        setup(119, "/ShopTiles/s19", true);
+        setup(120, "/ShopTiles/s20", true);
+        setup(121, "/ShopTiles/s21", true);
+        setup(135, "/ShopTiles/s35", true);
+        setup(136, "/ShopTiles/s36", true);
+        setup(137, "/ShopTiles/s37", true);
+        setup(138, "/ShopTiles/s38", true);
+        setup(139, "/ShopTiles/s39", true);
+        setup(140, "/ShopTiles/carpet1", false);
+        setup(141, "/ShopTiles/carpet2", false);
+        setup(142, "/ShopTiles/carpet3", false);
+        setup(143, "/ShopTiles/carpet4", false);
+        setup(144, "/ShopTiles/carpet5", false);
+        setup(145, "/ShopTiles/carpet6", false);
+        setup(175, "/ShopTiles/s75", true);
+        setup(176, "/ShopTiles/doorShop", true);
+
 
     }
-
     public void setup (int index, String imagePath, boolean collision){
 
         UtilityTool uTool = new UtilityTool();
@@ -122,8 +157,7 @@ public class TileManager {
         }
 
     }
-
-    public void loadMap(String filePath){
+    public void loadMap(String filePath, int map){
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -137,11 +171,11 @@ public class TileManager {
 
                 while(col < gp.maxWorldCol){
 
-                    String numbers[] = line.split(" ");
+                    String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol){
@@ -155,17 +189,13 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
-
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-
-            if (worldCol < mapTileNum.length && worldRow < mapTileNum[worldCol].length) {
-                int tileNum = mapTileNum[worldCol][worldRow];
+                int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
                 if (tileNum >= 0 && tileNum < tile.length) {
                     int worldX = worldCol * gp.tileSize;
@@ -186,9 +216,7 @@ public class TileManager {
                 } else {
                     System.err.println("Некоректний індекс тайла: " + tileNum);
                 }
-            } else {
-                System.err.println("Некоректний доступ до mapTileNum: [" + worldCol + "][" + worldRow + "]");
-            }
+
 
             worldCol++;
 
