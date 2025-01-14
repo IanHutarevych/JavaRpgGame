@@ -3,13 +3,13 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Potion_Health extends Entity {
+public class OBJ_Potion_Health_Midle extends Entity {
 
 
 
     GamePanel gp;
 
-    public OBJ_Potion_Health(GamePanel gp) {
+    public OBJ_Potion_Health_Midle(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
@@ -18,6 +18,7 @@ public class OBJ_Potion_Health extends Entity {
         value = 5;
         down1 = setup("/objects/healthPotion",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nHeals life by " + value + ".";
+        price = 10;
     }
     public void use(Entity e) {
 

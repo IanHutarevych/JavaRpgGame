@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import object.OBJ_ChestOpen;
 import object.OBJ_DoorOpen;
 import object.OBJ_Key;
@@ -14,6 +15,7 @@ public class EventHandler {
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
+    int tempMap, tempCol, tempRow;
 
     BufferedImage keyImage;
 
@@ -84,10 +86,21 @@ public class EventHandler {
             else if (hit(0,27, 20, "any")) {teleport(1, 23, 20); }
             else if (hit(0,26, 19, "any")) {teleport(1, 23, 20); }
             else if (hit(1, 23, 20, "any")) {teleport(0, 27, 20); }
+
+            else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
         }
 
 
     }
+
+    private void speak(Entity entity) {
+        if (gp.keyH.enterPressed){
+            gp.gameState = gp.dialogueState;
+            gp.player.attackCanceled = true;
+            entity.speak();
+        }
+    }
+
     public boolean hit(int map ,int col, int row, String reqDirection) {
         boolean hit = false;
 
@@ -159,11 +172,12 @@ public class EventHandler {
         if (gp.keyH.enterPressed) {
             gp.player.attackCanceled = true;
 
-            gp.currentMap = map;
-            gp.player.worldX = gp.tileSize * col;
-            gp.player.worldY = gp.tileSize * row;
-            previousEventX = gp.player.worldX;
-            previousEventY = gp.player.worldY;
+            gp.gameState = gp.transitionState;
+
+            tempMap = map;
+            tempCol = col;
+            tempRow = row;
+
             canTouchEvent = false;
             gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
         }

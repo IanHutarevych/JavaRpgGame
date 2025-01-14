@@ -14,6 +14,7 @@ public class OBJ_Boots  extends Entity {
         name = "boots";
         down1 = setup("/objects/boots",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nIt increases your speed!.";
+        price = 10;
     }
 
 }

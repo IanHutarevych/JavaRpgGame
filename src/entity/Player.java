@@ -6,7 +6,6 @@ import object.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -15,8 +14,7 @@ public class Player extends Entity {
     public final int defSpeed = 4;
     public boolean attackCanceled = false;
     int SECounter = 0;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
+
     public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2;
 
 
@@ -66,7 +64,7 @@ public class Player extends Entity {
         dexterity = 1;
         exp = 0;
         nextLevelUp = 5;
-        coin = 0;
+        coin = 1000;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         projectile = new OBJ_Fireball(gp);
@@ -469,7 +467,7 @@ public class Player extends Entity {
         }
     }
     public void selectItem(){
-        int itemIndex = gp.ui.getItemIndexOnSlot();
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
         if (itemIndex < inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);

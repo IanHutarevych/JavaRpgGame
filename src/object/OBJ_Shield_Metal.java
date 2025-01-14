@@ -12,5 +12,6 @@ public class OBJ_Shield_Metal extends Entity{
         down1 = setup("/objects/shield_metal",gp.tileSize, gp.tileSize);
         defenceValue = 5;
         description = "[" + name + "]\nProtected you.";
+        price = 35;
     }
 }

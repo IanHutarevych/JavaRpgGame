@@ -1,7 +1,7 @@
 package main;
 
 import entity.NPC_PumpkinHead;
-import entity.NPC_Skeleton;
+import entity.NPC_Mortemark;
 import monster.MON_GreenSlime;
 import object.*;
 import tile_interactive.IT_DryTree;
@@ -28,7 +28,7 @@ public class AssetSetter {
         i++;
 
 
-        gp.obj[mapNum][i] = new OBJ_Potion_Health(gp);
+        gp.obj[mapNum][i] = new OBJ_Potion_Health_Midle(gp);
         gp.obj[mapNum][i].worldX = 4 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
         i++;
@@ -68,14 +68,19 @@ public class AssetSetter {
 
     }
     public void setNPC() throws IOException {
-        int mapNum = 0;
         int i = 0;
+
+        int mapNum = 0;
+        // MAP 0
         gp.npc[mapNum][i] = new NPC_PumpkinHead(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*26;
         gp.npc[mapNum][i].worldY = gp.tileSize*21;
 
+
+        // MAP 1
         mapNum = 1;
-        gp.npc[mapNum][i] = new NPC_Skeleton(gp);
+        i = 0;
+        gp.npc[mapNum][i] = new NPC_Mortemark(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*23;
         gp.npc[mapNum][i].worldY = gp.tileSize*16;
 

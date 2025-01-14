@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Entity {
@@ -65,11 +66,14 @@ public class Entity {
     public Projectile projectile;
 
     // ITEM ATTRIBUTES
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public int attackValue;
     public int defenceValue;
     public String description = "";
     public int useCost;
     public int value;
+    public int price;
 
     // TYPE
     public int type; // 0 - player, 1 - npc, 2 - monster
