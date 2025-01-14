@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import entity.Player;
+import object.OBJ_Gold_Clever;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -57,7 +58,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECT
     public Player player = new Player(this,keyH);
-    public Entity[][] obj = new Entity[maxMap][10]; // 10 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
+    public OBJ_Gold_Clever goldClever = new OBJ_Gold_Clever(this);
+    public Entity[][] obj = new Entity[maxMap][20]; // 10 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
     public Entity[][] npc = new Entity[maxMap][1];
     public Entity[][] monster = new Entity[maxMap][20];
     public InteractiveTile[][] iTile = new InteractiveTile[maxMap][50];

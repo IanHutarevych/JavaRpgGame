@@ -5,7 +5,6 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class Entity {
     GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,attackRight2 ;
-    public BufferedImage image, image2, image3;
+    public BufferedImage image1, image2, image3, image4, image5, image6, image7, image8;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -85,6 +84,7 @@ public class Entity {
     public final int type_shield = 5;
     public final int type_consumable = 6;
     public final int  type_pickupOnly = 7;
+    public final int type_michael_sword = 8;
 
 
 
@@ -110,22 +110,30 @@ public class Entity {
     public void setAction () {}
     public void damageReaction() {}
     public void speak() {
-        if (dialogues[dialogueIndex] != null) {
-            gp.ui.currentDialog = dialogues[dialogueIndex];
-            dialogueIndex++;
-
-        }
-        if(dialogues[dialogueIndex] == null) {
+        if (dialogueIndex >= dialogues.length || dialogues[dialogueIndex] == null) {
             gp.gameState = gp.playState;
             dialogueIndex = 0;
+            return;
         }
+        gp.ui.currentDialog = dialogues[dialogueIndex];
+        dialogueIndex++;
+
         switch (gp.player.direction) {
-            case "up": direction = "down"; break;
-            case "down": direction = "up"; break;
-            case "left": direction = "right"; break;
-            case "right": direction = "left"; break;
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
         }
     }
+
     public void update() {
 
         setAction();

@@ -28,7 +28,7 @@ public class AssetSetter {
         i++;
 
 
-        gp.obj[mapNum][i] = new OBJ_Potion_Health_Midle(gp);
+        gp.obj[mapNum][i] = new OBJ_Potion_Health_Small(gp);
         gp.obj[mapNum][i].worldX = 4 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
         i++;

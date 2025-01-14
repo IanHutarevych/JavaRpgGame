@@ -24,7 +24,7 @@ public class EventHandler {
         this.gp = gp;
 
         OBJ_Key key = new OBJ_Key(gp);
-        keyImage = key.image;
+        keyImage = key.image1;
 
         eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
@@ -196,7 +196,7 @@ public class EventHandler {
             gp.player.attackCanceled = true;
 
             for (int i = 0; i < gp.obj[1].length; i++) {
-                if (gp.obj[i] != null && gp.obj[gp.currentMap][i].name.equals("chest_close") &&
+                if (gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals("chest_close") &&
                         gp.obj[gp.currentMap][i].worldX == col * gp.tileSize &&
                         gp.obj[gp.currentMap][i].worldY == row * gp.tileSize) {
 
@@ -231,8 +231,8 @@ public class EventHandler {
 
 
             if (keyFound) {
-                for (int i = 0; i < gp.obj.length; i++) {
-                    if (gp.obj[i] != null && gp.obj[gp.currentMap][i].name.equals("door_close") &&
+                for (int i = 0; i < gp.obj[1].length; i++) {
+                    if (gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals("door_close") &&
                             gp.obj[gp.currentMap][i].worldX == col * gp.tileSize &&
                             gp.obj[gp.currentMap][i].worldY == row * gp.tileSize) {
 

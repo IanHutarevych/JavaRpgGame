@@ -58,14 +58,14 @@ public class Player extends Entity {
         level = 1;
         maxLife = 10;
         life = maxLife;
-        maxMana = 4;
+        maxMana = 1;
         mana = maxMana;
         strength = 1;
         dexterity = 1;
         exp = 0;
         nextLevelUp = 5;
-        coin = 1000;
-        currentWeapon = new OBJ_Sword_Normal(gp);
+        coin = 10;
+        currentWeapon = new OBJ_Archangel_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         projectile = new OBJ_Fireball(gp);
         attack = getAttack();
@@ -146,6 +146,19 @@ public class Player extends Entity {
 
             attackRight1 = setup("/player/axe_right1",gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("/player/axe_right2",gp.tileSize*2, gp.tileSize);
+        }
+        if (currentWeapon.type == type_michael_sword){
+            attackUp1 = setup("/player/mic_up1",gp.tileSize, gp.tileSize*2);
+            attackUp2 = setup("/player/mic_up2",gp.tileSize, gp.tileSize*2);
+
+            attackDown1 = setup("/player/mic_down1",gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/player/mic_down2",gp.tileSize, gp.tileSize*2);
+
+            attackLeft1 = setup("/player/mic_left1",gp.tileSize*2, gp.tileSize);
+            attackLeft2 = setup("/player/mic_left2",gp.tileSize*2, gp.tileSize);
+
+            attackRight1 = setup("/player/mic_right1",gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/player/mic_right2",gp.tileSize*2, gp.tileSize);
         }
     }
     public void update() {
@@ -427,7 +440,7 @@ public class Player extends Entity {
 
             if (gp.obj[gp.currentMap][i].type == type_pickupOnly){
                 gp.obj[gp.currentMap][i].use(this);
-                gp.obj[i] = null;
+                gp.obj[gp.currentMap][i] = null;
             } else {
 
                 // INVENTORY ITEMS
@@ -471,7 +484,7 @@ public class Player extends Entity {
 
         if (itemIndex < inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
-            if (selectedItem.type == type_sword || selectedItem.type == type_axe) {
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_michael_sword) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();

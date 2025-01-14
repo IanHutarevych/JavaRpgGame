@@ -14,7 +14,7 @@ GamePanel gp;
         value = 2;
         type = type_pickupOnly;
         down1 = setup("/objects/heart01",gp.tileSize, gp.tileSize);
-        image = setup("/objects/heart01",gp.tileSize, gp.tileSize);
+        image1 = setup("/objects/heart01",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/heart02",gp.tileSize, gp.tileSize);
         image3 = setup("/objects/heart03",gp.tileSize, gp.tileSize);
     }

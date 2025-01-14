@@ -12,7 +12,7 @@ GamePanel gp;
         type = type_pickupOnly;
         name = "Mana Star";
         down1 = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
-        image = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
+        image1 = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/manaEmpty",gp.tileSize, gp.tileSize);
     }
     public void use(Entity e) {
