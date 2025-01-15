@@ -34,6 +34,7 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
+    public boolean onPath = false;
 
 
 
@@ -134,10 +135,158 @@ public class Entity {
         }
     }
 
-    public void update() {
+    private boolean isCenterOfTile(int nextX, int nextY) {
+        int centerX = worldX + solidArea.x + (solidArea.width / 2);
+        int centerY = worldY + solidArea.y + (solidArea.height / 2);
+        return (centerX == nextX + (gp.tileSize / 2) && centerY == nextY + (gp.tileSize / 2));
+    }
 
-        setAction();
 
+    public void searchPath(int goalCol, int goalRow) {
+
+        int startCol = (worldX + solidArea.x)/gp.tileSize;
+        int startRow = (worldY + solidArea.y)/gp.tileSize;
+
+        gp.pFinder.setNode(startCol,startRow, goalCol, goalRow, this);
+
+        if (gp.pFinder.search()){
+
+            // Next worldX & worldY
+            int nextX = gp.pFinder.pathList.getFirst().col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.getFirst().row * gp.tileSize;
+
+            // Entity`s solidArea position
+            int enLeftX = worldX + solidArea.x;
+            int enRightX = worldX + solidArea.x + solidArea.width;
+            int enTopY = worldY + solidArea.y;
+            int enBottomY = worldY + solidArea.y + solidArea.height;
+
+            if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "up";
+            }
+            else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "down";
+            }
+            else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
+                // left or right
+                if (enLeftX > nextX){
+                    direction = "left";
+                }
+                if (enLeftX < nextX){
+                    direction = "right";
+                }
+            }
+            else if (enTopY > nextY && enLeftX > nextX){
+                // up or left
+                direction = "up";
+                checkCollision();
+                if (collisionOn){
+                    direction = "left";
+                }
+            }
+            else if (enTopY > nextY && enLeftX < nextX){
+                // up or right
+                direction = "up";
+                checkCollision();
+                if (collisionOn){
+                    direction = "right";
+                }
+            }
+            else if (enTopY < nextY && enLeftX > nextX){
+                // down or left
+                direction = "down";
+                checkCollision();
+                if (collisionOn){
+                    direction = "left";
+                }
+            }
+            else if (enTopY < nextY && enLeftX < nextX){
+                // down or right
+                direction = "down";
+                checkCollision();
+                if (collisionOn){
+                    direction = "right";
+                }
+            }
+
+            // If reaches the goal, stop the search
+            int nextCol = gp.pFinder.pathList.getFirst().col;
+            int nextRow = gp.pFinder.pathList.getFirst().row;
+            if (nextCol == goalCol && nextRow == goalRow){
+                onPath = false;
+            }
+        }
+    }
+    public void searchPathToPlayer(int goalCol, int goalRow) {
+
+        int startCol = (worldX + solidArea.x)/gp.tileSize;
+        int startRow = (worldY + solidArea.y)/gp.tileSize;
+
+        gp.pFinder.setNode(startCol,startRow, goalCol, goalRow, this);
+
+        if (gp.pFinder.search()){
+
+            // Next worldX & worldY
+            int nextX = gp.pFinder.pathList.getFirst().col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.getFirst().row * gp.tileSize;
+
+            // Entity`s solidArea position
+            int enLeftX = worldX + solidArea.x;
+            int enRightX = worldX + solidArea.x + solidArea.width;
+            int enTopY = worldY + solidArea.y;
+            int enBottomY = worldY + solidArea.y + solidArea.height;
+
+            if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "up";
+            }
+            else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "down";
+            }
+            else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
+                // left or right
+                if (enLeftX > nextX){
+                    direction = "left";
+                }
+                if (enLeftX < nextX){
+                    direction = "right";
+                }
+            }
+            else if (enTopY > nextY && enLeftX > nextX){
+                // up or left
+                direction = "up";
+                checkCollision();
+                if (collisionOn){
+                    direction = "left";
+                }
+            }
+            else if (enTopY > nextY && enLeftX < nextX){
+                // up or right
+                direction = "up";
+                checkCollision();
+                if (collisionOn){
+                    direction = "right";
+                }
+            }
+            else if (enTopY < nextY && enLeftX > nextX){
+                // down or left
+                direction = "down";
+                checkCollision();
+                if (collisionOn){
+                    direction = "left";
+                }
+            }
+            else if (enTopY < nextY && enLeftX < nextX){
+                // down or right
+                direction = "down";
+                checkCollision();
+                if (collisionOn){
+                    direction = "right";
+                }
+            }
+        }
+    }
+
+    public void checkCollision(){
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
@@ -146,9 +295,15 @@ public class Entity {
         gp.cChecker.checkEntity(this,gp.iTile);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if (this.type == type_monster && contactPlayer){
+        if (type == type_monster && contactPlayer){
             damagePlayer(attack);
         }
+    }
+
+    public void update() {
+
+        setAction();
+        checkCollision();
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn){

@@ -223,9 +223,9 @@ public class UI {
                     // Randomize one of Mortemark's responses
                     String[] insufficientFundsDialogs = {
                             "Oh dear, your pockets seem lighter than my ribcage.",
-                            "Not enough coin? Come back when you’re wealthier... or more desperate.",
-                            "Tsk tsk, adventurer. Even skeletons have standards, you know.",
-                            "Short on gold? Looks like your fortune's as bare as my bones.",
+                            "Not enough coin? Come back when you’re wealthier... or \nmore desperate.",
+                            "Tsk tsk, adventurer. Even skeletons have standards, you \nknow.",
+                            "Short on gold? Looks like your fortune's as bare as my \nbones.",
                             "No coin, no goods. Even I don’t trade in IOUs."
                     };
                     currentDialog = insufficientFundsDialogs[(int) (Math.random() * insufficientFundsDialogs.length)];

@@ -16,12 +16,14 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][][] mapTileNum;
+    boolean drawPath = true;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
         tile = new Tile[199];
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+
 
         getTileImage();
         loadMap("/maps/world01.txt", 0); // CHANGE WORLD MAPS
@@ -223,6 +225,19 @@ public class TileManager {
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
+            }
+        }
+        if (drawPath){
+            g2.setColor(new Color(255,0,0,70));
+
+            for (int i = 0; i < gp.pFinder.pathList.size(); i++) {
+
+                int worldX = gp.pFinder.pathList.get(i).col  * gp.tileSize;
+                int worldY = gp.pFinder.pathList.get(i).row  * gp.tileSize;
+                int screenX = worldX - gp.player.worldX + gp.player.screenX;
+                int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+                g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
             }
         }
     }

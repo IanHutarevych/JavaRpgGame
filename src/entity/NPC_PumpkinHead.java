@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
 public class NPC_PumpkinHead extends Entity {
@@ -12,12 +13,14 @@ public class NPC_PumpkinHead extends Entity {
         direction = "down";
         speed = 1;
 
-        solidArea.x = 0;
+        // COLLISION DETECTION
+        solidArea = new Rectangle();
+        solidArea.x = 8;
         solidArea.y = 16;
-        solidArea.width = 48;
-        solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        solidArea.width = 30;
+        solidArea.height = 30;
 
         getImage();
         setDialogue();
@@ -55,29 +58,40 @@ public class NPC_PumpkinHead extends Entity {
     @Override
     public void setAction(){
 
-        actionLockCounter ++;
+        if (onPath){
 
-        if (actionLockCounter == 120){
-            Random r = new Random();
-
-            int i = r.nextInt(100)+1; // pick up a number from 1 tp 100
+            int goalCol = 33;
+            int goalRow = 37;
 
 
-            // EASY AI FOR NPC
-            if (i <= 25){
-                direction = "up";
-            } if (i <= 50 && i > 25){
-                direction = "down";
-            } if (i <= 75 && i > 50){
-                direction = "left";
-            } if (i > 75){
-                direction = "right";
+            searchPathToPlayer(goalCol, goalRow);
+        }
+        else {
+            actionLockCounter ++;
+
+            if (actionLockCounter == 120){
+                Random r = new Random();
+
+                int i = r.nextInt(100)+1; // pick up a number from 1 tp 100
+
+
+                // EASY AI FOR NPC
+                if (i <= 25){
+                    direction = "up";
+                } if (i <= 50 && i > 25){
+                    direction = "down";
+                } if (i <= 75 && i > 50){
+                    direction = "left";
+                } if (i > 75){
+                    direction = "right";
+                }
+                actionLockCounter = 0;
             }
-            actionLockCounter = 0;
         }
     }
-
     public void speak(){
         super.speak();
+
+        onPath = true;
     }
 }
