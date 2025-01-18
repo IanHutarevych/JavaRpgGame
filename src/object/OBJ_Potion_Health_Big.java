@@ -18,6 +18,7 @@ public class OBJ_Potion_Health_Big extends Entity {
         down1 = setup("/objects/healthPotionBig",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nHeals life by " + value + ".";
         price = 15;
+        stackable = true;
     }
     public void use(Entity e) {
 

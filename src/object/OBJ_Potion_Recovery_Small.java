@@ -18,6 +18,7 @@ public class OBJ_Potion_Recovery_Small extends Entity {
         down1 = setup("/objects/recoveryPotionSmall",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nRecover mana by " + value + ".";
         price = 5;
+        stackable = true;
     }
     public void use(Entity e) {
 

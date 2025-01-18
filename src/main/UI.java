@@ -111,7 +111,6 @@ public class UI {
             drawTradeScreen();
         }
     }
-
     private void drawTradeScreen() {
 
         switch (subState) {
@@ -126,8 +125,8 @@ public class UI {
         drawDialogueScreen();
 
         // DRAW WINDOW
-        int x = gp.tileSize * 15;
-        int y = gp.tileSize * 4;
+        int x = (int)(gp.tileSize * 14);
+        int y = (int)(gp.tileSize * 4.5);
         int width = gp.tileSize * 3;
         int height = (int) (gp.tileSize * 3.5);
         drawSubWindow(x,y,width,height);
@@ -231,26 +230,25 @@ public class UI {
                     currentDialog = insufficientFundsDialogs[(int) (Math.random() * insufficientFundsDialogs.length)];
                     drawDialogueScreen();
                 }
-                if (gp.player.inventory.size() == gp.player.maxInventorySize){
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    String[] fullInventoryDialogs = {
-                            "Your bags are fuller than my crypt. Make some space, \nwill you?",
-                            "No room for my treasures? A tragic oversight.",
-                            "Hmm, perhaps it's time to part with something less... \nshiny.",
-                            "Your inventory's bursting at the seams. Skeletons like \nme prefer to travel light.",
-                            "Full already? Maybe you should’ve invested in a bigger \nbackpack instead."
-                    };
-                    currentDialog = fullInventoryDialogs[(int) (Math.random() * fullInventoryDialogs.length)];
-
-                }
                 else {
-                    gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                    if (gp.player.canObtainItem(npc.inventory.get(itemIndex))){
+                        gp.player.coin -= npc.inventory.get(itemIndex).price;
+                    }
+                    else {
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        String[] fullInventoryDialogs = {
+                                "Your bags are fuller than my crypt. Make some space, \nwill you?",
+                                "No room for my treasures? A tragic oversight.",
+                                "Hmm, perhaps it's time to part with something less... \nshiny.",
+                                "Your inventory's bursting at the seams. Skeletons like \nme prefer to travel light.",
+                                "Full already? Maybe you should’ve invested in a bigger \nbackpack instead."
+                        };
+                        currentDialog = fullInventoryDialogs[(int) (Math.random() * fullInventoryDialogs.length)];
+                    }
                 }
             }
         }
-
     }
     public void trade_sell(){
 
@@ -281,7 +279,7 @@ public class UI {
         int itemIndex = getItemIndexOnSlot(playerSlotCol,playerSlotRow);
         if (itemIndex < gp.player.inventory.size()){
 
-            x = (int) (gp.tileSize*15.5);
+            x = (int) (gp.tileSize*12);
             y = (int) (gp.tileSize*5.5);
             width = (int) (gp.tileSize*2.5);
             height = gp.tileSize;
@@ -290,7 +288,7 @@ public class UI {
 
             int price = gp.player.inventory.get(itemIndex).price/3*2;
             String text = "" + price;
-            x = getXforAlightToRightText(text,gp.tileSize*18-20);
+            x = getXforAlightToRightText(text,gp.tileSize*14 + 5);
             g2.drawString(text, x, y+34);
 
             // SELL AN ITEM
@@ -309,7 +307,11 @@ public class UI {
                     currentDialog = equippedItemDialogs[(int) (Math.random() * equippedItemDialogs.length)];
                 }
                 else {
-                    gp.player.inventory.remove(itemIndex);
+                    if (gp.player.inventory.get(itemIndex).amount > 1){
+                        gp.player.inventory.get(itemIndex).amount--;
+                    } else {
+                        gp.player.inventory.remove(itemIndex);
+                    }
                     gp.player.coin += price;
                 }
             }
@@ -561,6 +563,25 @@ public class UI {
 
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
 
+            // DISPLAY AMOUNT
+            if (entity.inventory.get(i).amount > 1 && entity == gp.player) {
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+                String s = "" + entity.inventory.get(i).amount;
+                amountX = getXforAlightToRightText(s, slotX + 44);
+                amountY = slotY + gp.tileSize;
+
+                // SHADOW
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s, amountX, amountY);
+                // NUMBER
+                g2.setColor(Color.WHITE);
+                g2.drawString(s, amountX-3, amountY-3);
+
+
+            }
+
             slotX += slotSize;
 
             if (i == 4 || i == 9 || i == 14){
@@ -587,6 +608,8 @@ public class UI {
             int dFrameWidth = frameWidth;
             int dFrameHeight = gp.tileSize*3;
 
+
+
             // DRAW DES TEXT
             int textX = dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
@@ -605,6 +628,17 @@ public class UI {
                 }
 
             }
+            // DRAW COIN WINDOW
+            int x = (int) (gp.tileSize*15.5);
+            int y = (int) (gp.tileSize*5.5);
+            int width = (int) (gp.tileSize*2.5);
+            int height = gp.tileSize;
+            drawSubWindow(x,y,width,height);
+            g2.drawImage(coin, x+10, y+8 , 32,32,null);
+
+            String text = "" + gp.player.coin;
+            x = getXforAlightToRightText(text,gp.tileSize*18-20);
+            g2.drawString(text, x, y+34);
         }
     }
     private void drawMessage() {
@@ -803,7 +837,7 @@ public class UI {
         textY += lineHeight;
         g2.drawString("Next Level", textX, textY);
         textY += lineHeight;
-        g2.drawString("Coin", textX, textY);
+        /*g2.drawString("Coin", textX, textY);*/
         textY += lineHeight + 10;
         g2.drawString("Weapon", textX, textY);
         textY += lineHeight + 15;
@@ -858,7 +892,7 @@ public class UI {
 
         value = String.valueOf(gp.player.coin);
         textX = getXforAlightToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
+        /*g2.drawString(value, textX, textY);*/
         textY += lineHeight;
 
         g2.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 15, null);

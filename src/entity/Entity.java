@@ -35,8 +35,7 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
     public boolean onPath = false;
-
-
+    public boolean knockBack = false;
 
     // COUNTER
     public int actionLockCounter = 0;
@@ -45,10 +44,12 @@ public class Entity {
     public int shotAvailableCounter;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTE
-    public int speed;
     public String name;
+    public int defSpeed;
+    public int speed;
     public int maxLife;
     public int life;
     public int maxMana;
@@ -74,6 +75,11 @@ public class Entity {
     public int useCost;
     public int value;
     public int price;
+    public int knockBackPower;
+    public int knockBackSkill;
+    public boolean stackable = false;
+    public int amount = 1;
+
 
     // TYPE
     public int type; // 0 - player, 1 - npc, 2 - monster
@@ -86,6 +92,7 @@ public class Entity {
     public final int type_consumable = 6;
     public final int  type_pickupOnly = 7;
     public final int type_michael_sword = 8;
+    public final int type_obstacle = 9;
 
 
 
@@ -134,14 +141,7 @@ public class Entity {
                 break;
         }
     }
-
-    private boolean isCenterOfTile(int nextX, int nextY) {
-        int centerX = worldX + solidArea.x + (solidArea.width / 2);
-        int centerY = worldY + solidArea.y + (solidArea.height / 2);
-        return (centerX == nextX + (gp.tileSize / 2) && centerY == nextY + (gp.tileSize / 2));
-    }
-
-
+    public void interact(){}
     public void searchPath(int goalCol, int goalRow) {
 
         int startCol = (worldX + solidArea.x)/gp.tileSize;
@@ -285,7 +285,6 @@ public class Entity {
             }
         }
     }
-
     public void checkCollision(){
         collisionOn = false;
         gp.cChecker.checkTile(this);
@@ -302,20 +301,44 @@ public class Entity {
 
     public void update() {
 
-        setAction();
-        checkCollision();
+        if (knockBack){
+             checkCollision();
 
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if (!collisionOn){
+             if (collisionOn){
+                 knockBackCounter = 0;
+                 knockBack = false;
+                 speed = defSpeed;
+             }
+             else if (!collisionOn){
+                 switch (gp.player.direction){
+                     case "up":worldY -= speed;break;
+                     case "down":worldY += speed;break;
+                     case "left": worldX -= speed;break;
+                     case "right":worldX += speed;break;
+                 }
+             }
 
-            switch (direction){
-                case "up":worldY -= speed;break;
-                case "down":worldY += speed;break;
-                case "left": worldX -= speed;break;
-                case "right":worldX += speed;break;
+             knockBackCounter++;
+             if (knockBackCounter == 10){ // KnockBack distance
+                 knockBackCounter = 0;
+                 knockBack = false;
+                 speed = defSpeed;
+             }
+        } else {
+            setAction();
+            checkCollision();
+
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (!collisionOn){
+
+                switch (direction){
+                    case "up":worldY -= speed;break;
+                    case "down":worldY += speed;break;
+                    case "left": worldX -= speed;break;
+                    case "right":worldX += speed;break;
+                }
             }
         }
-
         spriteCounter++;
         if (spriteCounter > 20){
             if (spriteNum == 1){

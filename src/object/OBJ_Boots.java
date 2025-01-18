@@ -11,9 +11,9 @@ public class OBJ_Boots  extends Entity {
 
         super(gp);
 
-        name = "boots";
+        name = "Hermes Boots";
         down1 = setup("/objects/boots",gp.tileSize, gp.tileSize);
-        description = "[" + name + "]\nIt increases your speed!.";
+        description = "[" + name + "]\nAn artifact from myths.";
         price = 10;
     }
 

@@ -60,11 +60,11 @@ public class NPC_PumpkinHead extends Entity {
 
         if (onPath){
 
-            int goalCol = 33;
-            int goalRow = 37;
+            int goalCol = 20;
+            int goalRow = 43;
 
 
-            searchPathToPlayer(goalCol, goalRow);
+            searchPath(goalCol, goalRow);
         }
         else {
             actionLockCounter ++;

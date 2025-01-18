@@ -1,10 +1,9 @@
 package main;
 
+import entity.AOBJ_Fire;
 import entity.Entity;
-import object.OBJ_ChestOpen;
 import object.OBJ_DoorOpen;
 import object.OBJ_Key;
-import object.OBJ_Shield_Metal;
 
 import java.awt.image.BufferedImage;
 
@@ -69,6 +68,7 @@ public class EventHandler {
             if (hit(0,24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
             else if (hit(0,24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
             else if (hit(0,34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
+            else if (hit(2,18, 17, "any")) {receiveMessage4(18, 17, gp.dialogueState);}
             else if (hit(0,35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
             else if (hit(0,36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
             else if (hit(0,37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
@@ -79,13 +79,14 @@ public class EventHandler {
             else if (hit(0,35, 29, "any")) {normalSpeed(35, 29,gp.playState);}
             else if (hit(0,35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
 
-            else if (hit(0,35, 29, "any")) {openChest(35, 28, gp.dialogueState);}
             else if (hit(0,4, 23, "any")) {openDoor(4, 22, gp.playState);}
 
-            else if (hit(0,28, 19, "any")) {teleport(1, 23, 20); }
-            else if (hit(0,27, 20, "any")) {teleport(1, 23, 20); }
-            else if (hit(0,26, 19, "any")) {teleport(1, 23, 20); }
-            else if (hit(1, 23, 20, "any")) {teleport(0, 27, 20); }
+            else if (hit(0,28, 19, "any")) {teleportEnter(1, 23, 20); }
+            else if (hit(0,27, 20, "any")) {teleportEnter(1, 23, 20); }
+            else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20); }
+            else if (hit(1, 23, 20, "any")) {teleportEnter(0, 27, 20); }
+            else if (hit(2, 20, 43, "any")) {teleport(0, 23, 17); }
+            else if (hit(0, 23, 17, "any")) {teleport(2, 20, 43); }
 
             else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
         }
@@ -151,6 +152,11 @@ public class EventHandler {
         gp.ui.currentDialog = "Sticky Swamp. Awful...";
         canTouchEvent = false;
     }
+    private void receiveMessage4(int col, int row, int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialog = "A sand town";
+        canTouchEvent = false;
+    }
     public void healingPool(int col, int row, int gameState) {
         if (gp.keyH.enterPressed){
             gp.gameState = gameState;
@@ -169,6 +175,18 @@ public class EventHandler {
         gp.keyH.enterPressed = false;
     }
     public void teleport(int map, int col, int row) {
+            gp.player.attackCanceled = true;
+
+            gp.gameState = gp.transitionState;
+
+            tempMap = map;
+            tempCol = col;
+            tempRow = row;
+
+            canTouchEvent = false;
+            gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
+    }
+    public void teleportEnter(int map, int col, int row) {
         if (gp.keyH.enterPressed) {
             gp.player.attackCanceled = true;
 
@@ -189,30 +207,6 @@ public class EventHandler {
     public void normalSpeed(int x, int y, int gameState) {
         gp.gameState = gameState;
         gp.player.speed = gp.player.defSpeed;
-    }
-    public void openChest(int col, int row, int gameState) {
-        if (gp.keyH.enterPressed) {
-            gp.gameState = gameState;
-            gp.player.attackCanceled = true;
-
-            for (int i = 0; i < gp.obj[1].length; i++) {
-                if (gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals("chest_close") &&
-                        gp.obj[gp.currentMap][i].worldX == col * gp.tileSize &&
-                        gp.obj[gp.currentMap][i].worldY == row * gp.tileSize) {
-
-                    gp.obj[gp.currentMap][i] = new OBJ_ChestOpen(gp);
-                    gp.obj[gp.currentMap][i].worldX = col * gp.tileSize;
-                    gp.obj[gp.currentMap][i].worldY = row * gp.tileSize;
-                    break;
-                }
-            }
-
-            gp.ui.currentDialog = "You found a Knight`s shield!";
-            gp.player.inventory.add(new OBJ_Shield_Metal(gp));
-
-            canTouchEvent = false;
-            gp.keyH.enterPressed = false;
-        }
     }
     public void openDoor(int col, int row, int gameState) {
         if (gp.keyH.enterPressed) {
@@ -250,4 +244,5 @@ public class EventHandler {
             gp.keyH.enterPressed = false;
         }
     }
+
 }

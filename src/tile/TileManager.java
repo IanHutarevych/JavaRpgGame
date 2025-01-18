@@ -16,18 +16,19 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][][] mapTileNum;
-    boolean drawPath = true;
+    public boolean drawPath = false;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        tile = new Tile[199];
+        tile = new Tile[399];
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
 
         getTileImage();
         loadMap("/maps/world01.txt", 0); // CHANGE WORLD MAPS
         loadMap("/maps/shop.txt", 1);
+        loadMap("/maps/SandTown.txt", 2);
     }
 
     public void getTileImage(){
@@ -143,6 +144,74 @@ public class TileManager {
         setup(176, "/ShopTiles/doorShop", true);
 
 
+
+        setup(200, "/SandTown/sand1", false);
+        setup(201, "/SandTown/sand2", false);
+        setup(202, "/SandTown/sand3", false);
+        setup(203, "/SandTown/home1", true);
+        setup(204, "/SandTown/home2", true);
+        setup(205, "/SandTown/home3", true);
+        setup(206, "/SandTown/home4", true);
+        setup(207, "/SandTown/home5", false);
+        setup(208, "/SandTown/home6", false);
+        setup(209, "/SandTown/cliff1", false);
+        setup(210, "/SandTown/cliff2", false);
+        setup(211, "/SandTown/cliff3", false);
+        setup(212, "/SandTown/crag1", true);
+        setup(213, "/SandTown/crag2", true);
+        setup(214, "/SandTown/crag3", true);
+        setup(215, "/SandTown/grass2", false);
+        setup(216, "/SandTown/grass1", false);
+        setup(217, "/SandTown/path1", false);
+        setup(218, "/SandTown/path2", false);
+        setup(219, "/SandTown/path3", false);
+        setup(220, "/SandTown/path4", false);
+        setup(221, "/SandTown/path5", false);
+        setup(222, "/SandTown/path6", false);
+        setup(223, "/SandTown/cliff4", true);
+        setup(224, "/SandTown/house1", true);
+        setup(225, "/SandTown/house2", true);
+        setup(226, "/SandTown/house3", true);
+        setup(227, "/SandTown/house4", true);
+        setup(228, "/SandTown/house5", false);
+        setup(229, "/SandTown/house6", false);
+        setup(230, "/SandTown/path8", false);
+        setup(231, "/SandTown/path9", false);
+        setup(232, "/SandTown/water1", true);
+        setup(233, "/SandTown/bridge", false);
+        setup(234, "/SandTown/bridge2", true);
+        setup(235, "/SandTown/water2", true);
+        setup(236, "/SandTown/water3", true);
+        setup(237, "/SandTown/cliff5", true);
+        setup(238, "/SandTown/cliff6", true);
+        setup(239, "/SandTown/cliff7", true);
+        setup(240, "/SandTown/bridge3", true);
+        setup(241, "/SandTown/water4", true);
+        setup(242, "/SandTown/path10", false);
+        setup(243, "/SandTown/cliff8", true);
+        setup(244, "/SandTown/cliff9", true);
+        setup(245, "/SandTown/crag4", true);
+        setup(246, "/SandTown/crag5", true);
+        setup(247, "/SandTown/crag6", true);
+        setup(248, "/SandTown/cliff10", true);
+        setup(249, "/SandTown/cliff11", true);
+        setup(250, "/SandTown/crag7", true);
+        setup(251, "/SandTown/cliff12", true);
+        setup(252, "/SandTown/water5", true);
+        setup(253, "/SandTown/cliff13", true);
+        setup(254, "/SandTown/cliff14", true);
+        setup(255, "/SandTown/crag8", true);
+        setup(256, "/SandTown/crag9", true);
+        setup(257, "/SandTown/cliff16", true);
+        setup(258, "/SandTown/cliff17", true);
+        setup(259, "/SandTown/cliff15", true);
+        setup(260, "/SandTown/cliff18", true);
+        setup(261, "/SandTown/cliff19", true);
+        setup(262, "/SandTown/cliff20", true);
+
+
+
+
     }
     public void setup (int index, String imagePath, boolean collision){
 
@@ -227,6 +296,7 @@ public class TileManager {
                 worldRow++;
             }
         }
+        // IT DRAWS THE PATH WITH RED COLOR
         if (drawPath){
             g2.setColor(new Color(255,0,0,70));
 

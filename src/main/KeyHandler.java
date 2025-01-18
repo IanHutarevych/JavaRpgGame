@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -19,7 +20,6 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -251,17 +251,18 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_T) {
             if (!showDebugText) {
                 showDebugText = true;
+                gp.tileM.drawPath = true;
             } else {
                 showDebugText = false;
+                gp.tileM.drawPath = false;
             }
         }
-        if (code == KeyEvent.VK_R) {
+        else if (code == KeyEvent.VK_R) {
             switch (gp.currentMap){
                 case 0: gp.tileM.loadMap("/maps/world01.txt", 0); break;
                 case 1: gp.tileM.loadMap("/maps/shop.txt",1); break;
+                case 2: gp.tileM.loadMap("/maps/pier.txt", 2); break;
             }
-
-            gp.update();
         }
     }
     public void pauseState(int code){

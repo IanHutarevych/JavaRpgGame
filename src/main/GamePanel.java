@@ -4,6 +4,7 @@ import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import object.OBJ_Gold_Clever;
+import object.OBJ_Key;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int maxMap = 10;
-    public int currentMap = 0;
+    public int currentMap = 2;
 
     // FOR FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -53,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
-
     public PathFinder pFinder = new PathFinder(this);
     Thread gameThread;
 
@@ -61,12 +61,13 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this,keyH);
     public OBJ_Gold_Clever goldClever = new OBJ_Gold_Clever(this);
     public Entity[][] obj = new Entity[maxMap][20]; // 10 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
-    public Entity[][] npc = new Entity[maxMap][1];
+    public Entity[][] npc = new Entity[maxMap][2];
     public Entity[][] monster = new Entity[maxMap][20];
     public InteractiveTile[][] iTile = new InteractiveTile[maxMap][50];
-    public ArrayList<Entity> projectileList = new ArrayList<>();
+    public Entity projectile[][] = new Entity[maxMap][20];
     public ArrayList<Entity> particleList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
+    public int keyCounter = 0;
 
     // GAME STATE
     public int gameState;
@@ -195,13 +196,13 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
-            for (int i = 0; i < projectileList.size(); i++) {
-                if (projectileList.get(i) != null) {
-                    if (projectileList.get(i).alive) {
-                        projectileList.get(i).update();
+            for (int i = 0; i < projectile[1].length; i++) {
+                if (projectile[currentMap][i] != null) {
+                    if (projectile[currentMap][i].alive) {
+                        projectile[currentMap][i].update();
                     }
-                    if (!projectileList.get(i).alive) {
-                        projectileList.remove(i);
+                    if (!projectile[currentMap][i].alive) {
+                        projectile[currentMap][i] = null;
                     }
                 }
             }
@@ -258,22 +259,19 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(npc[currentMap][i]);
                 }
             }
-
             for (int i = 0; i < obj[1].length; i++) {
                 if (obj[currentMap][i] != null) {
                     entityList.add(obj[currentMap][i]);
                 }
             }
-
             for (int i = 0; i < monster[1].length; i++) {
                 if (monster[currentMap][i] != null) {
                     entityList.add(monster[currentMap][i]);
                 }
             }
-
-            for (Entity value : projectileList) {
-                if (value != null) {
-                    entityList.add(value);
+            for (int i = 0; i < projectile[1].length; i++) {
+                if (projectile[currentMap][i] != null) {
+                    entityList.add(projectile[currentMap][i]);
                 }
             }
             for (Entity value : particleList) {

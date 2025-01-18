@@ -45,7 +45,6 @@ public class NPC_Mortemark extends Entity {
     }
 
     public void speak(){
-
         super.speak();
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
