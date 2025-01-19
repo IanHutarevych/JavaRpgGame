@@ -208,6 +208,39 @@ public class TileManager {
         setup(260, "/SandTown/cliff18", true);
         setup(261, "/SandTown/cliff19", true);
         setup(262, "/SandTown/cliff20", true);
+        setup(263, "/SandTown/wellSand", true);
+        setup(264, "/SandTown/shop1", true);
+        setup(265, "/SandTown/shop2", true);
+        setup(266, "/SandTown/shop3", true);
+        setup(267, "/SandTown/shop4", true);
+        setup(268, "/SandTown/shop5", true);
+        setup(269, "/SandTown/shop6", true);
+        setup(270, "/SandTown/shop7", true);
+        setup(271, "/SandTown/shop8", true);
+        setup(272, "/SandTown/shop9", true);
+        setup(273, "/SandTown/shop10", false);
+        setup(274, "/SandTown/shop11", false);
+        setup(275, "/SandTown/upper1", true);
+        setup(276, "/SandTown/upper2", true);
+        setup(277, "/SandTown/upper3", false);
+        setup(278, "/SandTown/upper4", true);
+        setup(279, "/SandTown/upper5", false);
+        setup(280, "/SandTown/upper6", false);
+        setup(281, "/SandTown/pit1", true);
+        setup(282, "/SandTown/pit2", true);
+        setup(283, "/SandTown/pit3", true);
+        setup(284, "/SandTown/pit4", true);
+        setup(285, "/SandTown/pit5", true);
+        setup(286, "/SandTown/pit6", true);
+        setup(287, "/SandTown/pit7", true);
+        setup(288, "/SandTown/pit8", true);
+        setup(289, "/SandTown/pit9", true);
+        setup(290, "/SandTown/cave", false);
+        setup(291, "/SandTown/upper7", true);
+        setup(292, "/SandTown/upper8", false);
+        setup(293, "/SandTown/upper9", true);
+        setup(294, "/SandTown/palm1", true);
+        setup(295, "/SandTown/palm2", true);
 
 
 

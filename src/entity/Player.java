@@ -30,11 +30,11 @@ public class Player extends Entity {
 
         // COLLISION DETECTION
         solidArea = new Rectangle();
-        solidArea.x = 8;
+        solidArea.x = 12;
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
+        solidArea.width = 27;
         solidArea.height = 30;
 
         // ATTACK AREA
@@ -50,8 +50,8 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 20;
-        worldY = gp.tileSize * 26;
+        worldX = gp.tileSize * 17;
+        worldY = gp.tileSize * 16;
 
         defSpeed = 4;
         speed = defSpeed;
@@ -381,6 +381,7 @@ public class Player extends Entity {
 
             if (gp.iTile[gp.currentMap][i].life == 0){
                 gp.iTile[gp.currentMap][i] = gp.iTile[gp.currentMap][i].getDestroyedForm();
+                gp.iTile[gp.currentMap][i].checkDrop();
             }
         }
     }
@@ -415,6 +416,7 @@ public class Player extends Entity {
     }
     private void checkLvlUp() {
 
+
         if (exp >= nextLevelUp){
             level++;
             nextLevelUp = nextLevelUp*3;
@@ -422,8 +424,8 @@ public class Player extends Entity {
             maxMana++;
             strength++;
             dexterity++;
-            attack = getAttack();
-            defence = getDefence();
+            attack++;
+            defence++;
             life = maxLife;
             mana = maxMana;
 
@@ -431,7 +433,6 @@ public class Player extends Entity {
             gp.gameState = gp.dialogueState;
             gp.ui.currentDialog = "You are level " + level + " now!";
         }
-
     }
     private void contactMonster(int i) {
         if (i != 999){

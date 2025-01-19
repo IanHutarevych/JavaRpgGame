@@ -24,14 +24,14 @@ public class OBJ_Slize  extends Projectile {
     }
 
     private void getImage() {
-        up1 = setup("/projectile/SlizeUp1",gp.tileSize, gp.tileSize);
-        up2 = setup("/projectile/SlizeUp2",gp.tileSize, gp.tileSize);
-        down1 = setup("/projectile/SlizeDown1",gp.tileSize, gp.tileSize);
-        down2 = setup("/projectile/SlizeDown2",gp.tileSize, gp.tileSize);
-        right1 = setup("/projectile/SlizeRight1",gp.tileSize, gp.tileSize);
-        right2 = setup("/projectile/SlizeRight2",gp.tileSize, gp.tileSize);
-        left1 = setup("/projectile/SlizeLeft1",gp.tileSize, gp.tileSize);
-        left2 = setup("/projectile/SlizeLeft2",gp.tileSize, gp.tileSize);
+        up1 = setup("/projectile/Slize_up1",gp.tileSize, gp.tileSize);
+        up2 = setup("/projectile/Slize_up2",gp.tileSize, gp.tileSize);
+        down1 = setup("/projectile/Slize_down1",gp.tileSize, gp.tileSize);
+        down2 = setup("/projectile/Slize_down2",gp.tileSize, gp.tileSize);
+        right1 = setup("/projectile/Slize_right1",gp.tileSize, gp.tileSize);
+        right2 = setup("/projectile/Slize_right2",gp.tileSize, gp.tileSize);
+        left1 = setup("/projectile/Slize_left1",gp.tileSize, gp.tileSize);
+        left2 = setup("/projectile/Slize_left2",gp.tileSize, gp.tileSize);
     }
     public Color getParticleColor(){
         Color color = new Color(106,190,48);

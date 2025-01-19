@@ -14,6 +14,13 @@ public class OBJ_Coin_Bronze extends Entity {
         value = 1;
         name = "Bronze Coin";
         down1 = setup("/objects/coinBronze",gp.tileSize, gp.tileSize);
+
+        solidArea.x = 12;
+        solidArea.y = 9;
+        solidArea.width = 27;
+        solidArea.height = 27;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
     public void use(Entity e) {
 

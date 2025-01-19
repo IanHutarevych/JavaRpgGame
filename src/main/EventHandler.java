@@ -68,7 +68,8 @@ public class EventHandler {
             if (hit(0,24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
             else if (hit(0,24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
             else if (hit(0,34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
-            else if (hit(2,18, 17, "any")) {receiveMessage4(18, 17, gp.dialogueState);}
+            else if (hit(2,14, 18, "any")) {receiveMessage4(14, 18, gp.dialogueState);}
+            else if (hit(2,10, 14, "any")) {receiveMessage4(10, 14, gp.dialogueState);}
             else if (hit(0,35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
             else if (hit(0,36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
             else if (hit(0,37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
@@ -87,6 +88,9 @@ public class EventHandler {
             else if (hit(1, 23, 20, "any")) {teleportEnter(0, 27, 20); }
             else if (hit(2, 20, 43, "any")) {teleport(0, 23, 17); }
             else if (hit(0, 23, 17, "any")) {teleport(2, 20, 43); }
+
+            else if (hit(2, 23, 10, "up")) {teleport(2, 17, 11); }
+            else if (hit(2, 17, 10, "up")) {teleport(2, 23, 11); }
 
             else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
         }

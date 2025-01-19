@@ -1,11 +1,16 @@
 package tile_interactive;
 import main.GamePanel;
+import object.OBJ_Coin_Bronze;
+import object.OBJ_Heart;
+import object.OBJ_ManaStar;
 
-public class IT_AfterRock extends InteractiveTile {
+import java.util.Random;
+
+public class IT_AfterRock1 extends InteractiveTile {
 
     GamePanel gp;
 
-    public IT_AfterRock(GamePanel gp, int col, int row) {
+    public IT_AfterRock1(GamePanel gp, int col, int row) {
         super(gp,col,row);
         this.gp = gp;
 
@@ -22,4 +27,6 @@ public class IT_AfterRock extends InteractiveTile {
         solidAreaDefaultY = solidArea.y;
 
     }
+
+
 }

@@ -10,7 +10,7 @@ public class CreateFileWithNumbers {
         int cols = 50;
         int value = 200;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("SandTown.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("123.txt"))) {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     writer.write(value + " ");
