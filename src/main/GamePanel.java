@@ -3,6 +3,7 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentManager;
 import object.OBJ_Gold_Clever;
 import object.OBJ_Key;
 import tile.TileManager;
@@ -55,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -98,6 +100,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setInteractiveTile();
+        eManager.setup();
+
         playMusic(8);
         gameState = titleState;
 
@@ -294,6 +298,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
             // EMPTY LIST
             entityList.clear();
+
+            // ENVIRONMENT
+            eManager.draw(g2);
 
             // UI
             ui.draw(g2);

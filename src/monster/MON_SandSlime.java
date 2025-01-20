@@ -123,7 +123,7 @@ public class MON_SandSlime extends Entity {
         if (i >=50 && i < 75){
             dropItem(new OBJ_Heart(gp));
         }
-        if (i >=75 && i < 100){
+        if (i >=75){
             dropItem(new OBJ_Coin_Silver(gp));
         }
     }

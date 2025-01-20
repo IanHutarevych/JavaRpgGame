@@ -152,6 +152,18 @@ public class Player extends Entity {
 
             attackRight1 = setup("/player/axe_right1",gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("/player/axe_right2",gp.tileSize*2, gp.tileSize);
+        }if (currentWeapon.type == type_watering){
+            attackUp1 = setup("/player/water_up1",gp.tileSize, gp.tileSize*2);
+            attackUp2 = setup("/player/water_up2",gp.tileSize, gp.tileSize*2);
+
+            attackDown1 = setup("/player/water_down1",gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/player/water_down2",gp.tileSize, gp.tileSize*2);
+
+            attackLeft1 = setup("/player/water_left1",gp.tileSize*2, gp.tileSize);
+            attackLeft2 = setup("/player/water_left2",gp.tileSize*2, gp.tileSize);
+
+            attackRight1 = setup("/player/water_right1",gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/player/water_right2",gp.tileSize*2, gp.tileSize);
         }
         if (currentWeapon.type == type_michael_sword){
             attackUp1 = setup("/player/mic_up1",gp.tileSize, gp.tileSize*2);
@@ -504,7 +516,7 @@ public class Player extends Entity {
 
         if (itemIndex < inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
-            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_michael_sword) {
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_michael_sword || selectedItem.type == type_watering) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();

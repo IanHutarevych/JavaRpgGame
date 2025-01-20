@@ -1,36 +1,31 @@
 package tile_interactive;
+
 import entity.Entity;
 import main.GamePanel;
+import object.*;
 
 import java.awt.*;
+import java.util.Random;
 
-public class IT_PalmTrunk extends InteractiveTile {
+public class IT_Vase1 extends InteractiveTile{
 
     GamePanel gp;
 
-    public IT_PalmTrunk(GamePanel gp, int col, int row) {
+    public IT_Vase1(GamePanel gp, int col, int row) {
         super(gp,col,row);
         this.gp = gp;
 
         this.worldX = gp. tileSize * col;
         this.worldY = gp.tileSize * row;
 
-        down1 = setup("/tiles_interactive/trunkPalm",gp.tileSize, gp.tileSize);
-
-        solidArea.x = 12;
-        solidArea.y = 21;
-        solidArea.width = 27;
-        solidArea.height = 24;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
-
+        down1 = setup("/tiles_interactive/vase1",gp.tileSize, gp.tileSize);
         destructible = true;
         life = 3;
 
     }
     public boolean isCorrectWeapon(Entity e) {
         boolean correct = false;
-        if (e.currentWeapon.type == type_watering){
+        if (e.currentWeapon.type == type_axe || e.currentWeapon.type == type_sword || e.currentWeapon.type == type_michael_sword){
             correct = true;
         }
         return correct;
@@ -40,12 +35,13 @@ public class IT_PalmTrunk extends InteractiveTile {
     }
 
     public InteractiveTile getDestroyedForm(){
-        InteractiveTile destroyedForm = new IT_Palm(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        InteractiveTile destroyedForm = new IT_AfterVase1(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        checkDrop();
 
         return destroyedForm;
     }
     public Color getParticleColor(){
-        Color color = new Color(129,179,255);
+        Color color = new Color(214,160,84);
         return color;
     }
     public int getParticleSize(){
@@ -59,5 +55,18 @@ public class IT_PalmTrunk extends InteractiveTile {
     public int getParticleMaxLife(){
         int maxLife = 20;
         return maxLife;
+    }
+    @Override
+    public void checkDrop(){
+        int i = new Random().nextInt(100)+1;
+        if (i > 30 && i < 70){
+            dropItem(new OBJ_Coin_Bronze(gp));
+        }
+        if (i >=70 && i <90){
+            dropItem(new OBJ_Coin_Silver(gp));
+        }
+        if (i >=90 && i < 100){
+            dropItem(new OBJ_Coin_Gold(gp));
+        }
     }
 }

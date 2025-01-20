@@ -159,7 +159,7 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
         i++;*/
 
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Axe(gp));
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Watering(gp));
         gp.obj[mapNum][i].worldX = 9 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;
@@ -268,6 +268,8 @@ public class AssetSetter {
         gp.iTile[mapNum][i] = new IT_Rock1(gp,9,13);i++;
         gp.iTile[mapNum][i] = new IT_Rock2(gp,25,13);i++;
         gp.iTile[mapNum][i] = new IT_AfterRock1(gp,8,11);i++;
+        gp.iTile[mapNum][i] = new IT_Vase1(gp,14,17
+        );i++;
     }
 
 }
