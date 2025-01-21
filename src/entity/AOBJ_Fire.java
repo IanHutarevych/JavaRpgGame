@@ -1,10 +1,14 @@
 package entity;
 
+import environment.Lightning;
 import main.GamePanel;
-
+import object.OBJ_Torch;
 
 
 public class AOBJ_Fire extends Entity {
+
+    Lightning lightning = new Lightning(gp);
+
     public AOBJ_Fire(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -13,6 +17,8 @@ public class AOBJ_Fire extends Entity {
         direction = "down";
 
         collision = true;
+
+        lightRadius = 400;
 
 
         solidArea.x = 3;
@@ -23,7 +29,7 @@ public class AOBJ_Fire extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         getImage();
-        isBurning();
+        lightning.setLightSource();
     }
 
     public void getImage() {

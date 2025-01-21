@@ -68,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     public InteractiveTile[][] iTile = new InteractiveTile[maxMap][50];
     public Entity projectile[][] = new Entity[maxMap][20];
     public ArrayList<Entity> particleList = new ArrayList<>();
+    public ArrayList<Entity> lights = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
     public int keyCounter = 0;
 
@@ -82,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int optionsState = 6;
     public final int transitionState = 7;
     public final int tradeState = 8;
+    public final int sleepState = 9;
 
 
     //Constructor
@@ -225,6 +227,7 @@ public class GamePanel extends JPanel implements Runnable {
                     iTile[currentMap][i].update();
                 }
             }
+            eManager.update();
         }
         if (gameState == pauseState){
 

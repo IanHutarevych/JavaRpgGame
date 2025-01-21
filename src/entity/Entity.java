@@ -64,6 +64,7 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Entity currentLight;
     public Projectile projectile;
 
     // ITEM ATTRIBUTES
@@ -79,6 +80,7 @@ public class Entity {
     public int knockBackSkill;
     public boolean stackable = false;
     public int amount = 1;
+    public int lightRadius;
 
 
     // TYPE
@@ -94,6 +96,7 @@ public class Entity {
     public final int type_michael_sword = 8;
     public final int type_obstacle = 9;
     public final int type_watering = 10;
+    public final int type_light = 11;
 
 
 
@@ -464,7 +467,9 @@ public class Entity {
         }
         return image;
     }
-    public void use (Entity e){}
+    public boolean use (Entity e){
+        return false;
+    }
     public void checkDrop(){}
     public void dropItem(Entity droppedItem){
         for (int i = 0; i <gp.obj[1].length; i++) {

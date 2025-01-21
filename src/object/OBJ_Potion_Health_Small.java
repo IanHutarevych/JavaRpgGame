@@ -21,11 +21,12 @@ public class OBJ_Potion_Health_Small extends Entity {
         price = 5;
         stackable = true;
     }
-    public void use(Entity e) {
+    public boolean use(Entity e) {
 
         gp.gameState = gp.dialogueState;
         gp.ui.currentDialog = "You drunk the " + name + "!\n" + "Your life has been recovered by " + value + ".";
         e.life += value;
         gp.playSE(2);
+        return false;
     }
 }

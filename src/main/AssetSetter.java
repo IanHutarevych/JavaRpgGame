@@ -164,6 +164,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Tent( gp);
+        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 14 * gp.tileSize;
+        i++;
+
         gp.obj[mapNum][i] = new OBJ_Billboard(gp);
         gp.obj[mapNum][i].worldX = 10 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 14 * gp.tileSize;

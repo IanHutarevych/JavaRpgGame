@@ -12,7 +12,7 @@ public class Player extends Entity {
     public final int screenX, screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
-    int SECounter = 0;
+    public boolean lightUpdated = false;
 
     public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2;
 
@@ -516,7 +516,11 @@ public class Player extends Entity {
 
         if (itemIndex < inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
-            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_michael_sword || selectedItem.type == type_watering) {
+            if (selectedItem.type == type_sword
+            || selectedItem.type == type_axe
+            || selectedItem.type == type_michael_sword
+            || selectedItem.type == type_watering) {
+
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();
@@ -524,6 +528,15 @@ public class Player extends Entity {
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;
                 defence = getDefence();
+            }
+            if (selectedItem.type == type_light) {
+                if (currentLight == selectedItem){
+                    currentLight = null;
+                }
+                else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
             }
             if (selectedItem.type == type_consumable) {
 
@@ -653,5 +666,24 @@ public class Player extends Entity {
             }
         }
         return canObtain;
+    }
+    public void getSleepingImage(BufferedImage image){
+        up1 = image;
+        up2 = image;
+        down1 = image;
+        down2 = image;
+        left1 = image;
+        left2 = image;
+        right1 = image;
+        right2 = image;
+
+        idleDown1 = image;
+        idleDown2 = image;
+        idleLeft1 = image;
+        idleLeft2 = image;
+        idleRight1 = image;
+        idleRight2 = image;
+        idleUp1 = image;
+        idleUp2 = image;
     }
 }

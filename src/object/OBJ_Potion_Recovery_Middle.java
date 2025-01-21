@@ -20,11 +20,12 @@ public class OBJ_Potion_Recovery_Middle extends Entity {
         price = 10;
         stackable = true;
     }
-    public void use(Entity e) {
+    public boolean use(Entity e) {
 
         gp.gameState = gp.dialogueState;
         gp.ui.currentDialog = "You drunk the " + name + "!\n" + "Your mana has been recovered by " + value + ".";
         e.mana += value;
         gp.playSE(2);
+        return false;
     }
 }

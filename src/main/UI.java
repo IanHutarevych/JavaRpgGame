@@ -110,7 +110,34 @@ public class UI {
         if (gp.gameState == gp.tradeState){
             drawTradeScreen();
         }
+        // SLEEP STATE
+        if (gp.gameState == gp.sleepState){
+            drawSleepScreen();
+        }
     }
+
+    private void drawSleepScreen() {
+        counter++;
+
+        if (counter < 120){
+            gp.eManager.lightning.filterAlpha += 0.01f;
+            if (gp.eManager.lightning.filterAlpha > 1f){
+                gp.eManager.lightning.filterAlpha = 1f;
+            }
+        }
+        if (counter >= 120){
+            gp.eManager.lightning.filterAlpha -= 0.01f;
+            if (gp.eManager.lightning.filterAlpha <= 0){
+                gp.eManager.lightning.filterAlpha = 0f;
+                counter = 0;
+                gp.eManager.lightning.dayState = gp.eManager.lightning.day;
+                gp.eManager.lightning.dayCounter = 0;
+                gp.gameState = gp.playState;
+                gp.player.getPlayerImage();
+            }
+        }
+    }
+
     private void drawTradeScreen() {
 
         switch (subState) {
@@ -554,7 +581,8 @@ public class UI {
         // DRAW PLAYER`S ITEMS
         for (int i = 0; i < entity.inventory.size(); i++) {
 
-            if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield) {
+            // EQUIP CURSOR
+            if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield || entity.inventory.get(i) == entity.currentLight) {
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 

@@ -22,10 +22,11 @@ public class OBJ_Coin_Gold extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
     }
-    public void use(Entity e) {
+    public boolean use(Entity e) {
 
         gp.playSE(1);
         gp.ui.addMessage("Coin +" + value);
         gp.player.coin += value;
+        return false;
     }
 }

@@ -18,9 +18,10 @@ GamePanel gp;
         image2 = setup("/objects/heart02",gp.tileSize, gp.tileSize);
         image3 = setup("/objects/heart03",gp.tileSize, gp.tileSize);
     }
-    public void use(Entity e) {
+    public boolean use(Entity e) {
         gp.playSE(2);
         gp.ui.addMessage("Life +" + value);
         e.life += value;
+        return false;
     }
 }

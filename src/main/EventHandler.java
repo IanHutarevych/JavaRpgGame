@@ -2,6 +2,7 @@ package main;
 
 import entity.AOBJ_Fire;
 import entity.Entity;
+import environment.Lightning;
 import object.OBJ_DoorOpen;
 import object.OBJ_Key;
 
@@ -189,20 +190,22 @@ public class EventHandler {
 
             canTouchEvent = false;
             gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
+
     }
     public void teleportEnter(int map, int col, int row) {
-        if (gp.keyH.enterPressed) {
-            gp.player.attackCanceled = true;
 
-            gp.gameState = gp.transitionState;
+            if (gp.keyH.enterPressed) {
+                gp.player.attackCanceled = true;
 
-            tempMap = map;
-            tempCol = col;
-            tempRow = row;
+                gp.gameState = gp.transitionState;
 
-            canTouchEvent = false;
-            gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
-        }
+                tempMap = map;
+                tempCol = col;
+                tempRow = row;
+
+                canTouchEvent = false;
+                gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
+            }
     }
     public void slowlySpeed(int x, int y, int gameState) {
         gp.gameState = gameState;

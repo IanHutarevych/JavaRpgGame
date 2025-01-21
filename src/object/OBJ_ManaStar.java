@@ -15,9 +15,10 @@ GamePanel gp;
         image1 = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/manaEmpty",gp.tileSize, gp.tileSize);
     }
-    public void use(Entity e) {
+    public boolean use(Entity e) {
         gp.playSE(2);
         gp.ui.addMessage("Mana +" + value);
         e.mana += value;
+        return false;
     }
 }
