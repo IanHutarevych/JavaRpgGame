@@ -27,6 +27,7 @@ public class MON_Ogre extends Entity{
         attack = 12;
         defence = 2;
         exp = 15;
+        knockBackPower = 5;
 
 
         solidArea.x = 4;
@@ -65,11 +66,11 @@ public class MON_Ogre extends Entity{
         attackDown1 = setup("/monster/Ogre_attackDown1", gp.tileSize, gp.tileSize*2);
         attackDown2 = setup("/monster/Ogre_attackDown2", gp.tileSize, gp.tileSize*2);
 
-        attackRight1 = setup("/monster/Ogre_attackRight1", gp.tileSize, gp.tileSize*2);
-        attackRight2 = setup("/monster/Ogre_attackRight2", gp.tileSize, gp.tileSize*2);
+        attackRight1 = setup("/monster/Ogre_attackRight1", gp.tileSize*2, gp.tileSize);
+        attackRight2 = setup("/monster/Ogre_attackRight2", gp.tileSize*2, gp.tileSize);
 
-        attackLeft1 = setup("/monster/Ogre_attackLeft1", gp.tileSize, gp.tileSize*2);
-        attackLeft2 = setup("/monster/Ogre_attackLeft2", gp.tileSize, gp.tileSize*2);
+        attackLeft1 = setup("/monster/Ogre_attackLeft1", gp.tileSize*2, gp.tileSize);
+        attackLeft2 = setup("/monster/Ogre_attackLeft2", gp.tileSize*2, gp.tileSize);
 
     }
     public void setAction(){

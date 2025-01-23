@@ -42,8 +42,9 @@ public class Player extends Entity {
         attackArea.height = 36;*/
 
         setDefaultValues();
-        getPlayerImage();
-        getPlayerAttackImage();
+        getAttackImage();
+        getGuardImage();
+        getImage();
         setItems();
     }
     public void setDefaultValues(){
@@ -76,8 +77,8 @@ public class Player extends Entity {
         defence = getDefence();
     }
     public void setDefaultPositions(){
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 20;
+        worldX = gp.tileSize * 17;
+        worldY = gp.tileSize * 11;
         direction = "down";
 
     }
@@ -85,6 +86,7 @@ public class Player extends Entity {
         life = maxLife;
         mana = maxMana;
         invincible = false;
+        transparent = false;
     }
     public void setItems(){
 
@@ -106,10 +108,7 @@ public class Player extends Entity {
     private int getDefence() {
         return defence = dexterity * currentShield.defenceValue;
     }
-    public void getPlayerImage(){
-
-
-
+    public void getImage(){
             up1 = setup("/player/up1", gp.tileSize, gp.tileSize);
             up2 = setup("/player/up2", gp.tileSize, gp.tileSize);
             down1 = setup("/player/down1", gp.tileSize, gp.tileSize);
@@ -130,7 +129,7 @@ public class Player extends Entity {
             head = setup("/player/head", gp.tileSize, gp.tileSize);
 
     }
-    public void getPlayerAttackImage(){
+    public void getAttackImage(){
         if (currentWeapon.type == type_sword) {
         attackUp1 = setup("/player/upAttack1",gp.tileSize, gp.tileSize*2);
         attackUp2 = setup("/player/upAttack2",gp.tileSize, gp.tileSize*2);
@@ -183,10 +182,53 @@ public class Player extends Entity {
             attackRight2 = setup("/player/mic_right2",gp.tileSize*2, gp.tileSize);
         }
     }
+    public void getGuardImage() {
+
+        guardUp = setup("/player/shield_wood_up", gp.tileSize, gp.tileSize);
+        guardDown = setup("/player/shield_wood_down", gp.tileSize, gp.tileSize);
+        guardLeft = setup("/player/shield_wood_left", gp.tileSize, gp.tileSize);
+        guardRight = setup("/player/shield_wood_right", gp.tileSize, gp.tileSize);
+    }
     public void update() {
+
+        if (knockBack){
+
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            gp.cChecker.checkObject(this, true);
+            gp.cChecker.checkEntity(this, gp.npc);
+            gp.cChecker.checkEntity(this, gp.monster);
+            gp.cChecker.checkEntity(this,gp.iTile);
+
+            if (collisionOn){
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defSpeed;
+            }
+            else if (!collisionOn){
+                switch (knockBackDirection){
+                    case "up":worldY -= speed;break;
+                    case "down":worldY += speed;break;
+                    case "left": worldX -= speed;break;
+                    case "right":worldX += speed;break;
+                }
+            }
+
+            knockBackCounter++;
+            if (knockBackCounter == 10){ // KnockBack distance
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defSpeed;
+            }
+        }
         // Якщо атака активна, викликаємо метод атаки
-        if (attacking) {
+        else if (attacking) {
             attacking();
+        }
+        else if (keyH.spacePressed){
+            guarding = true;
+            guardCounter++;
+
         }
         // Якщо натискаються клавіші для руху або атаки
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
@@ -218,10 +260,14 @@ public class Player extends Entity {
                     if (spriteNum == 1) { image = attackUp1; }
                     if (spriteNum == 2) { image = attackUp2; }
                 }
+                else if (guarding){
+                    image = guardUp;
+                }
                 else if (idle) { // Якщо персонаж в стані idle
                     if (spriteNum == 1) { image = idleUp1; }
                     if (spriteNum == 2) { image = idleUp2; }
-                } else { // Якщо рухається
+                }
+                else { // Якщо рухається
                     if (spriteNum == 1) { image = up1; }
                     if (spriteNum == 2) { image = up2; }
                 }
@@ -232,6 +278,9 @@ public class Player extends Entity {
                 if (attacking) { // Якщо атакує
                     if (spriteNum == 1) { image = attackDown1; }
                     if (spriteNum == 2) { image = attackDown2; }
+                }
+                else if (guarding){
+                    image = guardDown;
                 }
                 else if (idle) { // Якщо персонаж в стані idle
                     if (spriteNum == 1) {
@@ -253,6 +302,9 @@ public class Player extends Entity {
                     if (spriteNum == 1) { image = attackLeft1; }
                     if (spriteNum == 2) { image = attackLeft2; }
                 }
+                else if (guarding){
+                    image = guardLeft;
+                }
                 else if (idle) { // Якщо персонаж в стані idle
                     if (spriteNum == 1) { image = idleLeft1; }
                     if (spriteNum == 2) { image = idleLeft2; }
@@ -267,17 +319,21 @@ public class Player extends Entity {
                 if (spriteNum == 1) { image = attackRight1; }
                 if (spriteNum == 2) { image = attackRight2; }
             }
+            else if (guarding){
+                image = guardRight;
+            }
             else if (idle) { // Якщо персонаж в стані idle
                 if (spriteNum == 1) { image = idleRight1; }
                 if (spriteNum == 2) { image = idleRight2; }
-            } else { // Якщо рухається
+            }
+            else { // Якщо рухається
                 if (spriteNum == 1) { image = right1; }
                 if (spriteNum == 2) { image = right2; }
             }
             break;
         }
 
-        if (invincible){
+        if (transparent){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
         g2.drawImage(image, tempScreenX, tempScreenY, null);
@@ -317,6 +373,8 @@ public class Player extends Entity {
 
         attackCanceled = false;
         gp.keyH.enterPressed = false;
+        guarding = false;
+        guardCounter = 0;
 
         // Анімація
         spriteCounter++;
@@ -369,6 +427,7 @@ public class Player extends Entity {
             invincibleCounter++;
             if (invincibleCounter > 60) {
                 invincible = false;
+                transparent = false;
                 invincibleCounter = 0;
             }
         }
@@ -392,7 +451,6 @@ public class Player extends Entity {
             gp.playSE(12);
         }
     }
-
     public void idleAnimation() {
         standCounter++; // збільшуємо лічильник кадрів
 
@@ -400,8 +458,9 @@ public class Player extends Entity {
             spriteNum = (spriteNum == 1) ? 2 : 1; // чергування між спрайтами
             standCounter = 0; // скидаємо лічильник
         }
+        guarding = false;
+        guardCounter = 0;
     }
-
     public void damageProjectile(int i) {
         if (i != 999) {
             Entity projectile = gp.projectile[gp.currentMap][i];
@@ -431,6 +490,10 @@ public class Player extends Entity {
 
                 if (knockBackPower > 0){
                     setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower,  knockBackSkill);
+                }
+
+                if (gp.monster[gp.currentMap][i].offBalance){
+                    attack *= 2;
                 }
 
                 int damage = attack - gp.monster[gp.currentMap][i].defence;
@@ -477,11 +540,12 @@ public class Player extends Entity {
             if (!invincible && !gp.monster[gp.currentMap][i].dying) {
                 gp.playSE(6);
                 int damage = gp.monster[gp.currentMap][i].attack - defence;
-                if (damage < 0){
-                    damage = 0;
+                if (damage < 1){
+                    damage = 1;
                 }
                 life -= damage;
                 invincible = true;
+                transparent = true;
             }
         }
     }
@@ -549,7 +613,7 @@ public class Player extends Entity {
 
                 currentWeapon = selectedItem;
                 attack = getAttack();
-                getPlayerAttackImage();
+                getAttackImage();
             }
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;

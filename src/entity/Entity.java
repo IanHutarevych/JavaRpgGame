@@ -15,8 +15,9 @@ public class Entity {
 
     GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,attackRight2 ;
-    public BufferedImage image1, image2, image3, image4, image5, image6, image7, image8;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,attackRight2;
+    public BufferedImage image1, image2, image3;
+    public BufferedImage guardUp, guardDown, guardLeft, guardRight;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -39,6 +40,9 @@ public class Entity {
     public boolean onPath = false;
     public boolean knockBack = false;
     public String knockBackDirection;
+    public boolean guarding = false;
+    public boolean transparent = false;
+    public boolean  offBalance = false;
 
     // COUNTER
     public int actionLockCounter = 0;
@@ -48,6 +52,8 @@ public class Entity {
     int dyingCounter = 0;
     int hpBarCounter = 0;
     int knockBackCounter = 0;
+    public int guardCounter = 0;
+    public int offBalanceCounter = 0;
 
     // CHARACTER ATTRIBUTE
     public String name;
@@ -173,17 +179,53 @@ public class Entity {
     }
     public void damagePlayer(int attack){
         if (!gp.player.invincible){
-            // player can give damage
-            gp.playSE(6);
 
             int damage = attack - gp.player.defence;
-            if (damage<0){
-                damage = 0;
+
+            // get an opposite direction
+            String canGuardDirection = getOppositeDirection(direction);
+            if (gp.player.guarding && gp.player.direction.equals(canGuardDirection)){
+
+                // parry
+                if (gp.player.guardCounter < 10){
+                    damage = 0;
+                    //gp.playSE(1231);
+                    setKnockBack(this, gp.player, knockBackPower, knockBackSkill);
+                    offBalance = true;
+                    spriteCounter =- 60;
+                }
+                // normal guard
+                damage/= 3;
+                gp.playSE(9);
+            } else {
+                // player can give damage
+                gp.playSE(6);
+
+                if (damage<1){
+                    damage = 1;
+                }
             }
+
+            if (damage != 0){
+                gp.player.transparent = true;
+                setKnockBack(gp.player, this, knockBackPower, knockBackSkill);
+            }
+
             gp.player.life -= damage;
 
             gp.player.invincible = true;
         }
+    }
+    public String getOppositeDirection(String direction){
+        String oppositeDirection = "";
+
+        switch (direction) {
+            case "up": oppositeDirection = "down"; break;
+            case "down": oppositeDirection = "up"; break;
+            case "left": oppositeDirection = "right"; break;
+            case "right": oppositeDirection = "left"; break;
+        }
+        return oppositeDirection;
     }
     public void setKnockBack(Entity target, Entity attacker, int knockBackPower, int knockBackSkill) {
 
@@ -454,6 +496,13 @@ public class Entity {
 
         if (shotAvailableCounter < 30){
             shotAvailableCounter++;
+        }
+        if (offBalance){
+            offBalanceCounter++;
+            if (offBalanceCounter > 60){
+                offBalance = false;
+                offBalanceCounter = 0;
+            }
         }
     }
     public void draw (Graphics2D g2) {
