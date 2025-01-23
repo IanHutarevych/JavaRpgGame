@@ -6,6 +6,7 @@ import entity.Player;
 import environment.EnvironmentManager;
 import object.OBJ_Gold_Clever;
 import object.OBJ_Key;
+import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     int screenHeight2 = screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
-    public boolean fullScreenOn = true;
+    public boolean fullScreenOn = false;
 
 
     // FPS
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
     EnvironmentManager eManager = new EnvironmentManager(this);
+    Map map = new Map(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -84,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
+    public final int mapState = 10;
 
 
     //Constructor
@@ -246,6 +249,10 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == titleState){
             ui.draw(g2);
         }
+        // MAP
+        else if (gameState == mapState){
+            map.drawFullMapScreen(g2);
+        }
         // OTHERS
         else{
 
@@ -304,6 +311,9 @@ public class GamePanel extends JPanel implements Runnable {
 
             // ENVIRONMENT
             eManager.draw(g2);
+
+            // MINI MAP
+            map.drawMiniMap(g2);
 
             // UI
             ui.draw(g2);

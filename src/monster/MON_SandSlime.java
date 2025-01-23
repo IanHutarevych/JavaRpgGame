@@ -67,46 +67,24 @@ public class MON_SandSlime extends Entity {
         }
     }
     public void setAction(){
+
         if (onPath){
 
+            // check if it stops chasing
+            checkStopChasingOrNot(gp.player, 15, 100);
 
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
+            // search the direction to go
+            searchPathToPlayer(getGoalCol(gp.player), getGoalRow(gp.player));
 
-            searchPathToPlayer(goalCol, goalRow);
-
-            int i = new Random().nextInt(200)+1;
-            if (i > 197 && !projectile.alive && shotAvailableCounter == 30){
-                projectile.set(worldX,worldY, direction, true, this);
-                for (int j = 0; j < gp.projectile[1].length; j++) {
-                    if (gp.projectile[gp.currentMap][j] == null){
-                        gp.projectile[gp.currentMap][j] = projectile;
-                        break;
-                    }
-                }
-                shotAvailableCounter = 0;
-            }
+            // check if it shoots a projectile
+            checkShootOrNot(200, 30);
         }
         else {
-            actionLockCounter ++;
+            // check if it starts chasing
+            checkStartChasingOrNot(gp.player, 5, 100);
 
-            if (actionLockCounter == 120){
-                Random r = new Random();
-
-                int i = r.nextInt(100)+1; // pick up a number from 1 tp 100
-
-                // EASY AI FOR NPC
-                if (i <= 25){
-                    direction = "up";
-                } if (i <= 50 && i > 25){
-                    direction = "down";
-                } if (i <= 75 && i > 50){
-                    direction = "left";
-                } if (i > 75){
-                    direction = "right";
-                }
-                actionLockCounter = 0;
-            }
+            // get a random direction
+            getRandomDirection();
         }
     }
     public void damageReaction(){

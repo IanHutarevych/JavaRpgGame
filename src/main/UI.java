@@ -16,7 +16,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font maruMonica;
+    public Font maruMonica;
     BufferedImage heart01, heart02, heart03, manaFull, manaEmpty, coin;
 
     public boolean messageOn = false;

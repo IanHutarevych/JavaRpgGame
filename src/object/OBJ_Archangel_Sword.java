@@ -15,7 +15,8 @@ public class OBJ_Archangel_Sword extends Entity {
         attackArea.height = 36;
         description = "[" + name + "]\nA holy mythical artifact \nthat crushes darkness";
         price = 150;
-
         knockBackPower = 2;
+        motion1_duration = 3;
+        motion2_duration = 15;
     }
 }

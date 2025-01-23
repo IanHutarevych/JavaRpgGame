@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class KeyHandler implements KeyListener {
          }
          // OPTIONS STATE
          else if (gp.gameState == gp.optionsState) {
-             opionState(code);
+             optionState(code);
          }
          // GAME OVER STATE
          else if (gp.gameState == gp.gameOverState) {
@@ -59,11 +58,22 @@ public class KeyHandler implements KeyListener {
              }
          }
          // TRADE STATE
-        else if (gp.gameState == gp.tradeState){
-            tradeState(code);
+         else if (gp.gameState == gp.tradeState){
+             tradeState(code);
+         }
+         // MAP STATE
+         else if (gp.gameState == gp.mapState){
+             mapState(code);
          }
 
     }
+
+    private void mapState(int code) {
+        if (code == KeyEvent.VK_M) {
+            gp.gameState = gp.playState;
+        }
+    }
+
     private void tradeState(int code) {
 
         if (code == KeyEvent.VK_ENTER){
@@ -127,7 +137,7 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-    private void opionState(int code) {
+    private void optionState(int code) {
         if (code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.playState;
         }
@@ -244,6 +254,17 @@ public class KeyHandler implements KeyListener {
             ePressed = true;
         } if (code == KeyEvent.VK_F) {
             shotKeyPressed = true;
+        }
+        if (code == KeyEvent.VK_M)  {
+            gp.gameState = gp.mapState;
+        }
+        if (code == KeyEvent.VK_J)  {
+            if (gp.map.miniMapOn == false){
+                gp.map.miniMapOn = true;
+            }
+            else {
+                gp.map.miniMapOn = false;
+            }
         }
 
 

@@ -14,7 +14,7 @@ public class Player extends Entity {
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
 
-    public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2;
+    public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2, head;
 
 
 
@@ -93,11 +93,14 @@ public class Player extends Entity {
         inventory.add(currentShield);
         inventory.add(new OBJ_Boots(gp));
         inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Torch(gp));
         inventory.add(new OBJ_Potion_Recovery_Big(gp));
 
     }
     private int getAttack() {
         attackArea = currentWeapon.attackArea;
+        motion1_duration = currentWeapon.motion1_duration;
+        motion2_duration = currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
     private int getDefence() {
@@ -124,6 +127,7 @@ public class Player extends Entity {
             idleLeft2 = setup("/player/idleLeft2", gp.tileSize, gp.tileSize);
             idleRight1 = setup("/player/idleRight1", gp.tileSize, gp.tileSize);
             idleRight2 = setup("/player/idleRight2", gp.tileSize, gp.tileSize);
+            head = setup("/player/head", gp.tileSize, gp.tileSize);
 
     }
     public void getPlayerAttackImage(){
@@ -201,6 +205,87 @@ public class Player extends Entity {
         handleInvincibility();
         handleResources();
         checkGameOver();
+    }
+    public void draw(Graphics2D g2){
+        BufferedImage image = null;
+        int tempScreenX = screenX;
+        int tempScreenY = screenY;
+
+        switch (direction) {
+            case "up":
+                if (attacking) { // Якщо атакує
+                    tempScreenY = screenY - gp.tileSize;
+                    if (spriteNum == 1) { image = attackUp1; }
+                    if (spriteNum == 2) { image = attackUp2; }
+                }
+                else if (idle) { // Якщо персонаж в стані idle
+                    if (spriteNum == 1) { image = idleUp1; }
+                    if (spriteNum == 2) { image = idleUp2; }
+                } else { // Якщо рухається
+                    if (spriteNum == 1) { image = up1; }
+                    if (spriteNum == 2) { image = up2; }
+                }
+                break;
+
+            case "down":
+
+                if (attacking) { // Якщо атакує
+                    if (spriteNum == 1) { image = attackDown1; }
+                    if (spriteNum == 2) { image = attackDown2; }
+                }
+                else if (idle) { // Якщо персонаж в стані idle
+                    if (spriteNum == 1) {
+                        image = idleDown1;
+                    }
+                    if (spriteNum == 2) {
+                        image = idleDown2;
+                    }
+                }
+                else { // Якщо рухається
+                    if (spriteNum == 1) { image = down1; }
+                    if (spriteNum == 2) { image = down2; }
+                }
+                break;
+
+            case "left":
+                if (attacking) { // Якщо атакує
+                    tempScreenX = screenX - gp.tileSize;
+                    if (spriteNum == 1) { image = attackLeft1; }
+                    if (spriteNum == 2) { image = attackLeft2; }
+                }
+                else if (idle) { // Якщо персонаж в стані idle
+                    if (spriteNum == 1) { image = idleLeft1; }
+                    if (spriteNum == 2) { image = idleLeft2; }
+                }
+                else { // Якщо рухається
+                    if (spriteNum == 1) { image = left1; }
+                    if (spriteNum == 2) { image = left2; }
+                }
+                break;
+
+            case "right":  if (attacking) { // Якщо атакує
+                if (spriteNum == 1) { image = attackRight1; }
+                if (spriteNum == 2) { image = attackRight2; }
+            }
+            else if (idle) { // Якщо персонаж в стані idle
+                if (spriteNum == 1) { image = idleRight1; }
+                if (spriteNum == 2) { image = idleRight2; }
+            } else { // Якщо рухається
+                if (spriteNum == 1) { image = right1; }
+                if (spriteNum == 2) { image = right2; }
+            }
+            break;
+        }
+
+        if (invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        }
+        g2.drawImage(image, tempScreenX, tempScreenY, null);
+
+        // RESET alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
     }
     private void handleMovement() {
         if (keyH.upPressed) {
@@ -307,6 +392,7 @@ public class Player extends Entity {
             gp.playSE(12);
         }
     }
+
     public void idleAnimation() {
         standCounter++; // збільшуємо лічильник кадрів
 
@@ -315,75 +401,15 @@ public class Player extends Entity {
             standCounter = 0; // скидаємо лічильник
         }
     }
-    public void attacking() {
-        spriteCounter++;
 
-        if (spriteCounter <= 5) {
-            spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 25) {
-            spriteNum = 2;
-
-
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
-
-
-            switch (direction) {
-                case "up":
-                    worldY -= attackArea.height;
-                    break;
-                case "down":
-                    worldY += attackArea.height;
-                    break;
-                case "left":
-                    worldX -= attackArea.width;
-                    break;
-                case "right":
-                    worldX += attackArea.width;
-                    break;
-            }
-
-            solidArea.width = attackArea.width;
-            solidArea.height = attackArea.height;
-
-
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
-
-            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-            damageInteractiveTile(iTileIndex);
-
-            int projectileIndex = gp.cChecker.checkEntity(this, gp.projectile);
-            damageProjectile(projectileIndex);
-
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            solidArea.width = solidAreaWidth;
-            solidArea.height = solidAreaHeight;
-        }
-
-
-        if (spriteCounter > 25) {
-            spriteNum = 1;
-            spriteCounter = 0;
-            attacking = false;
-        }
-    }
-    public void knockBack(Entity entity, int knockBackPower, int knockBackSkill) {
-        entity.direction = direction;
-        entity.speed += knockBackPower + knockBackSkill;
-        entity.knockBack = true;
-    }
-    private void damageProjectile(int i) {
+    public void damageProjectile(int i) {
         if (i != 999) {
             Entity projectile = gp.projectile[gp.currentMap][i];
             projectile.alive = false;
             generateParticle(projectile, projectile);
         }
     }
-    private void damageInteractiveTile(int i) {
+    public void damageInteractiveTile(int i) {
         if (i != 999 && gp.iTile[gp.currentMap][i].destructible && !gp.iTile[gp.currentMap][i].invincible &&gp.iTile[gp.currentMap][i].isCorrectWeapon(this)){
             gp.iTile[gp.currentMap][i].playSE();
             gp.iTile[gp.currentMap][i].life--;
@@ -397,14 +423,14 @@ public class Player extends Entity {
             }
         }
     }
-    public void damageMonster(int i, int attack, int knockBackPower) {
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
 
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible){
                 gp.playSE(5);
 
                 if (knockBackPower > 0){
-                    knockBack(gp.monster[gp.currentMap][i], knockBackPower, knockBackSkill);
+                    setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower,  knockBackSkill);
                 }
 
                 int damage = attack - gp.monster[gp.currentMap][i].defence;
@@ -548,87 +574,6 @@ public class Player extends Entity {
                 }
             }
         }
-    }
-    public void draw(Graphics2D g2){
-        BufferedImage image = null;
-        int tempScreenX = screenX;
-        int tempScreenY = screenY;
-
-        switch (direction) {
-            case "up":
-                if (attacking) { // Якщо атакує
-                    tempScreenY = screenY - gp.tileSize;
-                    if (spriteNum == 1) { image = attackUp1; }
-                    if (spriteNum == 2) { image = attackUp2; }
-                }
-                else if (idle) { // Якщо персонаж в стані idle
-                     if (spriteNum == 1) { image = idleUp1; }
-                    if (spriteNum == 2) { image = idleUp2; }
-                } else { // Якщо рухається
-                    if (spriteNum == 1) { image = up1; }
-                    if (spriteNum == 2) { image = up2; }
-                }
-                break;
-
-            case "down":
-
-                 if (attacking) { // Якщо атакує
-                    if (spriteNum == 1) { image = attackDown1; }
-                    if (spriteNum == 2) { image = attackDown2; }
-                }
-                else if (idle) { // Якщо персонаж в стані idle
-                    if (spriteNum == 1) {
-                        image = idleDown1;
-                    }
-                    if (spriteNum == 2) {
-                        image = idleDown2;
-                    }
-                }
-                 else { // Якщо рухається
-                    if (spriteNum == 1) { image = down1; }
-                    if (spriteNum == 2) { image = down2; }
-                }
-                break;
-
-            case "left":
-                if (attacking) { // Якщо атакує
-                    tempScreenX = screenX - gp.tileSize;
-                    if (spriteNum == 1) { image = attackLeft1; }
-                    if (spriteNum == 2) { image = attackLeft2; }
-                }
-                else if (idle) { // Якщо персонаж в стані idle
-                    if (spriteNum == 1) { image = idleLeft1; }
-                    if (spriteNum == 2) { image = idleLeft2; }
-                }
-                else { // Якщо рухається
-                    if (spriteNum == 1) { image = left1; }
-                    if (spriteNum == 2) { image = left2; }
-                }
-                break;
-
-            case "right":  if (attacking) { // Якщо атакує
-                    if (spriteNum == 1) { image = attackRight1; }
-                    if (spriteNum == 2) { image = attackRight2; }
-                }
-                else if (idle) { // Якщо персонаж в стані idle
-                    if (spriteNum == 1) { image = idleRight1; }
-                    if (spriteNum == 2) { image = idleRight2; }
-                } else { // Якщо рухається
-                    if (spriteNum == 1) { image = right1; }
-                    if (spriteNum == 2) { image = right2; }
-                }
-                break;
-        }
-
-        if (invincible){
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-        }
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
-
-        // RESET alpha
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
-
     }
     public int searchItemInInventory(String itemName){
         int itemIndex = 999;

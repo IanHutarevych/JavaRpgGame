@@ -4,6 +4,7 @@ import entity.AOBJ_Fire;
 import entity.NPC_PumpkinHead;
 import entity.NPC_Mortemark;
 import monster.MON_GreenSlime;
+import monster.MON_Ogre;
 import monster.MON_SandSlime;
 import object.*;
 import tile_interactive.*;
@@ -244,6 +245,11 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_SandSlime(gp);
         gp.monster[mapNum][i].worldX = 34 * gp.tileSize;
         gp.monster[mapNum][i].worldY = 31 * gp.tileSize;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Ogre(gp);
+        gp.monster[mapNum][i].worldX = 11 * gp.tileSize;
+        gp.monster[mapNum][i].worldY = 19 * gp.tileSize;
         i++;
 
     }
