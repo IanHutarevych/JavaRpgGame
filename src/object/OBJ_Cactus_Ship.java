@@ -8,7 +8,7 @@ public class OBJ_Cactus_Ship extends Entity {
     public OBJ_Cactus_Ship(GamePanel gp) {
         super(gp);
 
-        name = "Cactus";
+        name = "CactusShip";
         down1 = setup("/objects/cactusShip1",gp.tileSize, gp.tileSize);
         collision = true;
 

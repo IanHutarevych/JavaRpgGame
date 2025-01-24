@@ -8,7 +8,7 @@ public class OBJ_BillboardSand extends Entity {
     public OBJ_BillboardSand(GamePanel gp) {
         super(gp);
 
-        name = "billboard";
+        name = "billboardSand";
         down1 = setup("/objects/billboardSand",gp.tileSize, gp.tileSize);
         collision = true;
 

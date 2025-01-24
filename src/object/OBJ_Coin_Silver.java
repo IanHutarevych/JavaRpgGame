@@ -12,7 +12,7 @@ public class OBJ_Coin_Silver extends Entity {
 
         type = type_pickupOnly;
         value = 5;
-        name = "Bronze Coin";
+        name = "Silver Coin";
         down1 = setup("/objects/coinSilver",gp.tileSize, gp.tileSize);
 
         solidArea.x = 12;

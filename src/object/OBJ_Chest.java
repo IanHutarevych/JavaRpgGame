@@ -6,17 +6,14 @@ import main.GamePanel;
 public class OBJ_Chest extends Entity {
 
     GamePanel gp;
-    Entity loot;
-    boolean opened = false;
 
-    public OBJ_Chest(GamePanel gp, Entity loot) {
+    public OBJ_Chest(GamePanel gp) {
 
         super(gp);
         this.gp = gp;
-        this.loot = loot;
 
         type = type_obstacle;
-        name = "chest_close";
+        name = "Chest";
         image1 = setup("/objects/chest_close",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/chest_open",gp.tileSize, gp.tileSize);
         down1 = image1;
@@ -31,10 +28,13 @@ public class OBJ_Chest extends Entity {
 
 
     }
+    public void setLoot(Entity loot) {
+        this.loot = loot;
+    }
     public void interact(){
         gp.gameState = gp.dialogueState;
 
-        if (opened == false){
+        if (!opened){
             gp.playSE(3);
 
             StringBuilder sb = new StringBuilder();

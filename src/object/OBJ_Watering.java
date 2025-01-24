@@ -15,5 +15,7 @@ public class OBJ_Watering extends Entity {
         attackArea.height = 30;
         description = "[" + name + "]\nPerfect for grooving the \ntrees.";
         price = 10;
+        motion1_duration = 5;
+        motion2_duration = 25;
     }
 }

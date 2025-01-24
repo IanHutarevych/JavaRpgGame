@@ -1,11 +1,11 @@
 package main;
 
 import ai.PathFinder;
+import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
 import object.OBJ_Gold_Clever;
-import object.OBJ_Key;
 import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int maxMap = 10;
-    public int currentMap = 2;
+    public int currentMap = 0;
 
     // FOR FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     public PathFinder pFinder = new PathFinder(this);
     EnvironmentManager eManager = new EnvironmentManager(this);
     Map map = new Map(this);
+    SaveLoad sl = new SaveLoad(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -140,7 +141,11 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(delta >= 1) {
                 update();
-                drawToTempScreen();
+                try {
+                    drawToTempScreen();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 drawToScreen();
                 delta--;
                 drawCont++;
@@ -153,24 +158,18 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-    public void retry() throws IOException {
-
+    public void resetGame(boolean restart) throws IOException {
         player.setDefaultPositions();
-        player.restoreLifeAndMane();
+        player.restoreStatus();
         aSetter.setNPC();
         aSetter.setMonster();
-    }
-    public void restart() throws IOException {
 
-        player.setDefaultValues();
-        player.setDefaultPositions();
-        player.restoreLifeAndMane();
-        player.setItems();
-        aSetter.setMonster();
-        aSetter.setInteractiveTile();
-        aSetter.setNPC();
-        aSetter.setObject();
-
+        if (restart) {
+            player.setDefaultValues();
+            aSetter.setInteractiveTile();
+            aSetter.setObject();
+            eManager.lightning.resetDay();
+        }
     }
     public void setFullScreen(){
         // GET LOCAL SCREEN DEVICE
@@ -237,7 +236,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
-    public void drawToTempScreen(){
+    public void drawToTempScreen() throws IOException {
         // DEBUG
         long drawStart = 0;
         if (keyH.showDebugText){

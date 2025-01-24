@@ -366,6 +366,11 @@ public class UI {
             if (gp.keyH.enterPressed){
                 subState = 0;
                 gp.gameState = gp.titleState;
+                try {
+                    gp.resetGame(true);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 

@@ -7,7 +7,7 @@ public class OBJ_Gold_Clever extends Entity {
     public OBJ_Gold_Clever(GamePanel gp) {
         super(gp);
 
-        name = "Key";
+        name = "Clever";
         down1 = setup("/objects/goldClever",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nA final artifact.";
         price = 900;

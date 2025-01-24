@@ -42,17 +42,13 @@ public class Player extends Entity {
         attackArea.height = 36;*/
 
         setDefaultValues();
-        getAttackImage();
-        getGuardImage();
-        getImage();
-        setItems();
     }
     public void setDefaultValues(){
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 17;
-        worldY = gp.tileSize * 16;
+        worldX = gp.tileSize * 36;
+        worldY = gp.tileSize * 35;
 
         defSpeed = 4;
         speed = defSpeed;
@@ -72,21 +68,31 @@ public class Player extends Entity {
         coin = 10;
         currentWeapon = new OBJ_Archangel_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
+        currentLight = null;
         projectile = new OBJ_Fireball(gp);
         attack = getAttack();
         defence = getDefence();
+
+        getAttackImage();
+        getGuardImage();
+        getImage();
+        setItems();
     }
     public void setDefaultPositions(){
-        worldX = gp.tileSize * 17;
-        worldY = gp.tileSize * 11;
+        worldX = gp.tileSize * 36;
+        worldY = gp.tileSize * 35;
         direction = "down";
 
     }
-    public void restoreLifeAndMane(){
+    public void restoreStatus(){
         life = maxLife;
         mana = maxMana;
         invincible = false;
         transparent = false;
+        attacking = false;
+        guarding = false;
+        knockBack = false;
+        lightUpdated = true;
     }
     public void setItems(){
 
@@ -99,13 +105,13 @@ public class Player extends Entity {
         inventory.add(new OBJ_Potion_Recovery_Big(gp));
 
     }
-    private int getAttack() {
+    public int getAttack() {
         attackArea = currentWeapon.attackArea;
         motion1_duration = currentWeapon.motion1_duration;
         motion2_duration = currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
-    private int getDefence() {
+    public int getDefence() {
         return defence = dexterity * currentShield.defenceValue;
     }
     public void getImage(){
@@ -694,5 +700,23 @@ public class Player extends Entity {
         idleRight2 = image;
         idleUp1 = image;
         idleUp2 = image;
+    }
+    public int getCurrentWeaponSlot() {
+        int currentWeaponSlot = 0;
+        for (int i = 0; i < inventory.size(); i++){
+            if (inventory.get(i) == currentWeapon) {
+                currentWeaponSlot = i;
+            }
+        }
+        return currentWeaponSlot;
+    }
+    public int getCurrentShieldSlot() {
+        int currentShieldSlot = 0;
+        for (int i = 0; i < inventory.size(); i++){
+            if (inventory.get(i) == currentShield) {
+                currentShieldSlot = i;
+            }
+        }
+        return currentShieldSlot;
     }
 }

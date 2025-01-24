@@ -6,17 +6,14 @@ import main.GamePanel;
 
 public class OBJ_Barrel extends Entity{
     GamePanel gp;
-    Entity loot;
-    boolean opened = false;
 
-    public OBJ_Barrel(GamePanel gp, Entity loot) {
+    public OBJ_Barrel(GamePanel gp) {
 
         super(gp);
         this.gp = gp;
-        this.loot = loot;
 
         type = type_obstacle;
-        name = "chest_close";
+        name = "Barrel";
         image1 = setup("/objects/barrel_close",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/barrel_open",gp.tileSize, gp.tileSize);
         down1 = image1;
@@ -52,5 +49,8 @@ public class OBJ_Barrel extends Entity{
         } else {
             gp.ui.currentDialog = "It`s empty!";
         }
+    }
+    public void setLoot(Entity loot) {
+        this.loot = loot;
     }
 }

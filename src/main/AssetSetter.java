@@ -51,7 +51,8 @@ public class AssetSetter {
 
 
 
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Shield_Metal(gp));
+        gp.obj[mapNum][i] = new OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new OBJ_Shield_Metal(gp));
         gp.obj[mapNum][i].worldX = 35 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 28 * gp.tileSize;
         i++;
@@ -120,7 +121,8 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 29 * gp.tileSize;
         i++;
 
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Axe(gp));
+        gp.obj[mapNum][i] = new OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new OBJ_Axe(gp));
         gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 12 * gp.tileSize;
         i++;
@@ -160,7 +162,8 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
         i++;*/
 
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Watering(gp));
+        gp.obj[mapNum][i] = new OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new OBJ_Watering(gp));
         gp.obj[mapNum][i].worldX = 9 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;

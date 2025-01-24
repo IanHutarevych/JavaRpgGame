@@ -43,6 +43,8 @@ public class Entity {
     public boolean guarding = false;
     public boolean transparent = false;
     public boolean  offBalance = false;
+    public Entity loot;
+    public boolean opened = false;
 
     // COUNTER
     public int actionLockCounter = 0;
@@ -194,9 +196,11 @@ public class Entity {
                     offBalance = true;
                     spriteCounter =- 60;
                 }
-                // normal guard
-                damage/= 3;
-                gp.playSE(9);
+                else {
+                    // normal guard
+                    damage /= 3;
+                    gp.playSE(9);
+                }
             } else {
                 // player can give damage
                 gp.playSE(6);
@@ -783,4 +787,5 @@ public class Entity {
         gp.particleList.add(p4);
 
     }
+    public void setLoot(Entity loot) {}
 }

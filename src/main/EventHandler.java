@@ -74,6 +74,12 @@ public class EventHandler {
             else if (hit(0,35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
             else if (hit(0,36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
             else if (hit(0,37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
+
+            else if (hit(2,29, 29, "right")) {healingPool(29, 29,gp.dialogueState);}
+            else if (hit(2,30, 28, "down")) {healingPool(30, 28,gp.dialogueState);}
+            else if (hit(2,31, 29, "left")) {healingPool(31, 29,gp.dialogueState);}
+            else if (hit(2,30, 30, "up")) {healingPool(30, 30,gp.dialogueState);}
+
             else if (hit(0,36, 38, "up")) {healingPool(36, 38,gp.dialogueState);}
 
             else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
@@ -166,7 +172,7 @@ public class EventHandler {
         if (gp.keyH.enterPressed){
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialog = "You healed";
+            gp.ui.currentDialog = "\"Waters of the ancient well flow through you, mending \nyour wounds, restoring your essence. The echoes of \nyour journey are etched into the threads of fate.\"";
             if (gp.player.life < gp.player.maxLife ){
                 gp.player.life += 1;
 
@@ -175,6 +181,7 @@ public class EventHandler {
                 gp.player.mana = gp.player.maxMana;
             }
             gp.aSetter.setMonster();
+            gp.sl.save();
 
         }
         gp.keyH.enterPressed = false;
