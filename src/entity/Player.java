@@ -191,11 +191,19 @@ public class Player extends Entity {
         }
     }
     public void getGuardImage() {
+        if (currentShield.type == type_shieldWood){
+            guardUp = setup("/player/shield_wood_up", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/shield_wood_down", gp.tileSize, gp.tileSize);
+            guardLeft = setup("/player/shield_wood_left", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/shield_wood_right", gp.tileSize, gp.tileSize);
+        }
+        else if (currentShield.type == type_shieldMetal){
+            guardUp = setup("/player/shield_metal_up", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/shield_metal_down", gp.tileSize, gp.tileSize);
+            guardLeft = setup("/player/shield_metal_left", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/shield_metal_right", gp.tileSize, gp.tileSize);
+        }
 
-        guardUp = setup("/player/shield_wood_up", gp.tileSize, gp.tileSize);
-        guardDown = setup("/player/shield_wood_down", gp.tileSize, gp.tileSize);
-        guardLeft = setup("/player/shield_wood_left", gp.tileSize, gp.tileSize);
-        guardRight = setup("/player/shield_wood_right", gp.tileSize, gp.tileSize);
     }
     public void update() {
 
@@ -487,6 +495,9 @@ public class Player extends Entity {
             if (gp.iTile[gp.currentMap][i].life == 0){
                 gp.iTile[gp.currentMap][i] = gp.iTile[gp.currentMap][i].getDestroyedForm();
                 gp.iTile[gp.currentMap][i].checkDrop();
+                gp.playSE(1);
+                gp.ui.addMessage("Exp + 1");
+                gp.player.exp += 1;
             }
         }
     }
@@ -620,9 +631,10 @@ public class Player extends Entity {
                 attack = getAttack();
                 getAttackImage();
             }
-            if (selectedItem.type == type_shield) {
+            if (selectedItem.type == type_shieldWood || selectedItem.type == type_shieldMetal) {
                 currentShield = selectedItem;
                 defence = getDefence();
+                getGuardImage();
             }
             if (selectedItem.type == type_light) {
                 if (currentLight == selectedItem){

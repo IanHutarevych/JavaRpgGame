@@ -51,6 +51,7 @@ public class SaveLoad {
             case "Mana Star": obj = new OBJ_ManaStar(gp); break;
             case "router": obj = new OBJ_Router(gp); break;
             case "Skull": obj = new OBJ_Skull(gp); break;
+            case "Coconut": obj = new OBJ_Coconut(gp); break;
         }
         return obj;
     }
@@ -144,6 +145,7 @@ public class SaveLoad {
             gp.player.getAttack();
             gp.player.getDefence();
             gp.player.getAttackImage();
+            gp.player.getGuardImage();
 
             // obj on the map
             for (int mapNum = 0; mapNum < gp.maxMap; mapNum++) {

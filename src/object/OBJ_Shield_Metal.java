@@ -7,7 +7,7 @@ public class OBJ_Shield_Metal extends Entity{
     public OBJ_Shield_Metal(GamePanel gp) {
         super(gp);
 
-        type = type_shield;
+        type = type_shieldMetal;
         name = "Knight`s shield";
         down1 = setup("/objects/shield_metal",gp.tileSize, gp.tileSize);
         defenceValue = 5;

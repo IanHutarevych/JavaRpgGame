@@ -2,6 +2,7 @@ package tile_interactive;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Coconut;
 
 import java.awt.*;
 
@@ -41,6 +42,10 @@ public class IT_Palm extends InteractiveTile{
 
     public InteractiveTile getDestroyedForm(){
         InteractiveTile destroyedForm = new IT_PalmTrunk(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        gp.player.canObtainItem(new OBJ_Coconut(gp));
+        gp.ui.addMessage("Coconut + 1");
+
+
 
         return destroyedForm;
     }
