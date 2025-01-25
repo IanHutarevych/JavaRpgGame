@@ -1,17 +1,16 @@
 package main;
 
-import entity.AOBJ_Fire;
 import entity.Entity;
-import environment.Lightning;
 import object.OBJ_DoorOpen;
 import object.OBJ_Key;
 
 import java.awt.image.BufferedImage;
 
-public class EventHandler {
+public class EventHandler{
 
     GamePanel gp;
     EventRect[][][] eventRect;
+    Entity eventMaster;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
@@ -22,6 +21,8 @@ public class EventHandler {
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
+
+        eventMaster = new Entity(gp);
 
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image1;
@@ -51,8 +52,7 @@ public class EventHandler {
                 }
             }
         }
-
-
+        setDialogue();
     }
 
     public void checkEvent() {
@@ -66,21 +66,21 @@ public class EventHandler {
         }
 
         if (canTouchEvent){
-            if (hit(0,24, 25, "any")) {receiveMessage1(24, 25, gp.dialogueState);}
-            else if (hit(0,24, 38, "any")) {receiveMessage2(24, 38, gp.dialogueState);}
-            else if (hit(0,34, 34, "any")) {receiveMessage3(34, 34, gp.dialogueState);}
-            else if (hit(2,14, 18, "any")) {receiveMessage4(14, 18, gp.dialogueState);}
-            else if (hit(2,10, 14, "any")) {receiveMessage4(10, 14, gp.dialogueState);}
-            else if (hit(0,35, 37, "right")) {healingPool(35, 37,gp.dialogueState);}
-            else if (hit(0,36, 36, "down")) {healingPool(36, 36,gp.dialogueState);}
-            else if (hit(0,37, 37, "left")) {healingPool(37, 37,gp.dialogueState);}
+            if (hit(0,24, 25, "any")) {receiveMessage1();}
+            else if (hit(0,24, 38, "any")) {receiveMessage2(gp.dialogueState);}
+            else if (hit(0,34, 34, "any")) {receiveMessage3(gp.dialogueState);}
+            else if (hit(2,14, 18, "any")) {receiveMessage4(gp.dialogueState);}
+            else if (hit(2,10, 14, "any")) {receiveMessage4(gp.dialogueState);}
+            else if (hit(0,35, 37, "right")) {healingPool(gp.dialogueState);}
+            else if (hit(0,36, 36, "down")) {healingPool(gp.dialogueState);}
+            else if (hit(0,37, 37, "left")) {healingPool(gp.dialogueState);}
 
-            else if (hit(2,29, 29, "right")) {healingPool(29, 29,gp.dialogueState);}
-            else if (hit(2,30, 28, "down")) {healingPool(30, 28,gp.dialogueState);}
-            else if (hit(2,31, 29, "left")) {healingPool(31, 29,gp.dialogueState);}
-            else if (hit(2,30, 30, "up")) {healingPool(30, 30,gp.dialogueState);}
+            else if (hit(2,29, 29, "right")) {healingPool(gp.dialogueState);}
+            else if (hit(2,30, 28, "down")) {healingPool(gp.dialogueState);}
+            else if (hit(2,31, 29, "left")) {healingPool(gp.dialogueState);}
+            else if (hit(2,30, 30, "up")) {healingPool(gp.dialogueState);}
 
-            else if (hit(0,36, 38, "up")) {healingPool(36, 38,gp.dialogueState);}
+            else if (hit(0,36, 38, "up")) {healingPool(gp.dialogueState);}
 
             else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
             else if (hit(0,35, 30, "any")) {slowlySpeed(35, 30,gp.playState);}
@@ -141,38 +141,37 @@ public class EventHandler {
     private void damagePit(int gameState) {
 
         gp.gameState = gameState;
-        gp.ui.currentDialog = "You fall into a pit";
+        eventMaster.startDialogue(eventMaster,0 );
         gp.player.life -= 1;
 
         //eventRect[col][row].eventDone = true;
         canTouchEvent = false;
 
     }
-    private void receiveMessage1(int col, int row, int gameState) {
-        gp.gameState = gameState;
-        gp.ui.currentDialog = "← Ruins  \nShop ↓";
+    private void receiveMessage1() {
+        eventMaster.startDialogue(eventMaster,2 );
         canTouchEvent = false;
     }
-    private void receiveMessage2(int col, int row, int gameState) {
+    private void receiveMessage2(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialog = "Mysterious Well →\nShop   ↓";
+        eventMaster.startDialogue(eventMaster,3);
         canTouchEvent = false;
     }
-    private void receiveMessage3(int col, int row, int gameState) {
+    private void receiveMessage3(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialog = "Sticky Swamp. Awful...";
+        eventMaster.startDialogue(eventMaster,4);
         canTouchEvent = false;
     }
-    private void receiveMessage4(int col, int row, int gameState) {
+    private void receiveMessage4(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialog = "A sand town";
+        eventMaster.startDialogue(eventMaster,5);
         canTouchEvent = false;
     }
-    public void healingPool(int col, int row, int gameState) {
+    public void healingPool(int gameState) {
         if (gp.keyH.enterPressed){
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialog = "\"Waters of the ancient well flow through you, mending \nyour wounds, restoring your essence. The echoes of \nyour journey are etched into the threads of fate.\"";
+            eventMaster.startDialogue(eventMaster,1);
             if (gp.player.life < gp.player.maxLife ){
                 gp.player.life += 1;
 
@@ -258,5 +257,12 @@ public class EventHandler {
             gp.keyH.enterPressed = false;
         }
     }
-
+    public void setDialogue() {
+        eventMaster.dialogues[0][0] = "You fall into a pit";
+        eventMaster.dialogues[1][0] = "\"Waters of the ancient well flow through you, mending \nyour wounds, restoring your essence. The echoes of \nyour journey are etched into the threads of fate.\"";
+        eventMaster.dialogues[2][0] = "← Ruins  \nShop ↓";
+        eventMaster.dialogues[3][0] = "Mysterious Well →\nShop   ↓";
+        eventMaster.dialogues[4][0] = "Sticky Swamp. Awful...";
+        eventMaster.dialogues[5][0] = "A sand town";
+    }
 }

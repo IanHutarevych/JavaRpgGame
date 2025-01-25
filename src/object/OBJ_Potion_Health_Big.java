@@ -19,11 +19,13 @@ public class OBJ_Potion_Health_Big extends Entity {
         description = "[" + name + "]\nHeals life by " + value + ".";
         price = 15;
         stackable = true;
+        setDialogue();
+    }
+    public void setDialogue() {
+        dialogues[0][0] = "You drunk the " + name + "!\n" + "Your life has been recovered by " + value + ".";
     }
     public boolean use(Entity e) {
-
-        gp.gameState = gp.dialogueState;
-        gp.ui.currentDialog = "You drunk the " + name + "!\n" + "Your life has been recovered by " + value + ".";
+        startDialogue(this,0);
         e.life += value;
         gp.playSE(2);
         return false;

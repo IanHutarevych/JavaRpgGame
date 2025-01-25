@@ -22,6 +22,8 @@ public class NPC_PumpkinHead extends Entity {
         solidArea.width = 30;
         solidArea.height = 30;
 
+        dialogueSet = -1;
+
         getImage();
         setDialogue();
     }
@@ -48,11 +50,13 @@ public class NPC_PumpkinHead extends Entity {
 
     public void setDialogue(){
 
-        dialogues[0] = "    Oh, you've arrived! Another traveler \nlooking for a relic? Or perhaps something \n        else has brought you here?";
-        dialogues[1] = "    They say that this forest hides more \nthan just pine trees. If you listen and look \n  carefully, you will find the path to your \n                      destiny.";
-        dialogues[2] = "    You will find a well in the clearing. They \nsay that the well remembers everyone who \n    sought answers in it. But remember:\n           knowledge has a price.";
-        dialogues[3] = "    On the other side, there is a descent \nunder the roots of a pine tree. But don't \nrush - it's dangerous there without \n                    preparation.";
+        dialogues[0][0] = "    Oh, you've arrived! Another traveler \nlooking for a relic? Or perhaps something \n        else has brought you here?";
+        dialogues[0][1] = "    They say that this forest hides more \nthan just pine trees. If you listen and look \n  carefully, you will find the path to your \n                      destiny.";
+        dialogues[0][2] = "    You will find a well in the clearing. They \nsay that the well remembers everyone who \n    sought answers in it. But remember:\n           knowledge has a price.";
+        dialogues[0][3] = "    On the other side, there is a descent \nunder the roots of a pine tree. But don't \nrush - it's dangerous there without \n                    preparation.";
 
+        dialogues[1][0] = "U are a piece of bread.";
+        dialogues[1][1] = ".. of bread.";
     }
 
     @Override
@@ -90,7 +94,21 @@ public class NPC_PumpkinHead extends Entity {
         }
     }
     public void speak(){
-        super.speak();
+        facePlayer();
+        startDialogue(this,dialogueSet);
+
+        dialogueSet++;
+
+        if (dialogues[dialogueSet][0] == null){
+            //dialogueSet = 0;
+
+            dialogueSet--;
+        }
+
+        // OR YOU CAN WRITE SPECIFIC CONDITION example
+        /*if (gp.player.life < gp.player.maxLife/3){
+            dialogueSet = 1;
+        }*/
 
         onPath = true;
     }

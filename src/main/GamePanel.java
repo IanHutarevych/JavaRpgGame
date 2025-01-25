@@ -152,7 +152,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCont);
+                //System.out.println("FPS: " + drawCont);
                 drawCont = 0;
                 timer = 0;
             }
@@ -161,6 +161,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void resetGame(boolean restart) throws IOException {
         player.setDefaultPositions();
         player.restoreStatus();
+        player.resetCounter();
         aSetter.setNPC();
         aSetter.setMonster();
 

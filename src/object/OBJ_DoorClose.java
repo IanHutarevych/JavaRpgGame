@@ -23,13 +23,16 @@ public class OBJ_DoorClose extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        setDialogue();
+    }
+    public void setDialogue() {
+        dialogues[0][0] = "You need a key to open this";
     }
     @Override
     public void interact() {
 
         if (gp.keyCounter == 0){
-        gp.gameState = gp.dialogueState;
-        gp.ui.currentDialog = "You need a key to open this";
+        startDialogue(this,0);
         }
     }
 }

@@ -20,4 +20,5 @@ public class OBJ_Billboard extends Entity {
         solidAreaDefaultY = solidArea.y;
 
     }
+
 }

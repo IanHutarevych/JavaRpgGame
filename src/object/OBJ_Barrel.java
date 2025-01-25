@@ -28,29 +28,31 @@ public class OBJ_Barrel extends Entity{
 
 
     }
-    public void interact(){
-        gp.gameState = gp.dialogueState;
-
-        if (opened == false){
-            gp.playSE(3);
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("You open a barrel and find a " + loot.name + "!");
-
-            if (!gp.player.canObtainItem(loot)) {
-                sb.append("\nYou have only " + gp.player.inventory.size() + " inventory!");
-            }
-            else {
-                sb.append("\nYou obtain the  " + loot.name + "!");
-                down1 = image2;
-                opened = true;
-            }
-            gp.ui.currentDialog = sb.toString();
-        } else {
-            gp.ui.currentDialog = "It`s empty!";
-        }
+    public void setDialogue() {
+        dialogues[0][0] = "You open a barrel and find a " + loot.name + "!\n... But you cannot carry anymore!";
+        dialogues[0][1] = "You open a barrel and find a " + loot.name + "!\nYou obtain the  \" + loot.name + \"!\"";
+        dialogues[2][0] = "It`s empty.";
     }
     public void setLoot(Entity loot) {
         this.loot = loot;
+
+        setDialogue();
+    }
+    public void interact(){
+
+        if (!opened){
+            gp.playSE(3);
+
+            if (!gp.player.canObtainItem(loot)) {
+                startDialogue(this,0);
+            }
+            else {
+                startDialogue(this,1);
+                down1 = image2;
+                opened = true;
+            }
+        } else {
+            startDialogue(this,2);
+        }
     }
 }

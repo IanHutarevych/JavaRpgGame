@@ -77,6 +77,7 @@ public class Player extends Entity {
         getGuardImage();
         getImage();
         setItems();
+        setDialogue();
     }
     public void setDefaultPositions(){
         worldX = gp.tileSize * 36;
@@ -85,6 +86,7 @@ public class Player extends Entity {
 
     }
     public void restoreStatus(){
+        speed = defSpeed;
         life = maxLife;
         mana = maxMana;
         invincible = false;
@@ -538,8 +540,13 @@ public class Player extends Entity {
 
             gp.playSE(7);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialog = "You are level " + level + " now!";
+            startDialogue(this,0);
         }
+    }
+    public void setDialogue() {
+
+        dialogues[0][0] = "You are level " + level + " now!";
+
     }
     private void contactMonster(int i) {
         if (i != 999){
@@ -591,19 +598,11 @@ public class Player extends Entity {
         }
     }
     public void interactNPC(int i) {
-        if (gp.keyH.enterPressed) {
-            if (i != 999) {
-                attackCanceled = true;
+        if (i != 999) {
 
-                if (gp.gameState == gp.dialogueState) {
-                    gp.npc[gp.currentMap][i].speak();
-                    if (gp.ui.currentDialog == null) {
-                        gp.gameState = gp.playState;
-                    }
-                } else {
-                    gp.gameState = gp.dialogueState;
-                    gp.npc[gp.currentMap][i].speak();
-                }
+            if (gp.keyH.enterPressed) {
+                attackCanceled = true;
+                gp.npc[gp.currentMap][i].speak();
             }
         }
     }

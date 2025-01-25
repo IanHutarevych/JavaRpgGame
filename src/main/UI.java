@@ -32,6 +32,8 @@ public class UI {
     int subState = 0;
     int counter = 0;
     public Entity npc;
+    int charIndex = 0;
+    String combinedText = "";
 
 
     public UI(GamePanel gp) {
@@ -115,7 +117,6 @@ public class UI {
             drawSleepScreen();
         }
     }
-
     private void drawSleepScreen() {
         counter++;
 
@@ -137,7 +138,6 @@ public class UI {
             }
         }
     }
-
     private void drawTradeScreen() {
 
         switch (subState) {
@@ -1010,6 +1010,44 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
         x += gp.tileSize;
         y += gp.tileSize;
+
+        if (npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null){
+
+            //currentDialog = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+
+             char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+
+             if (charIndex < characters.length){
+
+                 gp.playSE(13);
+                 String s = String.valueOf(characters[charIndex]);
+                 combinedText = combinedText + s;
+                 currentDialog = combinedText;
+
+                 charIndex++;
+             }
+
+            if (gp.keyH.enterPressed){
+
+                charIndex = 0;
+                combinedText = "";
+
+                if (gp.gameState == gp.dialogueState){
+
+                    npc.dialogueIndex++;
+                    gp.keyH.enterPressed = false;
+                }
+            }
+
+        }
+        else {
+            npc.dialogueIndex = 0;
+
+            if (gp.gameState == gp.dialogueState) {
+                gp.gameState = gp.playState;
+            }
+        }
+
 
         for (String line : currentDialog.split("\n")) {
             g2.drawString(line, x, y);

@@ -29,7 +29,8 @@ public class NPC_Mortemark extends Entity {
 
     public void setDialogue(){
 
-        dialogues[0] = "“Oh, another one who is alive... for now. Welcome to my \nabode of bones and treasure! I am Mortemark, keeper of \nthe ancient and seller of the unique. Have you come to \nbuy or just to admire my brilliant smile?”";
+        dialogues[0][0] = "“Oh, another one who is alive... for now. Welcome to my \nabode of bones and treasure! I am Mortemark, keeper of \nthe ancient and seller of the unique. Have you come to \nbuy or just to admire my brilliant smile?”";
+
     }
     public void setItems(){
         inventory.add(new OBJ_Sword_Normal(gp));

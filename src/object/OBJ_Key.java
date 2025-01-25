@@ -22,10 +22,4 @@ public class OBJ_Key extends Entity {
 
 
     }
-
-    /*@Override
-    public void use(Entity entity){
-        gp.gameState = gp.dialogueState;
-    }*/
-
 }

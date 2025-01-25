@@ -22,13 +22,14 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
-    public String dialogues[] = new String[20];
+    public String[][] dialogues = new String[20][20];
     public Entity attacker;
 
     // STATE
     public int worldX, worldY;
     public String direction = "down";
     public int spriteNum = 1;
+    public int dialogueSet = 0;
     public int dialogueIndex = 0;
     public boolean invincible = false;
     public boolean collisionOn = false;
@@ -50,7 +51,7 @@ public class Entity {
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
     public int spriteCounter = 0;
-    public int shotAvailableCounter;
+    public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
     int knockBackCounter = 0;
@@ -241,14 +242,10 @@ public class Entity {
     public void setAction () {}
     public void damageReaction() {}
     public void speak() {
-        if (dialogueIndex >= dialogues.length || dialogues[dialogueIndex] == null) {
-            gp.gameState = gp.playState;
-            dialogueIndex = 0;
-            return;
-        }
-        gp.ui.currentDialog = dialogues[dialogueIndex];
-        dialogueIndex++;
 
+
+    }
+    public void facePlayer() {
         switch (gp.player.direction) {
             case "up":
                 direction = "down";
@@ -263,6 +260,12 @@ public class Entity {
                 direction = "left";
                 break;
         }
+    }
+    public void startDialogue (Entity entity, int setNum) {
+
+        gp.gameState = gp.dialogueState;
+        gp.ui.npc = entity;
+        dialogueSet = setNum;
     }
     public void interact(){}
     public void searchPath(int goalCol, int goalRow) {
@@ -788,4 +791,15 @@ public class Entity {
 
     }
     public void setLoot(Entity loot) {}
+    public void resetCounter() {
+        actionLockCounter = 0;
+        invincibleCounter = 0;
+        spriteCounter = 0;
+        shotAvailableCounter = 0;
+        dyingCounter = 0;
+        hpBarCounter = 0;
+        knockBackCounter = 0;
+        guardCounter = 0;
+        offBalanceCounter = 0;
+    }
 }
