@@ -6,14 +6,16 @@ import main.GamePanel;
 
 public class OBJ_Barrel extends Entity{
     GamePanel gp;
+    public static final String objName = "Barrel";
 
     public OBJ_Barrel(GamePanel gp) {
 
         super(gp);
         this.gp = gp;
 
+
         type = type_obstacle;
-        name = "Barrel";
+        name = objName;
         image1 = setup("/objects/barrel_close",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/barrel_open",gp.tileSize, gp.tileSize);
         down1 = image1;

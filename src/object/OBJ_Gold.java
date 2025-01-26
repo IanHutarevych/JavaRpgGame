@@ -5,12 +5,13 @@ import main.GamePanel;
 public class OBJ_Gold extends Entity {
 
     GamePanel gp;
+    public static final String objName = "Gold";
 
     public OBJ_Gold(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Gold";
+        name = objName;
         down1 = setup("/objects/gold",gp.tileSize, gp.tileSize);
         price = 40;
         stackable = true;

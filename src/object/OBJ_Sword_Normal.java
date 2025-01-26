@@ -3,11 +3,14 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Sword_Normal extends Entity {
+
+    public static final String objName = "Knight`s sword";
+
     public OBJ_Sword_Normal(GamePanel gp) {
         super(gp);
 
         type = type_sword;
-        name = "Knight's sword";
+        name = objName;
         down1 = setup("/objects/sword",gp.tileSize, gp.tileSize);
         attackValue = 1;
         attackArea.width = 36;

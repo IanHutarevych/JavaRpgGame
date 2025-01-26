@@ -4,13 +4,15 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Heart extends Entity {
-GamePanel gp;
+
+    GamePanel gp;
+    public static final String objName = "Heart";
 
     public OBJ_Heart(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Heart";
+        name = objName;
         value = 2;
         type = type_pickupOnly;
         down1 = setup("/objects/heart01",gp.tileSize, gp.tileSize);

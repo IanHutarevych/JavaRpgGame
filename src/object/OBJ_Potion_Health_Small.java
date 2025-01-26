@@ -8,13 +8,14 @@ public class OBJ_Potion_Health_Small extends Entity {
 
 
     GamePanel gp;
+    public static final String objName = "Health Potion 1";
 
     public OBJ_Potion_Health_Small(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_consumable;
-        name = "Health Potion 1";
+        name = objName;
         value = 2;
         down1 = setup("/objects/healthPotionSmall",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nHeals life by " + value + ".";

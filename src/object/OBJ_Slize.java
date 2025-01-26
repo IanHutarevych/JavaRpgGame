@@ -6,13 +6,15 @@ import main.GamePanel;
 import java.awt.*;
 
 public class OBJ_Slize  extends Projectile {
+
     GamePanel gp;
+    public static final String objName = "Slize";
 
     public OBJ_Slize(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Slize";
+        name = objName;
         speed = 5;
         maxLife = 80;
         life = maxLife;

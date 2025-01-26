@@ -6,13 +6,14 @@ import main.GamePanel;
 public class OBJ_Coconut extends Entity{
 
     GamePanel gp;
+    public static final String objName = "Coconut";
 
     public OBJ_Coconut(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_consumable;
-        name = "Coconut";
+        name = objName;
         value = 2;
         down1 = setup("/objects/coconut",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nHeals life by " + value + ".";

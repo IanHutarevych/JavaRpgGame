@@ -5,10 +5,12 @@ import main.GamePanel;
 
 public class OBJ_Router  extends Entity {
 
+    public static final String objName = "router";
+
     public OBJ_Router(GamePanel gp) {
         super(gp);
 
-        name = "router";
+        name = objName;
         down1 = setup("/objects/router",gp.tileSize, gp.tileSize);
         collision = true;
 

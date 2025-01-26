@@ -5,10 +5,12 @@ import main.GamePanel;
 
 public class OBJ_Billboard extends Entity {
 
+    public static final String objName = "billboard";
+
     public OBJ_Billboard(GamePanel gp) {
         super(gp);
 
-        name = "billboard";
+        name = objName;
         down1 = setup("/objects/billboard",gp.tileSize, gp.tileSize);
         collision = true;
 

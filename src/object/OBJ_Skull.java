@@ -5,10 +5,12 @@ import main.GamePanel;
 
 public class OBJ_Skull extends Entity {
 
+    public static final String objName = "Skull";
+
     public OBJ_Skull(GamePanel gp) {
         super(gp);
 
-        name = "Skull";
+        name = objName;
         down1 = setup("/objects/skull",gp.tileSize, gp.tileSize);
         collision = true;
 

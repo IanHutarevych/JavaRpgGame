@@ -5,6 +5,7 @@ import main.GamePanel;
 public class OBJ_Coin_Silver extends Entity {
 
     GamePanel gp;
+    public static final String objName = "Silver Coin";
 
     public OBJ_Coin_Silver(GamePanel gp) {
         super(gp);
@@ -12,7 +13,7 @@ public class OBJ_Coin_Silver extends Entity {
 
         type = type_pickupOnly;
         value = 5;
-        name = "Silver Coin";
+        name = objName;
         down1 = setup("/objects/coinSilver",gp.tileSize, gp.tileSize);
 
         solidArea.x = 12;

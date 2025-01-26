@@ -6,6 +6,7 @@ import main.GamePanel;
 public class OBJ_DoorClose extends Entity {
 
     GamePanel gp;
+    public static final String objName = "door_close";
 
     public OBJ_DoorClose(GamePanel gp) {
 
@@ -13,7 +14,7 @@ public class OBJ_DoorClose extends Entity {
         this.gp = gp;
 
         type = type_obstacle;
-        name = "door_close";
+        name = objName;
         down1 = setup("/objects/door_close",gp.tileSize, gp.tileSize);
         collision = true;
 

@@ -5,10 +5,12 @@ import main.GamePanel;
 
 public class OBJ_Cactus extends Entity {
 
+    public static final String objName = "Cactus";
+
     public OBJ_Cactus(GamePanel gp) {
         super(gp);
 
-        name = "Cactus";
+        name = objName;
         down1 = setup("/objects/cactus",gp.tileSize, gp.tileSize);
         collision = true;
 

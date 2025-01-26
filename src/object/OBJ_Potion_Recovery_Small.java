@@ -7,13 +7,14 @@ import main.GamePanel;
 public class OBJ_Potion_Recovery_Small extends Entity {
 
     GamePanel gp;
+    public static final String objName = "Recover Potion 1";
 
     public OBJ_Potion_Recovery_Small(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_consumable;
-        name = "Recover Potion 1";
+        name = objName;
         value = 1;
         down1 = setup("/objects/recoveryPotionSmall",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nRecover mana by " + value + ".";
