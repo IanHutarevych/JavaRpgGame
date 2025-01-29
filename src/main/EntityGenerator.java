@@ -50,6 +50,8 @@ public class EntityGenerator {
             case OBJ_Tent.objName: obj = new OBJ_Tent(gp); break;
             case OBJ_Torch.objName: obj = new OBJ_Torch(gp); break;
             case OBJ_Watering.objName: obj = new OBJ_Watering(gp); break;
+            case OBJ_StairsDown.objName: obj = new OBJ_StairsDown(gp); break;
+            case OBJ_StairsUp.objName: obj = new OBJ_StairsUp(gp); break;
         }
         return obj;
     }

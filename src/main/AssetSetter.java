@@ -29,8 +29,6 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 9 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 35 * gp.tileSize;
         i++;
-
-
         gp.obj[mapNum][i] = new OBJ_Potion_Health_Small(gp);
         gp.obj[mapNum][i].worldX = 4 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
@@ -43,36 +41,23 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 5 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
         i++;
-        /*
-        gp.obj[i] = new OBJ_Swamp2(gp);
-        gp.obj[i].worldX = 35 * gp.tileSize;
-        gp.obj[i].worldY = 32 * gp.tileSize;
-        i++;*/
-
-
-
         gp.obj[mapNum][i] = new OBJ_Chest(gp);
         gp.obj[mapNum][i].setLoot(new OBJ_Shield_Metal(gp));
         gp.obj[mapNum][i].worldX = 35 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 28 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Billboard(gp);
         gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 34 * gp.tileSize;
         i++;
-
-
         gp.obj[mapNum][i] = new OBJ_Router(gp);
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Router(gp);
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 38 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_DoorClose(gp);
         gp.obj[mapNum][i].worldX = 4 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 22 * gp.tileSize;
@@ -83,109 +68,106 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 13 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 22 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 28 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
         i++;
-
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 20 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 13 * gp.tileSize;
         i++;
-
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 14 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 16 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus_Ship(gp);
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 27 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus_Ship(gp);
         gp.obj[mapNum][i].worldX = 31 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus_Ship(gp);
         gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 29 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Chest(gp);
         gp.obj[mapNum][i].setLoot(new OBJ_Axe(gp));
         gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 12 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 10 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 13 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 7 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 12 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus(gp);
         gp.obj[mapNum][i].worldX = 17 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 7 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Cactus_Ship(gp);
         gp.obj[mapNum][i].worldX = 25 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 32 * gp.tileSize;
         i++;
-
-        /*gp.obj[mapNum][i] = new OBJ_Campfire(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
-        i++;*/
-
         gp.obj[mapNum][i] = new OBJ_Chest(gp);
         gp.obj[mapNum][i].setLoot(new OBJ_Watering(gp));
         gp.obj[mapNum][i].worldX = 9 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Tent( gp);
         gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 14 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Billboard(gp);
         gp.obj[mapNum][i].worldX = 10 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 14 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_BillboardSand(gp);
         gp.obj[mapNum][i].worldX = 14 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 18 * gp.tileSize;
         i++;
-
         gp.obj[mapNum][i] = new OBJ_Coin_Gold(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 12 * gp.tileSize;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_StairsDown(gp);
+        gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 12 * gp.tileSize;
+        i++;
+
+        mapNum = 3;
+        i = 0;
+        gp.obj[mapNum][i] = new OBJ_DoorClose(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 37 * gp.tileSize;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Key(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 39 * gp.tileSize;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Key(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 35 * gp.tileSize;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_StairsUp(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 42 * gp.tileSize;
         i++;
 
     }

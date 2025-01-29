@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int maxMap = 10;
-    public int currentMap = 0;
+    public int currentMap = 2;
 
     // FOR FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
     // ENTITY AND OBJECT
     public Player player = new Player(this,keyH);
     public OBJ_Gold_Clever goldClever = new OBJ_Gold_Clever(this);
-    public Entity[][] obj = new Entity[maxMap][40]; // 10 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
+    public Entity[][] obj = new Entity[maxMap][40]; // 40 SLOTS OF OBJ (U CAN HAVE 10 OBJ AT THE SAME TIME)
     public Entity[][] npc = new Entity[maxMap][2];
     public Entity[][] monster = new Entity[maxMap][20];
     public InteractiveTile[][] iTile = new InteractiveTile[maxMap][50];
@@ -90,6 +90,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int sleepState = 9;
     public final int mapState = 10;
 
+    // AREA
+    public int currentArea;
+    public int nextArea;
+    public final int outside = 50;
+    public final int indoor = 51;
+    public final int dungeon = 52;
 
     //Constructor
     public GamePanel() {
@@ -111,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         playMusic(8);
         gameState = titleState;
+        currentArea = outside;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
@@ -355,5 +362,22 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i){
         se.setFile(i);
         se.play();
+    }
+    public void changeArea(){
+        if (nextArea != currentArea) {
+
+            stopMusic();
+
+            if (nextArea == outside){
+                playMusic(8);
+            }
+            if (nextArea == indoor){
+                playMusic(15);
+            }
+            if (nextArea == dungeon){
+                playMusic(14);
+            }
+        }
+        currentArea = nextArea;
     }
 }

@@ -8,9 +8,9 @@ public class CreateFileWithNumbers {
     public static void main(String[] args) {
         int rows = 50;
         int cols = 50;
-        int value = 200;
+        int value = 330;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("123.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("dungeon.txt"))) {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     writer.write(value + " ");

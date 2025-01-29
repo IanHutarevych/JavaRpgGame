@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import object.OBJ_DoorOpen;
 import object.OBJ_Key;
 
 import java.awt.image.BufferedImage;
@@ -87,17 +86,19 @@ public class EventHandler{
             else if (hit(0,35, 29, "any")) {normalSpeed(35, 29,gp.playState);}
             else if (hit(0,35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
 
-            else if (hit(0,4, 23, "any")) {openDoor(4, 22, gp.playState);}
+            else if (hit(0,28, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            else if (hit(0,27, 20, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            else if (hit(1, 23, 20, "any")) {teleportEnter(0, 27, 20, gp.outside); } // from merchant
 
-            else if (hit(0,28, 19, "any")) {teleportEnter(1, 23, 20); }
-            else if (hit(0,27, 20, "any")) {teleportEnter(1, 23, 20); }
-            else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20); }
-            else if (hit(1, 23, 20, "any")) {teleportEnter(0, 27, 20); }
-            else if (hit(2, 20, 43, "any")) {teleport(0, 23, 17); }
-            else if (hit(0, 23, 17, "any")) {teleport(2, 20, 43); }
+            else if (hit(2, 13, 13, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
+            else if (hit(3, 24, 43, "up")) {teleportEnter(2, 13, 13, gp.outside); } // from dungeon
 
-            else if (hit(2, 23, 10, "up")) {teleport(2, 17, 11); }
-            else if (hit(2, 17, 10, "up")) {teleport(2, 23, 11); }
+            else if (hit(2, 20, 43, "any")) {teleport(0, 23, 17, gp.outside); } // from sand to tree
+            else if (hit(0, 23, 17, "any")) {teleport(2, 20, 43, gp.outside); } // from tree to sand
+
+            else if (hit(2, 23, 10, "up")) {teleport(2, 17, 11, gp.outside); } // cave
+            else if (hit(2, 17, 10, "up")) {teleport(2, 23, 11, gp.outside); } // cave
 
             else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
         }
@@ -185,11 +186,11 @@ public class EventHandler{
         }
         gp.keyH.enterPressed = false;
     }
-    public void teleport(int map, int col, int row) {
+    public void teleport(int map, int col, int row, int area) {
             gp.player.attackCanceled = true;
 
             gp.gameState = gp.transitionState;
-
+            gp.nextArea = area;
             tempMap = map;
             tempCol = col;
             tempRow = row;
@@ -198,13 +199,13 @@ public class EventHandler{
             gp.playSE(9); // ;skd;oAWNGJOADBJO;GAK'FAL;BJALMNG'PKANOBMWPkr
 
     }
-    public void teleportEnter(int map, int col, int row) {
+    public void teleportEnter(int map, int col, int row, int area) {
 
             if (gp.keyH.enterPressed) {
                 gp.player.attackCanceled = true;
 
                 gp.gameState = gp.transitionState;
-
+                gp.nextArea = area;
                 tempMap = map;
                 tempCol = col;
                 tempRow = row;
@@ -221,7 +222,7 @@ public class EventHandler{
         gp.gameState = gameState;
         gp.player.speed = gp.player.defSpeed;
     }
-    public void openDoor(int col, int row, int gameState) {
+    /*public void openDoor(int col, int row, int gameState) {
         if (gp.keyH.enterPressed) {
 
             gp.player.attackCanceled = true;
@@ -256,7 +257,7 @@ public class EventHandler{
             canTouchEvent = false;
             gp.keyH.enterPressed = false;
         }
-    }
+    }*/
     public void setDialogue() {
         eventMaster.dialogues[0][0] = "You fall into a pit";
         eventMaster.dialogues[1][0] = "\"Waters of the ancient well flow through you, mending \nyour wounds, restoring your essence. The echoes of \nyour journey are etched into the threads of fate.\"";

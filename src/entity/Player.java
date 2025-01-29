@@ -13,6 +13,7 @@ public class Player extends Entity {
     int standCounter = 0;
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
+    public int keyCounter = 0;
 
     public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2, head;
 
@@ -30,12 +31,12 @@ public class Player extends Entity {
 
         // COLLISION DETECTION
         solidArea = new Rectangle();
-        solidArea.x = 12;
-        solidArea.y = 16;
+        solidArea.x = 9;
+        solidArea.y = 24;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 27;
-        solidArea.height = 30;
+        solidArea.height = 20;
 
         // ATTACK AREA
         /*attackArea.width = 36;
@@ -47,8 +48,8 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 36;
-        worldY = gp.tileSize * 35;
+        worldX = gp.tileSize * 13;
+        worldY = gp.tileSize * 14;
 
         defSpeed = 4;
         speed = defSpeed;
@@ -102,7 +103,7 @@ public class Player extends Entity {
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Boots(gp));
-        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Axe(gp));
         inventory.add(new OBJ_Torch(gp));
         inventory.add(new OBJ_Potion_Recovery_Big(gp));
 
@@ -582,13 +583,32 @@ public class Player extends Entity {
                 gp.obj[gp.currentMap][i].use(this);
                 gp.obj[gp.currentMap][i] = null;
             }
-
-            else if (gp.obj[gp.currentMap][i].type == type_obstacle){
-                if (keyH.enterPressed) {
-                    attackCanceled = true;
-                    gp.obj[gp.currentMap][i].interact();
+            else if (gp.obj[gp.currentMap][i].type == type_key) {
+                if (canObtainItem(gp.obj[gp.currentMap][i])) {
+                    gp.obj[gp.currentMap][i] = null;
+                    keyCounter++;
+                    System.out.println(keyCounter);
                 }
             }
+            else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
+                if (keyH.enterPressed) {
+                    if (keyCounter > 0) {
+                        attackCanceled = true;
+                        gp.obj[gp.currentMap][i].interact();
+                        keyCounter--;
+                        System.out.println(keyCounter);
+
+                        int index = searchItemInInventory("Key");
+                        if (index != 999) {
+                            inventory.get(index).amount--;
+                            if (inventory.get(index).amount <= 0) {
+                                inventory.remove(index);
+                            }
+                        }
+                    }
+                }
+            }
+
             else {
 
                 // INVENTORY ITEMS
@@ -655,6 +675,7 @@ public class Player extends Entity {
                     inventory.remove(itemIndex);
                 }
             }
+
         }
     }
     public int searchItemInInventory(String itemName){

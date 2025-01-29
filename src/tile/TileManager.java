@@ -21,7 +21,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        tile = new Tile[399];
+        tile = new Tile[400];
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
 
@@ -29,6 +29,7 @@ public class TileManager {
         loadMap("/maps/world01.txt", 0); // CHANGE WORLD MAPS
         loadMap("/maps/shop.txt", 1);
         loadMap("/maps/SandTown.txt", 2);
+        loadMap("/maps/dungeon.txt", 3);
     }
 
     public void getTileImage(){
@@ -241,6 +242,23 @@ public class TileManager {
         setup(293, "/SandTown/upper9", true);
         setup(294, "/SandTown/palm1", true);
         setup(295, "/SandTown/palm2", true);
+
+        setup(330, "/Dungeon/darkness", false);
+        setup(335, "/Dungeon/flor", false);
+        setup(340, "/Dungeon/wall1", true);
+        setup(345, "/Dungeon/wall2", true);
+        setup(350, "/Dungeon/wall3", true);
+        setup(355, "/Dungeon/wall4", true);
+        setup(360, "/Dungeon/wall5", true);
+        setup(365, "/Dungeon/wall6", true);
+        setup(370, "/Dungeon/wall7", true);
+        setup(375, "/Dungeon/wall8", true);
+        setup(380, "/Dungeon/wall9", true);
+        setup(385, "/Dungeon/wall10", true);
+        setup(390, "/Dungeon/wall11", true);
+        setup(395, "/Dungeon/wall12", true);
+        setup(398, "/Dungeon/wall13", true);
+        setup(399, "/Dungeon/wall14", true);
 
 
 

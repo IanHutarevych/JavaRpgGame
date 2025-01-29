@@ -12,6 +12,7 @@ public class OBJ_Key extends Entity {
 
         super(gp);
         this.gp = gp;
+        type = type_key;
 
         //type = type_obstacle;
         name = objName;

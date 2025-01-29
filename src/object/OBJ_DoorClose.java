@@ -16,6 +16,7 @@ public class OBJ_DoorClose extends Entity {
         type = type_obstacle;
         name = objName;
         down1 = setup("/objects/door_close",gp.tileSize, gp.tileSize);
+        down2 = setup("/objects/door_open",gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 0;
@@ -28,12 +29,20 @@ public class OBJ_DoorClose extends Entity {
     }
     public void setDialogue() {
         dialogues[0][0] = "You need a key to open this";
+        dialogues[1][0] = "You opened the door";
     }
     @Override
     public void interact() {
-
-        if (gp.keyCounter == 0){
-        startDialogue(this,0);
+        if (!opened) {
+            if (gp.player.keyCounter == 0){
+                startDialogue(this,0);
+            }
+            else if (gp.player.keyCounter > 0){
+                startDialogue(this,1);
+                down1 = down2;
+                opened = true;
+                collision = false;
+            }
         }
     }
 }
