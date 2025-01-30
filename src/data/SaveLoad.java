@@ -46,6 +46,7 @@ public class SaveLoad {
             ds.mapObjectWorldY = new int[gp.maxMap][gp.obj[1].length];
             ds.mapObjectLootNames = new String[gp.maxMap][gp.obj[1].length];
             ds.mapObjectOpened = new boolean[gp.maxMap][gp.obj[1].length];
+            //ds.mapObjectCollision = new boolean[gp.maxMap][gp.obj[1].length];
 
             for (int mapNum = 0; mapNum < gp.maxMap; mapNum++) {
 
@@ -62,6 +63,7 @@ public class SaveLoad {
                             ds.mapObjectLootNames[mapNum][i] = gp.obj[mapNum][i].loot.name;
                         }
                         ds.mapObjectOpened[mapNum][i] = gp.obj[mapNum][i].opened;
+                        //ds.mapObjectCollision[mapNum][i] = gp.obj[mapNum][i].collision;
                     }
                 }
             }
@@ -120,7 +122,12 @@ public class SaveLoad {
                             gp.obj[mapNum][i].loot = gp.eGenerator.getObject(ds.mapObjectLootNames[mapNum][i]);
                         }
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
+                        //gp.obj[mapNum][i].collision = ds.mapObjectOpened[mapNum][i];
                         if (gp.obj[mapNum][i].opened) {
+                            if (gp.obj[mapNum][i].type == gp.obj[mapNum][i].type_obstacle){
+                                gp.obj[mapNum][i].down1 = gp.obj[mapNum][i].down2;
+                                gp.obj[mapNum][i].collision = false;
+                            }
                             gp.obj[mapNum][i].down1 = gp.obj[mapNum][i].image2;
                         }
                     }

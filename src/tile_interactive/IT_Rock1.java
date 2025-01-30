@@ -25,7 +25,7 @@ public class IT_Rock1 extends InteractiveTile{
     }
     public boolean isCorrectWeapon(Entity e) {
         boolean correct = false;
-        if (e.currentWeapon.type == type_axe){
+        if (e.currentWeapon.type == type_pickaxe_normal){
             correct = true;
         }
         return correct;

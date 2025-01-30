@@ -257,6 +257,7 @@ public class TileManager {
         setup(385, "/Dungeon/wall10", true);
         setup(390, "/Dungeon/wall11", true);
         setup(395, "/Dungeon/wall12", true);
+        setup(397, "/Dungeon/skull", false);
         setup(398, "/Dungeon/wall13", true);
         setup(399, "/Dungeon/wall14", true);
 

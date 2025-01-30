@@ -113,6 +113,7 @@ public class Entity {
     public final int type_light = 11;
     public final int type_shieldMetal = 12;
     public final int type_key = 13;
+    public final int type_pickaxe_normal = 14;
 
 
 

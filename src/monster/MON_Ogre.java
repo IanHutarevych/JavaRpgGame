@@ -2,10 +2,7 @@ package monster;
 
 import entity.Entity;
 import main.GamePanel;
-import object.OBJ_Coin_Bronze;
-import object.OBJ_Heart;
-import object.OBJ_ManaStar;
-import object.OBJ_Slize;
+import object.*;
 
 import java.util.Random;
 
@@ -106,13 +103,13 @@ public class MON_Ogre extends Entity{
     public void checkDrop(){
         int i = new Random().nextInt(100)+1;
         if (i < 50){
-            dropItem(new OBJ_Coin_Bronze(gp));
+            dropItem(new OBJ_Coin_Silver(gp));
         }
         if (i >=50 && i < 75){
-            dropItem(new OBJ_Heart(gp));
+            dropItem(new OBJ_Gold(gp));
         }
         if (i >=75 && i < 100){
-            dropItem(new OBJ_ManaStar(gp));
+            dropItem(new OBJ_Key(gp));
         }
     }
 

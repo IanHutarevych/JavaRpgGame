@@ -81,9 +81,11 @@ public class Player extends Entity {
         setDialogue();
     }
     public void setDefaultPositions(){
-        worldX = gp.tileSize * 36;
-        worldY = gp.tileSize * 35;
+        worldX = gp.tileSize * 17;
+        worldY = gp.tileSize * 19;
         direction = "down";
+        gp.currentMap = 2;
+
 
     }
     public void restoreStatus(){
@@ -104,6 +106,7 @@ public class Player extends Entity {
         inventory.add(currentShield);
         inventory.add(new OBJ_Boots(gp));
         inventory.add(new OBJ_Axe(gp));
+        inventory.add(new OBJ_PickaxeNormal(gp));
         inventory.add(new OBJ_Torch(gp));
         inventory.add(new OBJ_Potion_Recovery_Big(gp));
 
@@ -164,7 +167,21 @@ public class Player extends Entity {
 
             attackRight1 = setup("/player/axe_right1",gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("/player/axe_right2",gp.tileSize*2, gp.tileSize);
-        }if (currentWeapon.type == type_watering){
+        }
+        if (currentWeapon.type == type_pickaxe_normal){
+            attackUp1 = setup("/player/pickaxe_up1",gp.tileSize, gp.tileSize*2);
+            attackUp2 = setup("/player/pickaxe_up2",gp.tileSize, gp.tileSize*2);
+
+            attackDown1 = setup("/player/pickaxe_down1",gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/player/pickaxe_down2",gp.tileSize, gp.tileSize*2);
+
+            attackLeft1 = setup("/player/pickaxe_left1",gp.tileSize*2, gp.tileSize);
+            attackLeft2 = setup("/player/pickaxe_left2",gp.tileSize*2, gp.tileSize);
+
+            attackRight1 = setup("/player/pickaxe_right1",gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/player/pickaxe_right2",gp.tileSize*2, gp.tileSize);
+        }
+        if (currentWeapon.type == type_watering){
             attackUp1 = setup("/player/water_up1",gp.tileSize, gp.tileSize*2);
             attackUp2 = setup("/player/water_up2",gp.tileSize, gp.tileSize*2);
 
@@ -190,6 +207,7 @@ public class Player extends Entity {
             attackRight1 = setup("/player/mic_right1",gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("/player/mic_right2",gp.tileSize*2, gp.tileSize);
         }
+
     }
     public void getGuardImage() {
         if (currentShield.type == type_shieldWood){
@@ -646,7 +664,8 @@ public class Player extends Entity {
             if (selectedItem.type == type_sword
             || selectedItem.type == type_axe
             || selectedItem.type == type_michael_sword
-            || selectedItem.type == type_watering) {
+            || selectedItem.type == type_watering
+            ||selectedItem.type == type_pickaxe_normal) {
 
                 currentWeapon = selectedItem;
                 attack = getAttack();

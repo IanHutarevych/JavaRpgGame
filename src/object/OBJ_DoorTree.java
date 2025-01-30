@@ -3,12 +3,12 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_DoorClose extends Entity {
+public class OBJ_DoorTree extends Entity {
 
     GamePanel gp;
     public static final String objName = "door_close";
 
-    public OBJ_DoorClose(GamePanel gp) {
+    public OBJ_DoorTree(GamePanel gp) {
 
         super(gp);
         this.gp = gp;
@@ -16,7 +16,7 @@ public class OBJ_DoorClose extends Entity {
         type = type_obstacle;
         name = objName;
         down1 = setup("/objects/door_close",gp.tileSize, gp.tileSize);
-        down2 = setup("/objects/door_open",gp.tileSize, gp.tileSize);
+        image2 = setup("/objects/door_open",gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 0;
@@ -39,7 +39,7 @@ public class OBJ_DoorClose extends Entity {
             }
             else if (gp.player.keyCounter > 0){
                 startDialogue(this,1);
-                down1 = down2;
+                down1 = image2;
                 opened = true;
                 collision = false;
             }

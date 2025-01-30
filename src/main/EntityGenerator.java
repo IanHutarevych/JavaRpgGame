@@ -28,8 +28,8 @@ public class EntityGenerator {
             case OBJ_Coin_Bronze.objName: obj = new OBJ_Coin_Bronze(gp); break;
             case OBJ_Coin_Gold.objName: obj = new OBJ_Coin_Gold(gp); break;
             case OBJ_Coin_Silver.objName: obj = new OBJ_Coin_Silver(gp); break;
-            case OBJ_DoorClose.objName: obj = new OBJ_DoorClose(gp); break;
-            case OBJ_DoorOpen.objName: obj = new OBJ_DoorOpen(gp); break;
+            case OBJ_DoorTree.objName: obj = new OBJ_DoorTree(gp); break;
+            case OBJ_DoorDungeon.objName: obj = new OBJ_DoorDungeon(gp); break;
             case OBJ_Gold.objName: obj = new OBJ_Gold(gp); break;
             case OBJ_Gold_Clever.objName: obj = new OBJ_Gold_Clever(gp); break;
             case OBJ_Heart.objName: obj = new OBJ_Heart(gp); break;
@@ -52,6 +52,7 @@ public class EntityGenerator {
             case OBJ_Watering.objName: obj = new OBJ_Watering(gp); break;
             case OBJ_StairsDown.objName: obj = new OBJ_StairsDown(gp); break;
             case OBJ_StairsUp.objName: obj = new OBJ_StairsUp(gp); break;
+            case OBJ_PickaxeNormal.objName: obj = new OBJ_PickaxeNormal(gp); break;
         }
         return obj;
     }

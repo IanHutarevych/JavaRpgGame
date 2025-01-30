@@ -2,33 +2,25 @@ package tile_interactive;
 
 import entity.Entity;
 import main.GamePanel;
-import object.OBJ_Gold;
-import object.OBJ_Iron;
+import object.*;
 
 import java.awt.*;
 import java.util.Random;
 
-public class IT_Rock2 extends InteractiveTile{
+public class IT_DestructibleWall extends InteractiveTile {
 
     GamePanel gp;
 
-    public IT_Rock2(GamePanel gp, int col, int row) {
+    public IT_DestructibleWall(GamePanel gp, int col, int row) {
         super(gp,col,row);
         this.gp = gp;
 
         this.worldX = gp. tileSize * col;
         this.worldY = gp.tileSize * row;
 
-        down1 = setup("/tiles_interactive/rock2",gp.tileSize, gp.tileSize);
+        down1 = setup("/tiles_interactive/destructibleWall1",gp.tileSize, gp.tileSize);
         destructible = true;
         life = 3;
-
-        solidArea.x = 0;
-        solidArea.y = 20;
-        solidArea.width = 48;
-        solidArea.height = 28;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
 
     }
     public boolean isCorrectWeapon(Entity e) {
@@ -43,12 +35,13 @@ public class IT_Rock2 extends InteractiveTile{
     }
 
     public InteractiveTile getDestroyedForm(){
-        InteractiveTile destroyedForm = new IT_AfterRock2(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        InteractiveTile destroyedForm = new IT_AfterWall(gp,worldX/gp.tileSize,worldY/gp.tileSize);
         checkDrop();
+
         return destroyedForm;
     }
     public Color getParticleColor(){
-        Color color = new Color(214,160,84);
+        Color color = new Color(37,19,26);
         return color;
     }
     public int getParticleSize(){
@@ -66,11 +59,15 @@ public class IT_Rock2 extends InteractiveTile{
     @Override
     public void checkDrop(){
         int i = new Random().nextInt(100)+1;
-        if (i < 60){
-            dropItem(new OBJ_Iron(gp));
+        if (i > 30 && i < 70){
+            dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if (i >=60){
-            dropItem(new OBJ_Gold(gp));
+        if (i >=70 && i <90){
+            dropItem(new OBJ_Coin_Silver(gp));
+        }
+        if (i >=90 && i < 100){
+            dropItem(new OBJ_Coin_Gold(gp));
         }
     }
 }
+
