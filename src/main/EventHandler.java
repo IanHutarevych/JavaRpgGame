@@ -66,13 +66,15 @@ public class EventHandler{
 
         if (canTouchEvent){
             if (hit(0,24, 25, "any")) {receiveMessage1();}
-            else if (hit(0,24, 38, "any")) {receiveMessage2(gp.dialogueState);}
+            else if (hit(0,27, 25, "any")) {receiveMessage2(gp.dialogueState);}
             else if (hit(0,34, 34, "any")) {receiveMessage3(gp.dialogueState);}
             else if (hit(2,14, 18, "any")) {receiveMessage4(gp.dialogueState);}
             else if (hit(2,10, 14, "any")) {receiveMessage4(gp.dialogueState);}
-            else if (hit(0,35, 37, "right")) {healingPool(gp.dialogueState);}
-            else if (hit(0,36, 36, "down")) {healingPool(gp.dialogueState);}
-            else if (hit(0,37, 37, "left")) {healingPool(gp.dialogueState);}
+
+            else if (hit(0,33, 30, "right")) {healingPool(gp.dialogueState);}
+            else if (hit(0,34, 29, "down")) {healingPool(gp.dialogueState);}
+            else if (hit(0,35, 30, "left")) {healingPool(gp.dialogueState);}
+            else if (hit(0,34, 31, "up")) {healingPool(gp.dialogueState);}
 
             else if (hit(2,29, 29, "right")) {healingPool(gp.dialogueState);}
             else if (hit(2,30, 28, "down")) {healingPool(gp.dialogueState);}
@@ -81,21 +83,21 @@ public class EventHandler{
 
             else if (hit(0,36, 38, "up")) {healingPool(gp.dialogueState);}
 
-            else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
+            /*else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
             else if (hit(0,35, 30, "any")) {slowlySpeed(35, 30,gp.playState);}
             else if (hit(0,35, 29, "any")) {normalSpeed(35, 29,gp.playState);}
-            else if (hit(0,35, 34, "any")) {normalSpeed(35, 34,gp.playState);}
+            else if (hit(0,35, 34, "any")) {normalSpeed(35, 34,gp.playState);}*/
 
-            else if (hit(0,28, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
-            else if (hit(0,27, 20, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
-            else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
-            else if (hit(1, 23, 20, "any")) {teleportEnter(0, 27, 20, gp.outside); } // from merchant
+            else if (hit(0,11, 23, "up")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            else if (hit(0,12, 23, "up")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            //else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
+            else if (hit(1, 23, 20, "any")) {teleportEnter(0, 12, 23, gp.outside); } // from merchant
 
             else if (hit(2, 13, 13, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
             else if (hit(3, 24, 43, "up")) {teleportEnter(2, 13, 13, gp.outside); } // from dungeon
 
-            else if (hit(2, 20, 43, "any")) {teleport(0, 23, 17, gp.outside); } // from sand to tree
-            else if (hit(0, 23, 17, "any")) {teleport(2, 20, 43, gp.outside); } // from tree to sand
+            else if (hit(2, 27, 19, "any")) {teleport(0, 9, 24, gp.outside); } // from sand to tree
+            else if (hit(0, 9, 24, "any")) {teleport(2, 27, 19, gp.outside); } // from tree to sand
 
             else if (hit(2, 23, 10, "up")) {teleport(2, 17, 11, gp.outside); } // cave
             else if (hit(2, 17, 10, "up")) {teleport(2, 23, 11, gp.outside); } // cave
@@ -262,7 +264,7 @@ public class EventHandler{
         eventMaster.dialogues[0][0] = "You fall into a pit";
         eventMaster.dialogues[1][0] = "\"Waters of the ancient well flow through you, mending \nyour wounds, restoring your essence. The echoes of \nyour journey are etched into the threads of fate.\"";
         eventMaster.dialogues[2][0] = "← Ruins  \nShop ↓";
-        eventMaster.dialogues[3][0] = "Mysterious Well →\nShop   ↓";
+        eventMaster.dialogues[3][0] = "Shop ←\nMysterious Well ↓";
         eventMaster.dialogues[4][0] = "Sticky Swamp. Awful...";
         eventMaster.dialogues[5][0] = "A sand town";
     }

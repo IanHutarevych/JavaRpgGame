@@ -26,7 +26,7 @@ public class TileManager {
 
 
         getTileImage();
-        loadMap("/maps/world01.txt", 0); // CHANGE WORLD MAPS
+        loadMap("/maps/Woods.txt", 0);
         loadMap("/maps/shop.txt", 1);
         loadMap("/maps/SandTown.txt", 2);
         loadMap("/maps/dungeon.txt", 3);
@@ -34,81 +34,59 @@ public class TileManager {
 
     public void getTileImage(){
 
+        setup(0, "/Woods/001", true);
+        setup(1, "/Woods/002", true);
+        setup(2, "/Woods/003", true);
+        setup(3, "/Woods/004", true);
+        setup(4, "/Woods/005", true);
+        setup(5, "/Woods/006", true);
+        setup(6, "/Woods/007", true);
+        setup(7, "/Woods/008", true);
+        setup(8, "/Woods/009", true);
+        setup(9, "/Woods/010", false);
+        setup(10, "/Woods/011", false);
+        setup(11, "/Woods/012", true);
+        setup(12, "/Woods/013", true);
+        setup(13, "/Woods/014", false);
+        setup(14, "/Woods/015", false);
+        setup(15, "/Woods/016", false);
+        setup(16, "/Woods/017", false);
+        setup(17, "/Woods/018", false);
+        setup(18, "/Woods/019", false);
+        setup(19, "/Woods/020", false);
+        setup(20, "/Woods/021", true);
+        setup(21, "/Woods/022", false);
+        setup(22, "/Woods/023", true);
+        setup(23, "/Woods/024", true);
+        setup(24, "/Woods/025", true);
+        setup(25, "/Woods/026", true);
+        setup(26, "/Woods/027", true);
+        setup(27, "/Woods/028", true);
+        setup(28, "/Woods/029", true);
+        setup(29, "/Woods/030", false);
+        setup(30, "/Woods/031", true);
+        setup(31, "/Woods/032", true);
+        setup(32, "/Woods/033", true);
+        setup(33, "/Woods/034", true);
+        setup(34, "/Woods/035", true);
+        setup(35, "/Woods/036", true);
+        setup(36, "/Woods/037", true);
+        setup(37, "/Woods/038", true);
+        setup(38, "/Woods/039", true);
+        setup(39, "/Woods/040", true);
+        setup(40, "/Woods/041", false);
+        setup(41, "/Woods/042", false
+        );
+        setup(42, "/Woods/043", false);
+        setup(43, "/Woods/044", false);
+        setup(44, "/Woods/045", false);
+        setup(45, "/Woods/046", true);
+        setup(46, "/Woods/047", false);
+        setup(47, "/Woods/048", true);
 
-        setup(0, "grass1", false);
-        setup(1, "grass1", false);
-        setup(2, "grass1", false);
-        setup(3, "grass1", false);
-        setup(4, "grass1", false);
-        setup(5, "grass1", false);
-        setup(6, "grass1", false);
-        setup(7, "grass1", false);
-        setup(8, "grass1", false);
-        setup(9, "grass1", false);
 
 
-        setup(10, "grass2", false);
-        setup(11, "grass1", false);
-        setup(12, "tree2", true);
-        setup(13, "tree1", true);
-        setup(14, "pathway1", false);
-        setup(15, "pathway2", false);
-        setup(16, "wall1", true);
-        setup(17, "wall2", true);
-        setup(18, "flor", false);
-        setup(19, "tree3", true);
-        setup(20, "tree4", true);
-        setup(21, "billboard", false); // u can change
-        setup(22, "pathway3", false);
-        setup(23, "pathway4", false);
-        setup(24, "pathway5", false);
-        setup(25, "pathway6", false);
-        setup(26, "pathway7", false);
-        setup(27, "pathway8", false);
-        setup(28, "pathway9", false);
-        setup(29, "path-flor2", false);
-        setup(30, "path-flor1", false);
-        setup(31, "wall3", true);
-        setup(32, "wall4", true);
-        setup(33, "wall5", true);
-        setup(34, "wall6", true);
-        setup(35, "wall7", true);
-        setup(36, "water1", true);
-        setup(37, "water2", true);
-        setup(38, "water3", true);
-        setup(39, "water4", true);
-        setup(40, "water5", true);
-        setup(41, "water6", true);
-        setup(42, "water7", true);
-        setup(43, "water8", true);
-        setup(44, "water9", true);
-        setup(45, "tree5", true);
-        setup(46, "tree6", true);
-        setup(47, "tree7", true);
-        setup(48, "tree8", true);
-        setup(49, "tree9", true);
-        setup(50, "tree10", true);
-        setup(51, "tree11", true);
-        setup(52, "tree12", true);
-        setup(53, "tree13", false);
-        setup(54, "tree14", true);
-        setup(55, "tree15", true);
-        setup(56, "tree16", false);
-        setup(57, "tree17", true);
-        setup(58, "tree18", true);
-        setup(59, "tree19", false);
-        setup(60, "tree20", true);
-        setup(61, "tree21", true);
-        setup(62, "hat", true); // u can change
-        setup(63, "well", true);
-        setup(64, "bridge1", false);
-        setup(65, "bridge2", false);
-        setup(66, "bridge3", false);
-        setup(67, "flor1", false);
 
-        setup(68, "swamp3", false);
-        setup(69, "swamp2", false);
-        setup(70, "swamp1", false);
 
         setup(100, "/ShopTiles/darkness", true);
         setup(101, "/ShopTiles/s1", true);

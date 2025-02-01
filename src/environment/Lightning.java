@@ -92,7 +92,7 @@ public class Lightning {
         if (dayState == day){
 
             dayCounter++;
-            if (dayCounter > 200){
+            if (dayCounter > 1800){
                 dayState = dusk;
                 dayCounter = 0;
             }
@@ -145,6 +145,6 @@ public class Lightning {
         }
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
-        g2.drawString(period, 800, 500);
+        //g2.drawString(period, 800, 500);
     }
 }

@@ -16,7 +16,7 @@ public class OBJ_PickaxeNormal extends Entity {
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
-        description = "[" + name + "]\nA sturdy pickaxe for mining and \ncrushing.";
+        description = "[" + name + "]\nA sturdy pickaxe for \nmining and crushing.";
         price = 75;
         knockBackPower = 10;
         motion1_duration = 10;
