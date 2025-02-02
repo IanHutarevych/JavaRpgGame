@@ -48,7 +48,7 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 21;
+        worldX = gp.tileSize * 19;
         worldY = gp.tileSize * 24;
 
         defSpeed = 4;
@@ -517,6 +517,8 @@ public class Player extends Entity {
                 gp.playSE(1);
                 gp.ui.addMessage("Exp + 1");
                 gp.player.exp += 1;
+                checkLvlUp();
+
             }
         }
     }

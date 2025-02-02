@@ -27,13 +27,14 @@ public class TileManager {
 
         getTileImage();
         loadMap("/maps/Woods.txt", 0);
-        loadMap("/maps/shop.txt", 1);
-        loadMap("/maps/SandTown.txt", 2);
+        //loadMap("/maps/shop.txt", 1);
+        loadMap("/maps/Desert.txt", 2);
         loadMap("/maps/dungeon.txt", 3);
     }
 
     public void getTileImage(){
 
+        // WOODS
         setup(0, "/Woods/001", true);
         setup(1, "/Woods/002", true);
         setup(2, "/Woods/003", true);
@@ -75,8 +76,7 @@ public class TileManager {
         setup(38, "/Woods/039", true);
         setup(39, "/Woods/040", true);
         setup(40, "/Woods/041", false);
-        setup(41, "/Woods/042", false
-        );
+        setup(41, "/Woods/042", false);
         setup(42, "/Woods/043", false);
         setup(43, "/Woods/044", false);
         setup(44, "/Woods/045", false);
@@ -84,11 +84,133 @@ public class TileManager {
         setup(46, "/Woods/047", false);
         setup(47, "/Woods/048", true);
 
+        // DESERT
+        setup(48, "/Desert/049", true);
+        setup(49, "/Desert/050", true);
+        setup(50, "/Desert/051", false);
+        setup(51, "/Desert/052", false);
+        setup(52, "/Desert/053", true);
+        setup(53, "/Desert/054", false);
+        setup(54, "/Desert/055", false);
+        setup(55, "/Desert/056", true);
+        setup(56, "/Desert/057", true);
+        setup(57, "/Desert/058", false);
+        setup(58, "/Desert/059", false);
+        setup(59, "/Desert/060", false);
+        setup(60, "/Desert/061", false);
+        setup(61, "/Desert/062", false);
+        setup(62, "/Desert/063", false);
+        setup(63, "/Desert/064", false);
+        setup(64, "/Desert/065", false);
+        setup(65, "/Desert/066", false);
+        setup(66, "/Desert/067", false);
+        setup(67, "/Desert/068", false);
+        setup(68, "/Desert/069", false);
+        setup(69, "/Desert/070", true);
+        setup(70, "/Desert/071", true);
+        setup(71, "/Desert/072", true);
+        setup(72, "/Desert/073", true);
+        setup(73, "/Desert/074", true);
+        setup(74, "/Desert/075", true);
+        setup(75, "/Desert/076", true);
+        setup(76, "/Desert/077", true);
+        setup(77, "/Desert/078", true);
+        setup(78, "/Desert/079", true);
+        setup(79, "/Desert/080", true);
+        setup(80, "/Desert/081", true);
+        setup(81, "/Desert/082", false);
+        setup(82, "/Desert/083", false);
+        setup(83, "/Desert/084", false);
+        setup(84, "/Desert/085", false);
+        setup(85, "/Desert/086", false);
+        setup(86, "/Desert/087", false);
+        setup(87, "/Desert/088", false);
+        setup(88, "/Desert/089", false);
+        setup(89, "/Desert/090", false);
+        setup(90, "/Desert/091", false);
+        setup(91, "/Desert/092", false);
+        setup(92, "/Desert/093", false);
+        setup(93, "/Desert/094", false);
+        setup(94, "/Desert/095", false);
+        setup(95, "/Desert/096", false);
+        setup(96, "/Desert/097", false);
+        setup(97, "/Desert/098", false);
+        setup(98, "/Desert/099", false);
+        setup(99, "/Desert/100", false);
+        setup(100, "/Desert/101", true);
+        setup(101, "/Desert/102", true);
+        setup(102, "/Desert/103", false);
+        setup(103, "/Desert/104", false);
+        setup(104, "/Desert/105", true);
+        setup(105, "/Desert/106", true);
+        setup(106, "/Desert/107", true);
+        setup(107, "/Desert/108", true);
+        setup(108, "/Desert/109", false);
+        setup(109, "/Desert/110", false);
+        setup(110, "/Desert/111", true);
+        setup(111, "/Desert/112", true);
+        setup(112, "/Desert/113", false);
+        setup(113, "/Desert/114", false);
+        setup(114, "/Desert/115", false);
+        setup(115, "/Desert/116", false);
+        setup(116, "/Desert/117", false);
+        setup(117, "/Desert/118", false);
+        setup(118, "/Desert/119", false);
+        setup(119, "/Desert/120", false);
+        setup(120, "/Desert/121", false);
+        setup(121, "/Desert/122", false);
+        setup(122, "/Desert/123", false);
+        setup(123, "/Desert/124", true);
+        setup(124, "/Desert/125", true);
+        setup(125, "/Desert/126", true);
+        setup(126, "/Desert/127", true);
+        setup(127, "/Desert/128", true);
+        setup(128, "/Desert/129", true);
+        setup(129, "/Desert/130", true);
+        setup(130, "/Desert/131", true);
+        setup(131, "/Desert/132", true);
+        setup(132, "/Desert/133", false);
+        setup(133, "/Desert/134", true);
+        setup(134, "/Desert/135", false);
+        setup(135, "/Desert/136", true);
+        setup(136, "/Desert/137", true);
+        setup(137, "/Desert/138", true);
+        setup(138, "/Desert/139", true);
+        setup(139, "/Desert/140", true);
+        setup(140, "/Desert/141", true);
+        setup(141, "/Desert/142", false);
+        setup(142, "/Desert/143", false);
+        setup(143, "/Desert/144", false);
+        setup(144, "/Desert/145", true);
+        setup(145, "/Desert/146", false);
+        setup(146, "/Desert/147", false);
+        setup(147, "/Desert/148", true);
+        setup(148, "/Desert/149", true);
+        setup(149, "/Desert/150", true);
+        setup(150, "/Desert/151", false);
+        setup(151, "/Desert/152", false);
+        setup(152, "/Desert/153", true);
+        setup(153, "/Desert/154", true);
+        setup(154, "/Desert/155", true);
+        setup(155, "/Desert/156", true);
+        setup(156, "/Desert/157", true);
+        setup(157, "/Desert/158", false);
+        setup(158, "/Desert/159", true);
+        setup(159, "/Desert/160", true);
+        setup(160, "/Desert/161", true);
+        setup(161, "/Desert/162", false);
+        setup(162, "/Desert/163", false);
+        setup(163, "/Desert/164", false);
+        setup(164, "/Desert/165", false);
+        setup(165, "/Desert/166", false);
+        setup(166, "/Desert/167", true);
+        setup(167, "/Desert/168", true);
 
 
 
 
-        setup(100, "/ShopTiles/darkness", true);
+
+        /*setup(100, "/ShopTiles/darkness", true);
         setup(101, "/ShopTiles/s1", true);
         setup(102, "/ShopTiles/s2", true);
         setup(103, "/ShopTiles/s3", true);
@@ -120,11 +242,11 @@ public class TileManager {
         setup(144, "/ShopTiles/carpet5", false);
         setup(145, "/ShopTiles/carpet6", false);
         setup(175, "/ShopTiles/s75", true);
-        setup(176, "/ShopTiles/doorShop", true);
+        setup(176, "/ShopTiles/doorShop", true);*/
 
 
 
-        setup(200, "/SandTown/sand1", false);
+        /*setup(200, "/SandTown/sand1", false);
         setup(201, "/SandTown/sand2", false);
         setup(202, "/SandTown/sand3", false);
         setup(203, "/SandTown/home1", true);
@@ -219,7 +341,7 @@ public class TileManager {
         setup(292, "/SandTown/upper8", false);
         setup(293, "/SandTown/upper9", true);
         setup(294, "/SandTown/palm1", true);
-        setup(295, "/SandTown/palm2", true);
+        setup(295, "/SandTown/palm2", true);*/
 
         setup(330, "/Dungeon/darkness", false);
         setup(335, "/Dungeon/flor", false);

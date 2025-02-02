@@ -96,11 +96,17 @@ public class EventHandler{
             else if (hit(2, 13, 13, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
             else if (hit(3, 24, 43, "up")) {teleportEnter(2, 13, 13, gp.outside); } // from dungeon
 
-            else if (hit(2, 27, 19, "any")) {teleport(0, 9, 24, gp.outside); } // from sand to tree
-            else if (hit(0, 9, 24, "any")) {teleport(2, 27, 19, gp.outside); } // from tree to sand
+            else if (hit(2, 40, 24, "any")) {teleport(0, 9, 24, gp.outside); } // from sand to tree
+            else if (hit(0, 9, 24, "any")) {teleport(2, 40, 24, gp.outside); } // from tree to sand
 
-            else if (hit(2, 23, 10, "up")) {teleport(2, 17, 11, gp.outside); } // cave
-            else if (hit(2, 17, 10, "up")) {teleport(2, 23, 11, gp.outside); } // cave
+            else if (hit(2, 38, 19, "up")) {teleportEnter(2, 37, 7, gp.outside); } // cave
+            else if (hit(2, 37, 7, "up")) {teleportEnter(2, 38, 19, gp.outside); } // cave
+
+            else if (hit(2, 25, 8, "up")) {teleportEnter(2, 16, 8, gp.outside); } // cave
+            else if (hit(2, 16, 8, "up")) {teleportEnter(2, 25, 8, gp.outside); } // cave
+
+            else if (hit(2, 36, 37, "up")) {teleportEnter(2, 30, 29, gp.outside); } // cave
+            else if (hit(2, 30, 29, "up")) {teleportEnter(2, 36, 37, gp.outside); } // cave
 
             else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
         }

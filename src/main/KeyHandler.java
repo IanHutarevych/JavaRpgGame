@@ -69,7 +69,7 @@ public class KeyHandler implements KeyListener {
     }
 
     private void mapState(int code) {
-        if (code == KeyEvent.VK_M) {
+        if (code == KeyEvent.VK_M || code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
     }

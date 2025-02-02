@@ -55,7 +55,7 @@ public class MON_SandSlime extends Entity {
         int yDistance = Math.abs(worldY - gp.player.worldY);
         int tileDistance = (xDistance + yDistance) / gp.tileSize;
 
-        if (!onPath && tileDistance < 5){
+        if (!onPath && tileDistance < 2){
 
             int i = new Random().nextInt(100)+1;
             if (i > 50){
