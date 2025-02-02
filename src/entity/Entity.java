@@ -16,6 +16,7 @@ public class Entity {
     GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,attackRight2;
+    public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2, head;
     public BufferedImage image1, image2, image3;
     public BufferedImage guardUp, guardDown, guardLeft, guardRight;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -534,51 +535,47 @@ public class Entity {
                 case "up":
                     if (attacking) { // Якщо атакує
                         tempScreenY = screenY - gp.tileSize;
-                        if (spriteNum == 1) {
-                            image = attackUp1;
-                        }
-                        if (spriteNum == 2) {
-                            image = attackUp2;
-                        }
-                    } else { // Якщо рухається
-                        if (spriteNum == 1) {
-                            image = up1;
-                        }
-                        if (spriteNum == 2) {
-                            image = up2;
-                        }
+                        if (spriteNum == 1) {image = attackUp1;}
+                        if (spriteNum == 2) {image = attackUp2;}
+                    }
+                    else if (idle) {
+                        if (spriteNum == 1) {image = idleUp1;}
+                        if (spriteNum == 2) {image = idleUp2;}
+                    }
+
+                    else { // Якщо рухається
+                        if (spriteNum == 1) {image = up1;}
+                        if (spriteNum == 2) {image = up2;}
                     }
                     break;
 
                 case "down":
 
                     if (attacking) { // Якщо атакує
-                        if (spriteNum == 1) {
-                            image = attackDown1;
-                        }
-                        if (spriteNum == 2) {
-                            image = attackDown2;
-                        }
-                    } else { // Якщо рухається
-                        if (spriteNum == 1) {
-                            image = down1;
-                        }
-                        if (spriteNum == 2) {
-                            image = down2;
-                        }
+                        if (spriteNum == 1) {image = attackDown1;}
+                        if (spriteNum == 2) {image = attackDown2;}
+                    }
+                    else if (idle) {
+                        if (spriteNum == 1) {image = idleDown1;}
+                        if (spriteNum == 2) {image = idleDown2;}
+                    }
+                    else { // Якщо рухається
+                        if (spriteNum == 1) {image = down1;}
+                        if (spriteNum == 2) {image = down2;}
                     }
                     break;
 
                 case "left":
                     if (attacking) { // Якщо атакує
                         tempScreenX = screenX - gp.tileSize;
-                        if (spriteNum == 1) {
-                            image = attackLeft1;
-                        }
-                        if (spriteNum == 2) {
-                            image = attackLeft2;
-                        }
-                    } else { // Якщо рухається
+                        if (spriteNum == 1) {image = attackLeft1;}
+                        if (spriteNum == 2) {image = attackLeft2;}
+                    }
+                    else if (idle) {
+                        if (spriteNum == 1) {image = idleLeft1;}
+                        if (spriteNum == 2) {image = idleLeft2;}
+                    }
+                    else { // Якщо рухається
                         if (spriteNum == 1) {
                             image = left1;
                         }
@@ -590,19 +587,16 @@ public class Entity {
 
                 case "right":
                     if (attacking) { // Якщо атакує
-                        if (spriteNum == 1) {
-                            image = attackRight1;
-                        }
-                        if (spriteNum == 2) {
-                            image = attackRight2;
-                        }
-                    } else { // Якщо рухається
-                        if (spriteNum == 1) {
-                            image = right1;
-                        }
-                        if (spriteNum == 2) {
-                            image = right2;
-                        }
+                        if (spriteNum == 1) {image = attackRight1;}
+                        if (spriteNum == 2) {image = attackRight2;}
+                    }
+                    else if (idle) {
+                        if (spriteNum == 1) {image = idleRight1;}
+                        if (spriteNum == 2) {image = idleRight2;}
+                    }
+                    else { // Якщо рухається
+                        if (spriteNum == 1) {image = right1;}
+                        if (spriteNum == 2) {image = right2;}
                     }
                     break;
             }

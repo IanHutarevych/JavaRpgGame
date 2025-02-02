@@ -1,6 +1,7 @@
 package main;
 
 import entity.AOBJ_Fire;
+import entity.NPC_Helmart;
 import entity.NPC_PumpkinHead;
 import entity.NPC_Mortemark;
 import monster.MON_GreenSlime;
@@ -81,6 +82,10 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 15 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 10 * gp.tileSize;
         i++;
+        gp.obj[mapNum][i] = new OBJ_StairsDown(gp);
+        gp.obj[mapNum][i].worldX = 38 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 13 * gp.tileSize;
+        i++;
 
 
         mapNum = 3;
@@ -124,6 +129,10 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_PumpkinHead(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*23;
         gp.npc[mapNum][i].worldY = gp.tileSize*19;
+
+        gp.npc[mapNum][i] = new NPC_Helmart(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*23;
+        gp.npc[mapNum][i].worldY = gp.tileSize*9;
 
 
         // MAP 1

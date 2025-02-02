@@ -15,7 +15,7 @@ public class Player extends Entity {
     public boolean lightUpdated = false;
     public int keyCounter = 0;
 
-    public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2, head;
+
 
 
 
@@ -48,8 +48,8 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 19;
-        worldY = gp.tileSize * 24;
+        worldX = gp.tileSize * 26;
+        worldY = gp.tileSize * 10;
 
         defSpeed = 4;
         speed = defSpeed;
@@ -350,7 +350,8 @@ public class Player extends Entity {
                 }
                 break;
 
-            case "right":  if (attacking) { // Якщо атакує
+            case "right":
+            if (attacking) { // Якщо атакує
                 if (spriteNum == 1) { image = attackRight1; }
                 if (spriteNum == 2) { image = attackRight2; }
             }
