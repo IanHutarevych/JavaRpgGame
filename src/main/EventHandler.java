@@ -68,7 +68,7 @@ public class EventHandler{
             if (hit(0,24, 25, "any")) {receiveMessage1();}
             else if (hit(0,27, 25, "any")) {receiveMessage2(gp.dialogueState);}
             else if (hit(0,34, 34, "any")) {receiveMessage3(gp.dialogueState);}
-            else if (hit(2,14, 18, "any")) {receiveMessage4(gp.dialogueState);}
+            else if (hit(2,29, 23, "any")) {receiveMessage4(gp.dialogueState);}
             else if (hit(2,10, 14, "any")) {receiveMessage4(gp.dialogueState);}
 
             else if (hit(0,33, 30, "right")) {healingPool(gp.dialogueState);}
@@ -76,12 +76,12 @@ public class EventHandler{
             else if (hit(0,35, 30, "left")) {healingPool(gp.dialogueState);}
             else if (hit(0,34, 31, "up")) {healingPool(gp.dialogueState);}
 
-            else if (hit(2,29, 29, "right")) {healingPool(gp.dialogueState);}
-            else if (hit(2,30, 28, "down")) {healingPool(gp.dialogueState);}
-            else if (hit(2,31, 29, "left")) {healingPool(gp.dialogueState);}
-            else if (hit(2,30, 30, "up")) {healingPool(gp.dialogueState);}
+            else if (hit(2,21, 19, "right")) {healingPool(gp.dialogueState);}
+            else if (hit(2,22, 18, "down")) {healingPool(gp.dialogueState);}
+            else if (hit(2,23, 19, "left")) {healingPool(gp.dialogueState);}
+            else if (hit(2,22, 20, "up")) {healingPool(gp.dialogueState);}
 
-            else if (hit(0,36, 38, "up")) {healingPool(gp.dialogueState);}
+
 
             /*else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
             else if (hit(0,35, 30, "any")) {slowlySpeed(35, 30,gp.playState);}
@@ -90,11 +90,25 @@ public class EventHandler{
 
             else if (hit(0,11, 23, "up")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
             else if (hit(0,12, 23, "up")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
-            //else if (hit(0,26, 19, "any")) {teleportEnter(1, 23, 20, gp.indoor); } // to merchant
             else if (hit(1, 23, 20, "any")) {teleportEnter(0, 12, 23, gp.outside); } // from merchant
 
-            else if (hit(2, 13, 13, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
-            else if (hit(3, 24, 43, "up")) {teleportEnter(2, 13, 13, gp.outside); } // from dungeon
+            else if (hit(2, 21, 24, "up")) {teleportEnter(4, 25, 27, gp.indoor); } // to indoor1
+            else if (hit(4, 25, 28, "down")) {teleport(2, 21, 24, gp.outside); } // from indoor1
+
+            else if (hit(2, 14, 11, "up")) {teleportEnter(5, 25, 27, gp.indoor); } // to indoor2
+            else if (hit(5, 25, 28, "down")) {teleport(2, 14, 11, gp.outside); } // from indoor2
+
+            else if (hit(2, 22, 28, "up")) {teleportEnter(6, 25, 28, gp.indoor); } // to indoor3
+            else if (hit(6, 25, 28, "down")) {teleport(2, 22, 28, gp.outside); } // from indoor3
+
+            else if (hit(2, 15, 36, "up")) {teleportEnter(7, 25, 28, gp.indoor); } // to indoor4
+            else if (hit(7, 25, 28, "down")) {teleport(2, 15, 36, gp.outside); } // from indoor4
+
+            else if (hit(7, 25, 23, "up")) {teleportEnter(8, 24, 25, gp.indoor); }
+            else if (hit(8, 24, 25, "down")) {teleportEnter(7, 25, 23, gp.indoor); }
+
+            else if (hit(2, 25, 23, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
+            else if (hit(3, 24, 43, "up")) {teleportEnter(2, 25, 23, gp.outside); } // from dungeon
 
             else if (hit(2, 40, 24, "any")) {teleport(0, 9, 24, gp.outside); } // from sand to tree
             else if (hit(0, 9, 24, "any")) {teleport(2, 40, 24, gp.outside); } // from tree to sand
@@ -108,7 +122,7 @@ public class EventHandler{
             else if (hit(2, 36, 37, "up")) {teleportEnter(2, 30, 29, gp.outside); } // cave
             else if (hit(2, 30, 29, "up")) {teleportEnter(2, 36, 37, gp.outside); } // cave
 
-            else if (hit(1, 23, 18, "any")) {speak(gp.npc[1][0]); }
+            else if (hit(6, 25, 25, "any")) {speak(gp.npc[1][0]); }
         }
 
 

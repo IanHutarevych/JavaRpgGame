@@ -22,6 +22,7 @@ public class OBJ_Potion_Health_Middle extends Entity {
         description = "[" + name + "]\nHeals life by " + value + ".";
         price = 10;
         stackable = true;
+        idle = false;
         setDialogue();
     }
     public void setDialogue() {

@@ -20,5 +20,6 @@ public class OBJ_Cactus_Ship extends Entity {
         solidArea.height = 18;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
     }
 }

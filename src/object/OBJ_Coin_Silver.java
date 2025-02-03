@@ -22,6 +22,7 @@ public class OBJ_Coin_Silver extends Entity {
         solidArea.height = 27;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
     }
     public boolean use(Entity e) {
 

@@ -21,5 +21,7 @@ public class OBJ_Archangel_Sword extends Entity {
         knockBackPower = 2;
         motion1_duration = 3;
         motion2_duration = 15;
+
+        idle = false;
     }
 }

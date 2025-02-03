@@ -16,6 +16,7 @@ public class OBJ_Iron extends Entity {
         description = "[" + name + "]\nA nugget of iron.";
         price = 20;
         stackable = true;
+        idle = false;
     }
     /*public void use(Entity e) {
 

@@ -27,6 +27,7 @@ public class OBJ_Barrel extends Entity{
         solidArea.height = 10;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
 
 
     }

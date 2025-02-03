@@ -20,6 +20,7 @@ public class OBJ_Potion_Recovery_Middle extends Entity {
         description = "[" + name + "]\nRecover mana by " + value + ".";
         price = 10;
         stackable = true;
+        idle = false;
         setDialogue();
     }
     public void setDialogue() {

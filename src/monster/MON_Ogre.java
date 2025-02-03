@@ -38,6 +38,7 @@ public class MON_Ogre extends Entity{
 
         motion1_duration = 40;
         motion2_duration = 85;
+        idle = false;
 
         getImage();
         getAttackImage();

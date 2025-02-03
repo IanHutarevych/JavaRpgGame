@@ -16,6 +16,7 @@ public class NPC_Mortemark extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
 
         getImage();
         setDialogue();

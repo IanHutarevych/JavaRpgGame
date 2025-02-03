@@ -20,6 +20,7 @@ public class OBJ_Potion_Recovery_Big extends Entity {
         description = "[" + name + "]\nRecover mana by " + value + ".";
         price = 15;
         stackable = true;
+        idle = false;
         setDialogue();
     }
     public void setDialogue() {

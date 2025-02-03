@@ -25,6 +25,7 @@ public class OBJ_DoorDungeon extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
         setDialogue();
     }
     public void setDialogue() {

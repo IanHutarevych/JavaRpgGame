@@ -14,6 +14,7 @@ public class Player extends Entity {
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
     public int keyCounter = 0;
+    public int animationCounter = 20;
 
 
 
@@ -48,10 +49,10 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 26;
-        worldY = gp.tileSize * 10;
+        worldX = gp.tileSize * 25;
+        worldY = gp.tileSize * 30;
 
-        defSpeed = 4;
+        defSpeed = 3;
         speed = defSpeed;
         direction = "down";
         knockBackSkill = 0;
@@ -265,9 +266,18 @@ public class Player extends Entity {
             guardCounter++;
 
         }
+        else if (keyH.upPressed && keyH.shiftPressed || keyH.downPressed && keyH.shiftPressed || keyH.leftPressed && keyH.shiftPressed || keyH.rightPressed  && keyH.shiftPressed || keyH.enterPressed) {
+                animationCounter = 10;
+                speed = 4;
+                handleMovement();
+        }
         // Якщо натискаються клавіші для руху або атаки
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
-            handleMovement();  // обробляємо рух
+            animationCounter = 20;
+            speed = 3;
+                handleMovement();  // обробляємо рух
+
+
         } else {
             idle = true; // Якщо нічого не натискається - в стан idle
             idleAnimation();  // Викликаємо idle анімацію
@@ -414,7 +424,7 @@ public class Player extends Entity {
 
         // Анімація
         spriteCounter++;
-        if (spriteCounter > 10) {
+        if (spriteCounter > animationCounter) {
             spriteNum = (spriteNum == 1) ? 2 : 1;
             spriteCounter = 0;
         }

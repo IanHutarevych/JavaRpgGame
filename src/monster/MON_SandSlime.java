@@ -32,6 +32,7 @@ public class MON_SandSlime extends Entity {
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
 
         getImage();
     }
@@ -99,7 +100,7 @@ public class MON_SandSlime extends Entity {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
         if (i >=50 && i < 75){
-            dropItem(new OBJ_Heart(gp));
+            dropItem(new OBJ_Key(gp));
         }
         if (i >=75){
             dropItem(new OBJ_Coin_Silver(gp));

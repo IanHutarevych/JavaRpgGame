@@ -35,7 +35,7 @@ public class Entity {
     public boolean invincible = false;
     public boolean collisionOn = false;
     public boolean attacking = false;
-    boolean idle = true;
+    public boolean idle = true;
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
@@ -488,7 +488,7 @@ public class Entity {
             }
 
             spriteCounter++;
-            if (spriteCounter > 20){
+            if (spriteCounter > 30){
                 if (spriteNum == 1){
                     spriteNum = 2;
                 } else if (spriteNum == 2) {

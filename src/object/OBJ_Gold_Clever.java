@@ -13,5 +13,6 @@ public class OBJ_Gold_Clever extends Entity {
         down1 = setup("/objects/goldClever",gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nA final artifact.";
         price = 900;
+        idle = false;
     }
 }

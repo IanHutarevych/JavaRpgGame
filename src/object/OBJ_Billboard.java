@@ -20,6 +20,7 @@ public class OBJ_Billboard extends Entity {
         solidArea.height = 6;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
 
     }
 

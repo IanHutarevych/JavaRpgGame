@@ -13,6 +13,7 @@ public class OBJ_StairsDown extends Entity {
         name = objName;
         down1 = setup("/objects/stairsDown", gp.tileSize, gp.tileSize);
         collision = true;
+        idle = false;
 
         /*solidArea.x = 9;
         solidArea.y = 12;

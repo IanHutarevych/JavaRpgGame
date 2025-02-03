@@ -21,5 +21,6 @@ public class OBJ_PickaxeNormal extends Entity {
         knockBackPower = 10;
         motion1_duration = 10;
         motion2_duration = 30;
+        idle = false;
     }
 }

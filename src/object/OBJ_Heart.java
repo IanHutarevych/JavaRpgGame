@@ -19,6 +19,7 @@ public class OBJ_Heart extends Entity {
         image1 = setup("/objects/heart01",gp.tileSize, gp.tileSize);
         image2 = setup("/objects/heart02",gp.tileSize, gp.tileSize);
         image3 = setup("/objects/heart03",gp.tileSize, gp.tileSize);
+        idle = false;
     }
     public boolean use(Entity e) {
         gp.playSE(2);

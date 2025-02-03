@@ -17,6 +17,7 @@ public class OBJ_Tent extends Entity{
         description = "[Tent]\nYou can skip the night.";
         price = 300;
         stackable = true;
+        idle = false;
     }
     public boolean use(Entity e){
         gp.gameState = gp.sleepState;

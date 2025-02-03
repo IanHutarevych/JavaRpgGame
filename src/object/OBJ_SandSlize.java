@@ -21,6 +21,7 @@ public class OBJ_SandSlize  extends Projectile {
         attack = 2;
         useCost = 1;
         alive = false;
+        idle = false;
         getImage();
 
     }

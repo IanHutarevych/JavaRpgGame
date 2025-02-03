@@ -20,5 +20,6 @@ public class OBJ_Skull extends Entity {
         solidArea.height = 33;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
     }
 }

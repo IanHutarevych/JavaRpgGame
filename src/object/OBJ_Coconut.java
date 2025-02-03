@@ -19,6 +19,7 @@ public class OBJ_Coconut extends Entity{
         description = "[" + name + "]\nHeals life by " + value + ".";
         price = 10;
         stackable = true;
+        idle = false;
         setDialogue();
     }
     public void setDialogue() {

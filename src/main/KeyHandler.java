@@ -7,7 +7,7 @@ import java.io.IOException;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, shotKeyPressed, spacePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, shotKeyPressed, spacePressed, shiftPressed;
 
     // DEBUG
     boolean showDebugText = false;
@@ -239,6 +239,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_SHIFT) {
+            shiftPressed = true;
+        }
         if (code == KeyEvent.VK_P) {
             gp.gameState = gp.pauseState;
         }
@@ -374,6 +377,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if (code == KeyEvent.VK_SHIFT) {
+            shiftPressed = false;
         }
         if (code == KeyEvent.VK_E) {
             ePressed = false;

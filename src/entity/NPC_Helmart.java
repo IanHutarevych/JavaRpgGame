@@ -3,13 +3,17 @@ package entity;
 import main.GamePanel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class NPC_Helmart extends Entity{
+
+
+
     public NPC_Helmart(GamePanel gp) {
         super(gp);
 
-        direction = "down";
+        direction = "left";
         speed = 1;
 
         // COLLISION DETECTION

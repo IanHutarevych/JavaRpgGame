@@ -16,5 +16,6 @@ public class OBJ_Shield_Metal extends Entity{
         defenceValue = 5;
         description = "[" + name + "]\nProtected you.";
         price = 35;
+        idle = false;
     }
 }

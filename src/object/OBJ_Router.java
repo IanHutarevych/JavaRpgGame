@@ -20,6 +20,7 @@ public class OBJ_Router  extends Entity {
         solidArea.height = 6;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        idle = false;
 
 
     }

@@ -16,6 +16,7 @@ public class OBJ_Gold extends Entity {
         price = 40;
         stackable = true;
         description = "[" + name + "]\nA nugget of gold.";
+        idle = false;
     }
     /*public void use(Entity e) {
 

@@ -20,5 +20,6 @@ public class OBJ_Watering extends Entity {
         price = 10;
         motion1_duration = 5;
         motion2_duration = 25;
+        idle = false;
     }
 }

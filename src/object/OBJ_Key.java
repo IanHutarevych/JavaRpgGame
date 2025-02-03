@@ -21,6 +21,7 @@ public class OBJ_Key extends Entity {
         description = "[" + name + "]\nIt opens the door.";
         price = 25;
         stackable = true;
+        idle = false;
 
 
     }

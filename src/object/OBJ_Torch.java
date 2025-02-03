@@ -16,5 +16,6 @@ public class OBJ_Torch extends Entity{
         description = "[Torch]\nIlluminates you \nsurroundings";
         price = 10;
         lightRadius = 350;
+        idle = false;
     }
 }

@@ -13,6 +13,7 @@ public class OBJ_Cactus extends Entity {
         name = objName;
         down1 = setup("/objects/cactus",gp.tileSize, gp.tileSize);
         collision = true;
+        idle = false;
 
         solidArea.x = 15;
         solidArea.y = 15;

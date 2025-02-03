@@ -13,5 +13,6 @@ public class OBJ_StairsUp extends Entity {
         name = objName;
         down1 = setup("/objects/stairsUp", gp.tileSize, gp.tileSize);
         collision = true;
+        idle = false;
     }
 }
