@@ -107,6 +107,26 @@ public class EventHandler{
             else if (hit(7, 25, 23, "up")) {teleportEnter(8, 24, 25, gp.indoor); }
             else if (hit(8, 24, 25, "down")) {teleportEnter(7, 25, 23, gp.indoor); }
 
+            else if (hit(2, 16, 41, "up")) {teleportEnter(9, 26, 27, gp.indoor); } // to indoor6
+            else if (hit(2, 15, 41, "up")) {teleportEnter(9, 23, 27, gp.indoor); } // to indoor6
+            else if (hit(9, 26, 28, "down")) {teleport(2, 16, 41, gp.outside); } // from indoor6
+            else if (hit(9, 23, 28, "down")) {teleport(2, 15, 41, gp.outside); } // from indoor6
+            //else if (hit(9, 26, 24, "up")) {teleportEnter(8, 24, 25, gp.indoor); }
+            //else if (hit(8, 24, 25, "down")) {teleportEnter(9, 26, 24, gp.indoor); }
+
+            else if (hit(2, 36, 16, "up")) {teleportEnter(10, 26, 27, gp.indoor); } // to indoor7
+            else if (hit(2, 35, 16, "up")) {teleportEnter(10, 23, 27, gp.indoor); } // to indoor7
+            else if (hit(10, 26, 28, "down")) {teleport(2, 36, 16, gp.outside); } // from indoor7
+            else if (hit(10, 23, 28, "down")) {teleport(2, 35, 16, gp.outside); } // from indoor7
+
+
+            else if (hit(2, 17, 20, "up")) {teleportEnter(11, 26, 27, gp.indoor); } // to indoor8
+            else if (hit(2, 16, 20, "up")) {teleportEnter(11, 23, 27, gp.indoor); } // to indoor8
+            else if (hit(11, 26, 28, "down")) {teleport(2, 17, 20, gp.outside); } // from indoor8
+            else if (hit(11, 23, 28, "down")) {teleport(2, 16, 20, gp.outside); } // from indoor8
+            else if (hit(11, 26, 24, "up")) {teleportEnter(13, 24, 25, gp.indoor); }
+            else if (hit(13, 24, 25, "down")) {teleportEnter(11, 26, 24, gp.indoor); }
+
             else if (hit(2, 25, 23, "up")) {teleportEnter(3, 24, 43, gp.dungeon); } // to dungeon
             else if (hit(3, 24, 43, "up")) {teleportEnter(2, 25, 23, gp.outside); } // from dungeon
 
@@ -118,6 +138,12 @@ public class EventHandler{
 
             else if (hit(2, 25, 8, "up")) {teleportEnter(2, 16, 8, gp.outside); } // cave
             else if (hit(2, 16, 8, "up")) {teleportEnter(2, 25, 8, gp.outside); } // cave
+
+            else if (hit(14, 15, 22, "up")) {teleportEnter(3, 26, 16, gp.dungeon); }
+            else if (hit(3, 26, 16, "down")) {teleport(14, 15, 22, gp.outside); }
+
+            else if (hit(3, 24, 40, "down")) {teleport(2, 32, 8, gp.outside); }
+            else if (hit(2, 32, 8, "up")) {teleportEnter(3, 24, 40, gp.dungeon); }
 
             else if (hit(2, 36, 37, "up")) {teleportEnter(2, 30, 29, gp.outside); } // cave
             else if (hit(2, 30, 29, "up")) {teleportEnter(2, 36, 37, gp.outside); } // cave

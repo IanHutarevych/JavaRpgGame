@@ -5,7 +5,6 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,15 +25,21 @@ public class TileManager {
 
 
         getTileImage();
-        loadMap("/maps/Woods.txt", 0);
+        loadMap("/maps/Woods/Woods.txt", 0);
         //loadMap("/maps/shop.txt", 1);
-        loadMap("/maps/Desert.txt", 2);
-        loadMap("/maps/dungeon.txt", 3);
-        loadMap("/maps/SandIndoor1.txt", 4);
-        loadMap("/maps/SandIndoor2.txt", 5);
-        loadMap("/maps/SandIndoor3.txt", 6);
-        loadMap("/maps/SandIndoor4.txt", 7);
-        loadMap("/maps/SandIndoor5.txt", 8);
+        loadMap("/maps/Desert/Desert.txt", 2);
+        loadMap("/maps/Desert/Transition.txt", 3);
+        loadMap("/maps/Desert/SandIndoor1.txt", 4);
+        loadMap("/maps/Desert/SandIndoor2.txt", 5);
+        loadMap("/maps/Desert/SandIndoor3.txt", 6);
+        loadMap("/maps/Desert/SandIndoor4.txt", 7);
+        loadMap("/maps/Desert/SandIndoor5.txt", 8);
+        loadMap("/maps/Desert/SandIndoor6.txt", 9);
+        loadMap("/maps/Desert/SandIndoor7.txt", 10);
+        loadMap("/maps/Desert/SandIndoor8.txt", 11);
+        loadMap("/maps/Desert/SandIndoor9.txt", 12);
+        loadMap("/maps/Desert/SandIndoor10.txt", 13);
+        loadMap("/maps/Desert/Spawn.txt", 14);
     }
 
     public void getTileImage(){
@@ -261,6 +266,30 @@ public class TileManager {
         setup(247, "/Desert/248", true);
         setup(248, "/Desert/249", true);
         setup(249, "/Desert/250", true);
+        setup(250, "/Desert/251", false);
+        setup(251, "/Desert/252", true);
+        setup(252, "/Desert/253", true);
+        setup(253, "/Desert/254", true);
+        setup(254, "/Desert/255", false);
+        setup(255, "/Desert/256", true);
+        setup(256, "/Desert/257", false);
+        setup(257, "/Desert/258", true);
+        setup(258, "/Desert/259", true);
+        setup(259, "/Desert/260", true);
+        setup(260, "/Desert/261", true);
+        setup(261, "/Desert/262", true);
+        setup(262, "/Desert/263", true);
+        setup(263, "/Desert/264", true);
+        setup(264, "/Desert/265", true);
+        setup(265, "/Desert/266", true);
+        setup(266, "/Desert/267", true);
+        setup(267, "/Desert/268", true);
+        setup(268, "/Desert/269", false);
+        setup(269, "/Desert/270", true);
+        setup(270, "/Desert/271", true);
+        setup(271, "/Desert/272", false);
+        setup(272, "/Desert/273", true);
+        setup(273, "/Desert/274", true);
 
 
 

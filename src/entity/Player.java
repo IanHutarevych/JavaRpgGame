@@ -50,7 +50,7 @@ public class Player extends Entity {
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
         worldX = gp.tileSize * 25;
-        worldY = gp.tileSize * 30;
+        worldY = gp.tileSize * 26;
 
         defSpeed = 3;
         speed = defSpeed;

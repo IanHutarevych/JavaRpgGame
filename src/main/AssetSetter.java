@@ -120,35 +120,7 @@ public class AssetSetter {
 
         mapNum = 3;
         i = 0;
-        gp.obj[mapNum][i] = new OBJ_DoorDungeon(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 38 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Key(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 39 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Key(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 35 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_StairsUp(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 42 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_StairsDown(gp);
-        gp.obj[mapNum][i].worldX = 10 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 24 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Chest(gp);
-        gp.obj[mapNum][i].setLoot(new OBJ_Potion_Health_Small(gp));
-        gp.obj[mapNum][i].worldX = 25 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 13 * gp.tileSize;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Boots(gp);
-        gp.obj[mapNum][i].worldX = 40 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 37 * gp.tileSize;
-        i++;
+
 
         mapNum = 5;
         i = 0;
@@ -172,6 +144,70 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 26 * gp.tileSize;
         i++;
+
+        mapNum = 10;
+        i = 0;
+
+        mapNum = 13;
+        i = 0;
+        gp.obj[mapNum][i] = new OBJ_StairsDown(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 26 * gp.tileSize;
+        i++;
+
+        mapNum = 14;
+        i = 0;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 17 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 24 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 17 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 28 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 31 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 30 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 27 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 28 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 25 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 26 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Cactus(gp);
+        gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
+        i++;
+
 
     }
     public void setNPC() throws IOException {
@@ -308,10 +344,6 @@ public class AssetSetter {
 
         mapNum = 3;
         i = 0;
-        gp.iTile[mapNum][i] = new IT_DestructibleWall(gp,18,31);i++;
-        gp.iTile[mapNum][i] = new IT_DestructibleWall(gp,18,20);i++;
-        gp.iTile[mapNum][i] = new IT_DestructibleWall(gp,36,31);i++;
-        gp.iTile[mapNum][i] = new IT_DestructibleWall(gp,25,17);i++;
 
         mapNum = 4;
         i = 0;
