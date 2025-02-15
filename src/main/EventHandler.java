@@ -81,6 +81,8 @@ public class EventHandler{
             else if (hit(2,23, 19, "left")) {healingPool(gp.dialogueState);}
             else if (hit(2,22, 20, "up")) {healingPool(gp.dialogueState);}
 
+            else if (hit(15,21, 24, "left")) {sleep();}
+
 
 
             /*else if (hit(0,35, 33, "any")) {slowlySpeed(35, 33,gp.playState);}
@@ -147,6 +149,9 @@ public class EventHandler{
 
             else if (hit(2, 36, 37, "up")) {teleportEnter(2, 30, 29, gp.outside); } // cave
             else if (hit(2, 30, 29, "up")) {teleportEnter(2, 36, 37, gp.outside); } // cave
+
+            else if (hit(14, 25, 26, "up")) {teleportEnter(15, 26, 27, gp.indoor); } // cave
+            else if (hit(15, 26, 27, "down")) {teleportEnter(14, 25, 26, gp.outside); } // cave
 
             else if (hit(6, 25, 25, "any")) {speak(gp.npc[1][0]); }
         }
@@ -313,5 +318,16 @@ public class EventHandler{
         eventMaster.dialogues[3][0] = "Shop ←\nMysterious Well ↓";
         eventMaster.dialogues[4][0] = "Sticky Swamp. Awful...";
         eventMaster.dialogues[5][0] = "A sand town";
+    }
+    public void sleep() {
+        if (gp.keyH.enterPressed) {
+            gp.player.attackCanceled = true;
+            gp.playSE(17);
+            gp.gameState = gp.sleepState;
+            // playSE in future
+            gp.player.life = gp.player.maxLife;
+            gp.player.mana = gp.player.maxMana;
+            gp.player.getSleepingImage(gp.player.idleLeft1);
+        }
     }
 }

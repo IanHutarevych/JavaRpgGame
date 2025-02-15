@@ -40,6 +40,7 @@ public class TileManager {
         loadMap("/maps/Desert/SandIndoor9.txt", 12);
         loadMap("/maps/Desert/SandIndoor10.txt", 13);
         loadMap("/maps/Desert/Spawn.txt", 14);
+        loadMap("/maps/Desert/House.txt", 15);
     }
 
     public void getTileImage(){
@@ -291,29 +292,53 @@ public class TileManager {
         setup(272, "/Desert/273", true);
         setup(273, "/Desert/274", true);
 
+        setup(300, "/House/301", true);
+        setup(301, "/House/302", true);
+        setup(302, "/House/303", true);
+        setup(303, "/House/304", true);
+        setup(304, "/House/305", true);
+        setup(305, "/House/306", true);
+        setup(306, "/House/307", true);
+        setup(307, "/House/308", false);
+        setup(308, "/House/309", true);
+        setup(309, "/House/310", true);
+        setup(310, "/House/311", true);
+        setup(311, "/House/312", true);
+        setup(312, "/House/313", true);
+        setup(313, "/House/314", true);
+        setup(314, "/House/315", true);
+        setup(315, "/House/316", true);
+        setup(316, "/House/317", true);
+        setup(317, "/House/318", false);
+        setup(318, "/House/319", false);
+        setup(319, "/House/320", false);
+        setup(320, "/House/321", false);
+        setup(321, "/House/322", false);
+        setup(322, "/House/323", false);
+        setup(323, "/House/324", false);
+        setup(324, "/House/325", false);
+        setup(325, "/House/326", true);
+        setup(326, "/House/327", true);
+        setup(327, "/House/328", true);
+        setup(328, "/House/329", true);
+        setup(329, "/House/330", true);
+        setup(330, "/House/331", false);
+        setup(331, "/House/332", true);
+        setup(332, "/House/333", true);
+        setup(333, "/House/334", true);
+        setup(334, "/House/335", true);
+        setup(335, "/House/336", true);
+        setup(336, "/House/337", false);
+        setup(337, "/House/338", false);
 
 
 
 
 
 
-        setup(330, "/Dungeon/darkness", false);
-        setup(335, "/Dungeon/flor", false);
-        setup(340, "/Dungeon/wall1", true);
-        setup(345, "/Dungeon/wall2", true);
-        setup(350, "/Dungeon/wall3", true);
-        setup(355, "/Dungeon/wall4", true);
-        setup(360, "/Dungeon/wall5", true);
-        setup(365, "/Dungeon/wall6", true);
-        setup(370, "/Dungeon/wall7", true);
-        setup(375, "/Dungeon/wall8", true);
-        setup(380, "/Dungeon/wall9", true);
-        setup(385, "/Dungeon/wall10", true);
-        setup(390, "/Dungeon/wall11", true);
-        setup(395, "/Dungeon/wall12", true);
-        setup(397, "/Dungeon/skull", false);
-        setup(398, "/Dungeon/wall13", true);
-        setup(399, "/Dungeon/wall14", true);
+
+
+
 
 
 
