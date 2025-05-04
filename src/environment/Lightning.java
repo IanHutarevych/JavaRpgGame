@@ -17,7 +17,7 @@ public class Lightning {
     public final int dusk = 1;
     public final int night = 2;
     public final int dawn = 3;
-    public int dayState = day;
+    public int dayState = night;
 
     public Lightning(GamePanel gp) {
 

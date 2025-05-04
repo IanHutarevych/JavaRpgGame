@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
 
     // DEBUG
     boolean showDebugText = false;
+    public boolean godModOn = false;
 
 
     public KeyHandler(GamePanel gp) {
@@ -291,6 +292,13 @@ public class KeyHandler implements KeyListener {
                 case 0: gp.tileM.loadMap("/maps/world01.txt", 0); break;
                 case 1: gp.tileM.loadMap("/maps/shop.txt",1); break;
                 case 2: gp.tileM.loadMap("/maps/pier.txt", 2); break;
+            }
+        }
+        if (code == KeyEvent.VK_G) {
+            if (!godModOn) {
+                godModOn = true;
+            } else {
+                godModOn = false;
             }
         }
     }

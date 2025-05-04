@@ -30,8 +30,10 @@ public class NPC_Mortemark extends Entity {
 
     public void setDialogue(){
 
-        dialogues[0][0] = "“Oh, another one who is alive... for now. Welcome to my \nabode of bones and treasure! I am Mortemark, keeper of \nthe ancient and seller of the unique. Have you come to \nbuy or just to admire my brilliant smile?”";
-
+        dialogues[0][0] = "“Oh, another one who is alive... for now. Welcome to \nmy abode of bones and treasure! I am Mortemark, \nkeeper of the ancient and seller of the unique. Have \nyou come to buy or just to admire my brilliant smile?";
+        dialogues[1][0] = "I'll see you again... or I'll see you first.";
+        dialogues[2][0] = "Oh dear, your pockets seem lighter than my ribcage.";
+        dialogues[3][0] = "Selling what you're wearing? Bold, but impractical.";
     }
     public void setItems(){
         inventory.add(new OBJ_Sword_Normal(gp));
@@ -47,9 +49,7 @@ public class NPC_Mortemark extends Entity {
     }
 
     public void speak(){
-        super.speak();
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
-
     }
 }

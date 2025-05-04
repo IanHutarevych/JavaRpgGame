@@ -5,6 +5,7 @@ import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
+import environment.Lightning;
 import object.OBJ_Gold_Clever;
 import tile.Map;
 import tile.TileManager;
@@ -33,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int maxMap = 20;
-    public int currentMap = 14;
+    public int currentMap = 16;
 
     // FOR FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -343,7 +344,8 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("WorldY" + player.worldY, x, y);y += lineHeight;
             g2.drawString("Col" + (player.worldX+ player.solidArea.x)/tileSize, x, y);y += lineHeight;
             g2.drawString("Row" + (player.worldY + player.solidArea.y)/ tileSize, x, y);y += lineHeight;
-            g2.drawString("Draw Time: " + passed, x, y);
+            g2.drawString("Draw Time: " + passed, x, y);y += lineHeight;
+            g2.drawString("God Mode: " + keyH.godModOn, x, y);
         }
     }
     public void drawToScreen(){

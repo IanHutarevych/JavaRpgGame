@@ -49,8 +49,8 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 25;
-        worldY = gp.tileSize * 26;
+        worldX = gp.tileSize * 24;
+        worldY = gp.tileSize * 14;
 
         defSpeed = 3;
         speed = defSpeed;
@@ -63,7 +63,7 @@ public class Player extends Entity {
         life = maxLife;
         maxMana = 1;
         mana = maxMana;
-        strength = 1;
+        strength = 5;
         dexterity = 1;
         exp = 0;
         nextLevelUp = 5;
@@ -82,8 +82,8 @@ public class Player extends Entity {
         setDialogue();
     }
     public void setDefaultPositions(){
-        worldX = gp.tileSize * 21;
-        worldY = gp.tileSize * 24;
+        worldX = gp.tileSize * 22;
+        worldY = gp.tileSize * 29;
         direction = "down";
         gp.currentMap = 0;
 
@@ -490,11 +490,13 @@ public class Player extends Entity {
         }
     }
     private void checkGameOver() {
-        if (life <= 0) {
-            gp.gameState = gp.gameOverState;
-            gp.ui.commandNum = -1;
-            gp.stopMusic();
-            gp.playSE(12);
+        if (!keyH.godModOn) {
+            if (life <= 0) {
+                gp.gameState = gp.gameOverState;
+                gp.ui.commandNum = -1;
+                gp.stopMusic();
+                gp.playSE(12);
+            }
         }
     }
     public void idleAnimation() {

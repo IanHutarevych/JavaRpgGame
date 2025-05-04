@@ -26,7 +26,7 @@ public class TileManager {
 
         getTileImage();
         loadMap("/maps/Woods/Woods.txt", 0);
-        //loadMap("/maps/shop.txt", 1);
+        //loadMap("/maps/Desert/FinalDungeon.txt", 1);
         loadMap("/maps/Desert/Desert.txt", 2);
         loadMap("/maps/Desert/Transition.txt", 3);
         loadMap("/maps/Desert/SandIndoor1.txt", 4);
@@ -41,6 +41,7 @@ public class TileManager {
         loadMap("/maps/Desert/SandIndoor10.txt", 13);
         loadMap("/maps/Desert/Spawn.txt", 14);
         loadMap("/maps/Desert/House.txt", 15);
+        loadMap("/maps/Desert/FinalDungeon.txt", 16);
     }
 
     public void getTileImage(){
@@ -99,7 +100,7 @@ public class TileManager {
         setup(48, "/Desert/049", true);
         setup(49, "/Desert/050", true);
         setup(50, "/Desert/051", false);
-        setup(51, "/Desert/052", false);
+        setup(51, "/Desert/052", true);
         setup(52, "/Desert/053", true);
         setup(53, "/Desert/054", false);
         setup(54, "/Desert/055", false);
@@ -330,18 +331,8 @@ public class TileManager {
         setup(335, "/House/336", true);
         setup(336, "/House/337", false);
         setup(337, "/House/338", false);
-
-
-
-
-
-
-
-
-
-
-
-
+        setup(338, "/Dungeon/339", false);
+        setup(339, "/Desert/340", true);
 
     }
     public void setup (int index, String imagePath, boolean collision){

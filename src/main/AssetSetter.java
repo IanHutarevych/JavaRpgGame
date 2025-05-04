@@ -4,9 +4,8 @@ import entity.AOBJ_Fire;
 import entity.NPC_Helmart;
 import entity.NPC_PumpkinHead;
 import entity.NPC_Mortemark;
-import monster.MON_GreenSlime;
-import monster.MON_Ogre;
-import monster.MON_SandSlime;
+import environment.Lightning;
+import monster.*;
 import object.*;
 import tile_interactive.*;
 
@@ -99,7 +98,7 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 8 * gp.tileSize;
         i++;
         gp.obj[mapNum][i] = new OBJ_Coin_Gold(gp);
-        gp.obj[mapNum][i].worldX = 36 * gp.tileSize;
+        gp.obj[mapNum][i].worldX = 37 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
         i++;
         gp.obj[mapNum][i] = new OBJ_Key(gp);
@@ -225,11 +224,11 @@ public class AssetSetter {
 
 
         // MAP 1
-        mapNum = 1;
+        mapNum = 2;
         i = 0;
-        gp.npc[mapNum][i] = new NPC_Mortemark(gp);
-        gp.npc[mapNum][i].worldX = gp.tileSize*23;
-        gp.npc[mapNum][i].worldY = gp.tileSize*16;
+        gp.npc[mapNum][i] = new NPC_Helmart(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*16;
+        gp.npc[mapNum][i].worldY = gp.tileSize*11;
 
 
         mapNum = 6;
@@ -276,9 +275,17 @@ public class AssetSetter {
 
         mapNum = 3;
         i = 0;
-        gp.monster[mapNum][i] = new MON_Ogre(gp);
-        gp.monster[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = 21 * gp.tileSize;
+        gp.monster[mapNum][i].worldY = 25 * gp.tileSize;
+        i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = 20 * gp.tileSize;
         gp.monster[mapNum][i].worldY = 24 * gp.tileSize;
+        i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = 23 * gp.tileSize;
+        gp.monster[mapNum][i].worldY = 23 * gp.tileSize;
         i++;
 
         mapNum = 5;
@@ -287,6 +294,19 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldX = 24 * gp.tileSize;
         gp.monster[mapNum][i].worldY = 24 * gp.tileSize;
         i++;
+
+        mapNum = 14;
+        i = 0;
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = 30 * gp.tileSize;
+        gp.monster[mapNum][i].worldY = 30 * gp.tileSize;
+
+        mapNum = 16;
+        i = 0;
+        gp.monster[mapNum][i] = new MON_SkeletonLord(gp);
+        gp.monster[mapNum][i].worldX = 25 * gp.tileSize;
+        gp.monster[mapNum][i].worldY = 28 * gp.tileSize;
+
 
     }
     public void setInteractiveTile(){
@@ -319,6 +339,7 @@ public class AssetSetter {
         gp.iTile[mapNum][i] = new IT_Palm(gp,16,36);i++;
         gp.iTile[mapNum][i] = new IT_Palm(gp,27,17);i++;
         gp.iTile[mapNum][i] = new IT_Palm(gp,37,19);i++;
+        gp.iTile[mapNum][i] = new IT_Palm(gp,36,11);i++;
 
         gp.iTile[mapNum][i] = new IT_Rock1(gp,30,41);i++;
         gp.iTile[mapNum][i] = new IT_Rock1(gp,29,38);i++;

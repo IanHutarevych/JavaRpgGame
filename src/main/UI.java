@@ -80,6 +80,7 @@ public class UI {
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
+            drawMonsterLife();
             drawMessage();
         }
         // PAUSE STATE
@@ -149,6 +150,8 @@ public class UI {
 
     }
     public void trade_select(){
+
+        npc.dialogueSet = 0;
         drawDialogueScreen();
 
         // DRAW WINDOW
@@ -184,23 +187,9 @@ public class UI {
             g2.drawString(">", x - 24, y);
             if (gp.keyH.enterPressed){
                 commandNum = 0;
-                gp.gameState = gp.dialogueState;
-
-                String[] leaveDialogues = {
-                        "I'll see you again... or I'll see you first.",
-                        "Don't forget to come back when you're poorer... \nand dead.",
-                        "There are rumors that you won't survive long without my \ngoods... But that's not my business anymore.",
-                        "Go carefully, adventurer, and don't forget to come back. \nYour soul is always welcome here.",
-                        "Don't let your bones become a commodity in my \ncollection. Good night."
-                };
-
-                Random random = new Random();
-                int randomIndex = random.nextInt(leaveDialogues.length);
-                currentDialog = leaveDialogues[randomIndex];
-
+                npc.startDialogue(npc,1);
             }
         }
-
     }
     public void trade_buy(){
 
@@ -245,17 +234,8 @@ public class UI {
             if (gp.keyH.enterPressed){
                 if (npc.inventory.get(itemIndex).price > gp.player.coin){
                     subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    // Randomize one of Mortemark's responses
-                    String[] insufficientFundsDialogs = {
-                            "Oh dear, your pockets seem lighter than my ribcage.",
-                            "Not enough coin? Come back when you’re wealthier... or \nmore desperate.",
-                            "Tsk tsk, adventurer. Even skeletons have standards, you \nknow.",
-                            "Short on gold? Looks like your fortune's as bare as my \nbones.",
-                            "No coin, no goods. Even I don’t trade in IOUs."
-                    };
-                    currentDialog = insufficientFundsDialogs[(int) (Math.random() * insufficientFundsDialogs.length)];
-                    drawDialogueScreen();
+                    npc.startDialogue(npc,2);
+
                 }
                 else {
                     if (gp.player.canObtainItem(npc.inventory.get(itemIndex))){
@@ -263,15 +243,7 @@ public class UI {
                     }
                     else {
                         subState = 0;
-                        gp.gameState = gp.dialogueState;
-                        String[] fullInventoryDialogs = {
-                                "Your bags are fuller than my crypt. Make some space, \nwill you?",
-                                "No room for my treasures? A tragic oversight.",
-                                "Hmm, perhaps it's time to part with something less... \nshiny.",
-                                "Your inventory's bursting at the seams. Skeletons like \nme prefer to travel light.",
-                                "Full already? Maybe you should’ve invested in a bigger \nbackpack instead."
-                        };
-                        currentDialog = fullInventoryDialogs[(int) (Math.random() * fullInventoryDialogs.length)];
+                        npc.startDialogue(npc,3);
                     }
                 }
             }
@@ -323,15 +295,7 @@ public class UI {
                 if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon || gp.player.inventory.get(itemIndex) == gp.player.currentShield){
                     commandNum = 0;
                     subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    String[] equippedItemDialogs = {
-                            "Selling what you're wearing? Bold, but impractical.",
-                            "You can't sell that while it's on you. Even I don't buy \nused gear... often.",
-                            "Hmm, might want to take that off first, unless you enjoy \nbartering half-dressed.",
-                            "Keep it on, adventurer. I’m not running a fitting room \nhere.",
-                            "No trades for equipped items. Try not to lose your pants \nin the process."
-                    };
-                    currentDialog = equippedItemDialogs[(int) (Math.random() * equippedItemDialogs.length)];
+                    npc.startDialogue(npc,3);
                 }
                 else {
                     if (gp.player.inventory.get(itemIndex).amount > 1){
@@ -674,6 +638,56 @@ public class UI {
             g2.drawString(text, x, y+34);
         }
     }
+    public void drawMonsterLife() {
+
+        for (int i = 0; i < gp.monster[1].length; i++) {
+
+            Entity monster = gp.monster[gp.currentMap][i];
+
+            if (monster != null && monster.inCamera()) {
+
+                if (monster.hpBarOn && !monster.boss) {
+
+                    double oneScale = (double)gp.tileSize/monster.maxLife;
+                    double hpBarValue = oneScale*monster.life;
+
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(monster.getScreenX()-1, monster.getScreenY()-16, gp.tileSize+2, 12);
+
+                    g2.setColor(new Color(255, 0, 30));
+                    g2.fillRect(monster.getScreenX(), monster.getScreenY() - 15, (int)hpBarValue, 10);
+
+                    monster.hpBarCounter++;
+
+                    if (monster.hpBarCounter > 600){
+                        monster.hpBarCounter = 0;
+                        monster.hpBarOn = false;
+                    }
+                }
+                else if (monster.boss) {
+
+                    double oneScale = (double)gp.tileSize*8/monster.maxLife;
+                    double hpBarValue = oneScale*monster.life;
+
+                    int x = gp.screenWidth/2 - gp.tileSize*4;
+                    int y = gp.tileSize*11;
+
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(x-1, y-1, gp.tileSize*8 + 2, 22);
+
+                    g2.setColor(new Color(255, 0, 30));
+                    g2.fillRect(x, y, (int)hpBarValue, 20);
+
+                    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24f));
+                    g2.setColor(Color.WHITE);
+                    g2.drawString(monster.name, x+4, y-10);
+                }
+            }
+        }
+
+
+
+    }
     private void drawMessage() {
 
         int messageX = (int)(gp.tileSize*1.5);
@@ -942,7 +956,7 @@ public class UI {
 
         // TITLE NAME
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-        String text = "In The Woods";
+        String text = "Cloverfall";
         int x = getXforCenterText(text);
         int y = gp.tileSize*3;
 

@@ -153,7 +153,10 @@ public class EventHandler{
             else if (hit(14, 25, 26, "up")) {teleportEnter(15, 26, 27, gp.indoor); } // cave
             else if (hit(15, 26, 27, "down")) {teleportEnter(14, 25, 26, gp.outside); } // cave
 
-            else if (hit(6, 25, 25, "any")) {speak(gp.npc[1][0]); }
+            else if (hit(10, 26, 24, "right")) {teleportEnter(16, 24, 9, gp.dungeon); }
+            else if (hit(16, 24, 8, "up")) {teleport(10, 26, 24, gp.indoor); }
+
+            else if (hit(6, 25, 25, "any")) {speak(gp.npc[6][0]); }
         }
 
 
@@ -161,7 +164,7 @@ public class EventHandler{
 
     private void speak(Entity entity) {
         if (gp.keyH.enterPressed){
-            gp.gameState = gp.dialogueState;
+            gp.gameState = gp.tradeState;
             gp.player.attackCanceled = true;
             entity.speak();
         }

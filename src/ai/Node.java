@@ -10,6 +10,7 @@ public class Node {
     int fCost;
     boolean solid;
     boolean open;
+    // penis
     boolean checked;
 
     public Node(int col, int row){
