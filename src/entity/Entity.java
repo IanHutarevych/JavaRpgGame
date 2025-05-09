@@ -25,6 +25,7 @@ public class Entity {
     public boolean collision = false;
     public String[][] dialogues = new String[20][20];
     public Entity attacker;
+    public boolean temp = false;
 
     // STATE
     public int worldX, worldY;
@@ -48,6 +49,8 @@ public class Entity {
     public Entity loot;
     public boolean opened = false;
     public boolean inRage = false;
+    public boolean sleep = false;
+    public boolean drawing = true;
 
     // COUNTER
     public int actionLockCounter = 0;
@@ -483,76 +486,80 @@ public class Entity {
     }
     public void update() {
 
-        if (knockBack){
-             checkCollision();
+        if (!sleep) {
+            if (knockBack){
+                checkCollision();
 
-             if (collisionOn){
-                 knockBackCounter = 0;
-                 knockBack = false;
-                 speed = defSpeed;
-             }
-             else if (!collisionOn){
-                 switch (knockBackDirection){
-                     case "up":worldY -= speed;break;
-                     case "down":worldY += speed;break;
-                     case "left": worldX -= speed;break;
-                     case "right":worldX += speed;break;
-                 }
-             }
+                if (collisionOn){
+                    knockBackCounter = 0;
+                    knockBack = false;
+                    speed = defSpeed;
+                }
+                else if (!collisionOn){
+                    switch (knockBackDirection){
+                        case "up":worldY -= speed;break;
+                        case "down":worldY += speed;break;
+                        case "left": worldX -= speed;break;
+                        case "right":worldX += speed;break;
+                    }
+                }
 
-             knockBackCounter++;
-             if (knockBackCounter == 10){ // KnockBack distance
-                 knockBackCounter = 0;
-                 knockBack = false;
-                 speed = defSpeed;
-             }
-        }
-        else if (attacking){
-            attacking();
-        }
-        else {
-            setAction();
-            checkCollision();
+                knockBackCounter++;
+                if (knockBackCounter == 10){ // KnockBack distance
+                    knockBackCounter = 0;
+                    knockBack = false;
+                    speed = defSpeed;
+                }
+            }
+            else if (attacking){
+                attacking();
+            }
+            else {
+                setAction();
+                checkCollision();
 
-            // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (!collisionOn){
+                // IF COLLISION IS FALSE, PLAYER CAN MOVE
+                if (!collisionOn){
 
-                switch (direction){
-                    case "up":worldY -= speed;break;
-                    case "down":worldY += speed;break;
-                    case "left": worldX -= speed;break;
-                    case "right":worldX += speed;break;
+                    switch (direction){
+                        case "up":worldY -= speed;break;
+                        case "down":worldY += speed;break;
+                        case "left": worldX -= speed;break;
+                        case "right":worldX += speed;break;
+                    }
+                }
+
+                spriteCounter++;
+                if (spriteCounter > 30){
+                    if (spriteNum == 1){
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
+                }
+            }
+            if (invincible){
+                invincibleCounter++;
+                if (invincibleCounter > 20){
+                    invincible = false;
+                    invincibleCounter = 0;
                 }
             }
 
-            spriteCounter++;
-            if (spriteCounter > 30){
-                if (spriteNum == 1){
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
+            if (shotAvailableCounter < 30){
+                shotAvailableCounter++;
             }
-        }
-        if (invincible){
-            invincibleCounter++;
-            if (invincibleCounter > 20){
-                invincible = false;
-                invincibleCounter = 0;
+            if (offBalance){
+                offBalanceCounter++;
+                if (offBalanceCounter > 60){
+                    offBalance = false;
+                    offBalanceCounter = 0;
+                }
             }
         }
 
-        if (shotAvailableCounter < 30){
-            shotAvailableCounter++;
-        }
-        if (offBalance){
-            offBalanceCounter++;
-            if (offBalanceCounter > 60){
-                offBalance = false;
-                offBalanceCounter = 0;
-            }
-        }
+
     }
     public boolean inCamera() {
         boolean inCamera = false;

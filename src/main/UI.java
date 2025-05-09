@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class UI {
 
@@ -1047,7 +1046,7 @@ public class UI {
                 charIndex = 0;
                 combinedText = "";
 
-                if (gp.gameState == gp.dialogueState){
+                if (gp.gameState == gp.dialogueState || gp.gameState == gp.cutSceneState){
 
                     npc.dialogueIndex++;
                     gp.keyH.enterPressed = false;
@@ -1060,6 +1059,9 @@ public class UI {
 
             if (gp.gameState == gp.dialogueState) {
                 gp.gameState = gp.playState;
+            }
+            if (gp.gameState == gp.cutSceneState) {
+                gp.csManager.scenePhase++;
             }
         }
 

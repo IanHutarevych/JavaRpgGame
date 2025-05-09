@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.Entity;
 import object.OBJ_Key;
 
@@ -157,6 +158,7 @@ public class EventHandler{
             else if (hit(16, 24, 8, "up")) {teleport(10, 26, 24, gp.indoor); }
 
             else if (hit(6, 25, 25, "any")) {speak(gp.npc[6][0]); }
+            else if (hit(16, 24, 25, "any")) {skeletonLord(); }
         }
 
 
@@ -331,6 +333,12 @@ public class EventHandler{
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;
             gp.player.getSleepingImage(gp.player.idleLeft1);
+        }
+    }
+    public void skeletonLord() {
+        if (!gp.bossBattleOn && !Progress.skeletonLordDefeated) {
+            gp.gameState = gp.cutSceneState;
+            gp.csManager.sceneNum = gp.csManager.skeletonLord;
         }
     }
 }

@@ -207,6 +207,18 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
         i++;
 
+        mapNum = 16;
+        i = 0;
+
+        gp.obj[mapNum][i] = new OBJ_DoorDungeon(gp);
+        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 34 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_DoorDungeon(gp);
+        gp.obj[mapNum][i].worldX = 25 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 34 * gp.tileSize;
+        i++;
 
     }
     public void setNPC() throws IOException {

@@ -5,7 +5,6 @@ import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
-import environment.Lightning;
 import object.OBJ_Gold_Clever;
 import tile.Map;
 import tile.TileManager;
@@ -62,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     Map map = new Map(this);
     SaveLoad sl = new SaveLoad(this);
     public EntityGenerator eGenerator = new EntityGenerator(this);
+    public CutSceneManager csManager = new CutSceneManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -90,6 +90,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 8;
     public final int sleepState = 9;
     public final int mapState = 10;
+    public final int cutSceneState = 11;
+
+    // OTHERS
+    public boolean bossBattleOn = false;
 
     // AREA
     public int currentArea;
@@ -168,6 +172,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void resetGame(boolean restart) throws IOException {
+
+        currentArea = outside;
+        removeTempEntity();
+        bossBattleOn = false;
         player.setDefaultPositions();
         player.restoreStatus();
         player.resetCounter();
@@ -324,6 +332,9 @@ public class GamePanel extends JPanel implements Runnable {
             // MINI MAP
             map.drawMiniMap(g2);
 
+            // CUTSCENE
+            csManager.draw(g2);
+
             // UI
             ui.draw(g2);
         }
@@ -381,5 +392,16 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         currentArea = nextArea;
+    }
+    public void removeTempEntity(){
+
+        for (int mapNum = 0; mapNum < maxMap; mapNum++) {
+
+            for (int i = 0; i < obj[1].length; i++) {
+                if (obj[mapNum][i] != null && obj[mapNum][i].temp) {
+                    obj[mapNum][i] = null;
+                }
+            }
+        }
     }
 }
