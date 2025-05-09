@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.AOBJ_Fire;
 import entity.NPC_Helmart;
 import entity.NPC_PumpkinHead;
@@ -220,6 +221,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 34 * gp.tileSize;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Gold_Clever(gp);
+        gp.obj[mapNum][i].worldX = 25 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 40 * gp.tileSize;
+        i++;
+
     }
     public void setNPC() throws IOException {
         int i = 0;
@@ -315,10 +321,12 @@ public class AssetSetter {
 
         mapNum = 16;
         i = 0;
-        gp.monster[mapNum][i] = new MON_SkeletonLord(gp);
-        gp.monster[mapNum][i].worldX = 25 * gp.tileSize;
-        gp.monster[mapNum][i].worldY = 28 * gp.tileSize;
 
+        if (!Progress.skeletonLordDefeated) {
+            gp.monster[mapNum][i] = new MON_SkeletonLord(gp);
+            gp.monster[mapNum][i].worldX = 25 * gp.tileSize;
+            gp.monster[mapNum][i].worldY = 28 * gp.tileSize;
+        }
 
     }
     public void setInteractiveTile(){
