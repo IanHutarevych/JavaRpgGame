@@ -1,0 +1,6 @@
+Attack Upgrade
+
++1 Attack.
+Increases total
+damage output.
+Permanent boost.

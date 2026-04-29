@@ -324,8 +324,8 @@ public class AssetSetter {
 
         if (!Progress.skeletonLordDefeated) {
             gp.monster[mapNum][i] = new MON_SkeletonLord(gp);
-            gp.monster[mapNum][i].worldX = 25 * gp.tileSize;
-            gp.monster[mapNum][i].worldY = 28 * gp.tileSize;
+            gp.monster[mapNum][i].worldX = 24 * gp.tileSize;
+            gp.monster[mapNum][i].worldY = 29 * gp.tileSize;
         }
 
     }

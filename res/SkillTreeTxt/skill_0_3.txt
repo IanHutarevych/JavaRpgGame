@@ -1,0 +1,8 @@
+Max Life Upgrade
+
++2 Max HP.
+Increases total
+survivability.
+Permanent health
+boost.
+

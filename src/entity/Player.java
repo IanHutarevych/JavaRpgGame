@@ -15,11 +15,7 @@ public class Player extends Entity {
     public boolean lightUpdated = false;
     public int keyCounter = 0;
     public int animationCounter = 20;
-
-
-
-
-
+    public int skillPoints = 5;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -49,8 +45,8 @@ public class Player extends Entity {
 
         /*worldX = gp.tileSize * 27;
         worldY = gp.tileSize * 21;*/
-        worldX = gp.tileSize * 24;
-        worldY = gp.tileSize * 14;
+        worldX = gp.tileSize * 21;
+        worldY = gp.tileSize * 24;
 
         defSpeed = 3;
         speed = defSpeed;
@@ -63,7 +59,7 @@ public class Player extends Entity {
         life = maxLife;
         maxMana = 1;
         mana = maxMana;
-        strength = 5;
+        strength = 1;
         dexterity = 1;
         exp = 0;
         nextLevelUp = 5;
@@ -73,7 +69,8 @@ public class Player extends Entity {
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
         attack = getAttack();
-        defence = getDefence();
+        //defence = getDefence();
+        defence = 2;
 
         getAttackImage();
         getGuardImage();
@@ -574,16 +571,17 @@ public class Player extends Entity {
     }
     private void checkLvlUp() {
 
-
         if (exp >= nextLevelUp){
+
             level++;
-            nextLevelUp = nextLevelUp*3;
-            maxLife += 2;
-            maxMana++;
-            strength++;
-            dexterity++;
-            attack++;
-            defence++;
+            nextLevelUp = nextLevelUp * 3;
+
+            skillPoints++;
+
+            if(level % 2 == 0){
+                dexterity++;
+            }
+
             life = maxLife;
             mana = maxMana;
 

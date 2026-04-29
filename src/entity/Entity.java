@@ -17,7 +17,7 @@ public class Entity {
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,attackRight2;
     public BufferedImage idleUp1, idleUp2, idleDown1, idleDown2, idleLeft1, idleLeft2, idleRight1, idleRight2, head;
-    public BufferedImage image1, image2, image3;
+    public BufferedImage image1, image2, image3, image4, image5;
     public BufferedImage guardUp, guardDown, guardLeft, guardRight;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);

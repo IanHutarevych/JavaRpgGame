@@ -15,8 +15,8 @@ public class OBJ_ManaStar extends Entity{
         type = type_pickupOnly;
         name = objName;
         down1 = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
-        image1 = setup("/objects/manaFull",gp.tileSize, gp.tileSize);
-        image2 = setup("/objects/manaEmpty",gp.tileSize, gp.tileSize);
+        image1 = setup("/objects/manaFull",gp.tileSize - 12, gp.tileSize - 12);
+        image2 = setup("/objects/manaEmpty",gp.tileSize - 12, gp.tileSize - 12);
         idle = false;
     }
     public boolean use(Entity e) {

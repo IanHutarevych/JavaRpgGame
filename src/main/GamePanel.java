@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int maxMap = 20;
-    public int currentMap = 16;
+    public int currentMap = 15;
 
     // FOR FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -91,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int sleepState = 9;
     public final int mapState = 10;
     public final int cutSceneState = 11;
+    public final int skillTreeState = 12;
 
     // OTHERS
     public boolean bossBattleOn = false;
@@ -101,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int outside = 50;
     public final int indoor = 51;
     public final int dungeon = 52;
+
 
     //Constructor
     public GamePanel() {
@@ -122,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         playMusic(8);
         gameState = titleState;
-        currentArea = outside;
+        currentArea = indoor;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
@@ -249,6 +251,28 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             eManager.update();
+        }
+        if(gameState == skillTreeState) {
+
+            if(keyH.upPressed) {
+                if(ui.skillRow > 0) ui.skillRow--;
+            }
+            if(keyH.downPressed) {
+                if(ui.skillRow < 3) ui.skillRow++;
+            }
+            if(keyH.leftPressed) {
+                if(ui.skillCol > 0) ui.skillCol--;
+            }
+            if(keyH.rightPressed) {
+                if(ui.skillCol < 3) ui.skillCol++;
+            }
+
+            if(keyH.enterPressed) {
+                if(!ui.skillUnlocked[ui.skillRow][ui.skillCol]) {
+                    ui.skillUnlocked[ui.skillRow][ui.skillCol] = true;
+                }
+                keyH.enterPressed = false;
+            }
         }
         if (gameState == pauseState){
 

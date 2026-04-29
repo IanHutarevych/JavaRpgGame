@@ -1,0 +1,7 @@
+Warrior's Ring
+
++3 Attack.
+Incr damage
+dealt.
+Perm strength
+boost.

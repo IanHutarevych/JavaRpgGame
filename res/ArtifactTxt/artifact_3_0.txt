@@ -1,0 +1,7 @@
+Firestone
+
++2 Fire Resistance.
+Reduces fire
+damage taken.
+Perm elemental
+protection.

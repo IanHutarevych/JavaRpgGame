@@ -85,7 +85,7 @@ public class CutSceneManager {
 
             gp.player.worldY += 2;
 
-            if (gp.player.worldY > gp.tileSize*31) {
+            if (gp.player.worldY > gp.tileSize*29) {
                 scenePhase++;
             }
         }
@@ -257,3 +257,5 @@ public class CutSceneManager {
 
     }
 }
+
+

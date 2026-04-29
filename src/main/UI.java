@@ -2,13 +2,17 @@ package main;
 
 import entity.Entity;
 import object.OBJ_Coin_Bronze;
+import object.OBJ_Defence;
 import object.OBJ_Heart;
 import object.OBJ_ManaStar;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class UI {
@@ -16,7 +20,8 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     public Font maruMonica;
-    BufferedImage heart01, heart02, heart03, manaFull, manaEmpty, coin;
+    BufferedImage heart01, heart02, heart03, heart04, heart05, defence01, defence02, defence03, manaFull, manaEmpty, coin;
+    public boolean showSkillPointWarning = false;
 
     public boolean messageOn = false;
     ArrayList<String> message = new ArrayList<>();
@@ -34,6 +39,24 @@ public class UI {
     int charIndex = 0;
     String combinedText = "";
 
+    int skillCol = 0;
+    int skillRow = 0;
+
+    int artifactRow = 0;
+    int artifactCol = 0;
+
+    public boolean onArtifacts = false;
+
+    boolean[][] skillUnlocked = new boolean[4][4];
+    BufferedImage[][] skillIcons = new BufferedImage[4][4];
+    String[][] skillName = new String[4][4];
+    String[][] skillDescription = new String[4][4];
+    boolean[][] skillAvailable = new boolean[4][4];
+    BufferedImage lockIcon;
+
+    public BufferedImage[][] artifactIcons = new BufferedImage[4][2];
+    String[][] artifactName = new String[4][2];
+    String[][] artifactDescription = new String[4][2];
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -51,12 +74,55 @@ public class UI {
         heart01 = heart.image1;
         heart02 = heart.image2;
         heart03 = heart.image3;
+        heart04 = heart.image4;
+        heart05 = heart.image5;
+
+        Entity defence = new OBJ_Defence(gp);
+        defence01 = defence.image1;
+        defence02 = defence.image2;
+        defence03 = defence.image3;
+
         Entity star = new OBJ_ManaStar(gp);
         manaFull = star.image1;
         manaEmpty = star.image2;
         Entity bronzeCoin = new OBJ_Coin_Bronze(gp);
         coin = bronzeCoin.down1;
 
+        loadSkillData();
+        loadArtifactData();
+
+        // FIRST COLUMN AVAILABLE
+        for(int row = 0; row < 4; row++) {
+            skillAvailable[row][0] = true;
+        }
+
+        // LOAD LOCK ICON
+        try {
+            lockIcon = ImageIO.read(getClass().getResourceAsStream("/SkillTree/locked.png"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for(int row = 0; row < 4; row++) {
+                for(int col = 0; col < 4; col++) {
+                    skillIcons[row][col] = ImageIO.read(getClass().getResourceAsStream("/SkillTree/skill_" + row + "_" + col + ".png"));
+                }
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 2; col++) {
+                    artifactIcons[row][col] = ImageIO.read(
+                            getClass().getResourceAsStream("/Artifacts/artifact_" + row + "_" + col + ".png")
+                    );
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void addMessage(String text) {
 
@@ -115,6 +181,253 @@ public class UI {
         // SLEEP STATE
         if (gp.gameState == gp.sleepState){
             drawSleepScreen();
+        }
+        if (gp.gameState == gp.skillTreeState){
+            drawSkillTree();
+        }
+    }
+    private void loadSkillData() {
+
+        for(int row = 0; row < 4; row++) {
+            for(int col = 0; col < 4; col++) {
+
+                try {
+                    String path = "/SkillTreeTxt/skill_" + row + "_" + col + ".txt";
+
+                    InputStream is = getClass().getResourceAsStream(path);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+                    skillName[row][col] = br.readLine();
+
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+
+                    while((line = br.readLine()) != null){
+                        sb.append(line).append("\n");
+                    }
+
+                    skillDescription[row][col] = sb.toString();
+                    br.close();
+
+                } catch (Exception e) {
+                    skillName[row][col] = "No Name";
+                    skillDescription[row][col] = "No Description.";
+                }
+            }
+        }
+    }
+    private void loadArtifactData() {
+
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 2; col++) {
+
+                try {
+                    String path = "/ArtifactTxt/artifact_" + row + "_" + col + ".txt";
+
+                    InputStream is = getClass().getResourceAsStream(path);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+                    // Перша лінія – назва артефакта
+                    artifactName[row][col] = br.readLine();
+
+                    // Решта тексту – опис артефакта
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line).append("\n");
+                    }
+
+                    artifactDescription[row][col] = sb.toString();
+                    br.close();
+
+                } catch (Exception e) {
+                    artifactName[row][col] = "No Name";
+                    artifactDescription[row][col] = "No Description.";
+                }
+            }
+        }
+    }
+    private void drawSkillTree() {
+
+        g2.setColor(new Color(10, 10, 10, 220));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 64F));
+        g2.setColor(Color.WHITE);
+        String title = "SKILL TREE";
+        g2.drawString(title, getXforCenterText(title), gp.tileSize*2);
+
+        int gridSize = 4;
+        int iconSize = gp.tileSize;
+        int spacing = gp.tileSize + 30;
+        int totalWidth = (gridSize - 1) * spacing + iconSize;
+        int totalHeight = (gridSize - 1) * spacing + iconSize;
+        int startX = gp.screenWidth / 2 - totalWidth / 2;
+        int startY = gp.screenHeight / 2 - totalHeight / 2;
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+        g2.setColor(Color.WHITE);
+
+        String artifactsTitle = "ARTIFACTS";
+
+        int artifactsX = startX - gp.tileSize * 4 - 16;
+        int artifactsY = gp.tileSize * 2;
+
+        g2.drawString(artifactsTitle, artifactsX, artifactsY);
+
+        g2.setColor(new Color(120,120,120));
+        g2.setStroke(new BasicStroke(2));
+
+        for (int row=0; row<gridSize; row++){
+            for (int col=0; col<gridSize; col++){
+                int x = startX + col*spacing + iconSize/2;
+                int y = startY + row*spacing + iconSize/2;
+
+                if (col < gridSize-1){
+                    int nextX = startX + (col+1)*spacing + iconSize/2;
+                    g2.drawLine(x, y, nextX, y);
+                }
+                if (row < gridSize-1){
+                    int nextY = startY + (row+1)*spacing + iconSize/2;
+                    g2.drawLine(x, y, x, nextY);
+                }
+            }
+        }
+
+        int artifactRows = 4;
+        int artifactCols = 2;
+        int artifactSpacing = spacing;
+        int artifactStartX = startX - artifactCols*artifactSpacing - 40;
+        int artifactStartY = startY;
+
+        for (int row=0; row<artifactRows; row++){
+            for (int col=0; col<artifactCols; col++){
+                int x = artifactStartX + col*artifactSpacing + iconSize/2;
+                int y = artifactStartY + row*artifactSpacing + iconSize/2;
+
+                if (col < artifactCols-1){
+                    int nextX = artifactStartX + (col+1)*artifactSpacing + iconSize/2;
+                    g2.drawLine(x, y, nextX, y);
+                }
+                if (row < artifactRows-1){
+                    int nextY = artifactStartY + (row+1)*artifactSpacing + iconSize/2;
+                    g2.drawLine(x, y, x, nextY);
+                }
+            }
+        }
+
+        g2.setStroke(new BasicStroke(2));
+
+        setInactiveAlpha(!gp.ui.onArtifacts);
+
+        for (int row = 0; row < artifactRows; row++){
+            for (int col = 0; col < artifactCols; col++){
+                int x = artifactStartX + col*artifactSpacing;
+                int y = artifactStartY + row*artifactSpacing;
+
+                g2.drawImage(gp.ui.artifactIcons[row][col], x, y, iconSize, iconSize, null);
+
+                if (gp.ui.onArtifacts && row == gp.ui.artifactRow && col == gp.ui.artifactCol){
+                    g2.setColor(Color.WHITE);
+                    g2.setStroke(new BasicStroke(3));
+                    g2.drawRoundRect(x, y, iconSize, iconSize, 8,8);
+                }
+            }
+        }
+
+        setInactiveAlpha(false);
+
+        for (int row=0; row<gridSize; row++){
+            for (int col=0; col<gridSize; col++){
+
+                int x = startX + col*spacing;
+                int y = startY + row*spacing;
+
+                if (skillUnlocked[row][col]){
+                    g2.setColor(new Color(240,190,90));
+                    g2.fillRoundRect(x, y, iconSize, iconSize, 10,10);
+                }
+
+                if (!skillUnlocked[row][col]){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.35f));
+                }
+
+                g2.drawImage(skillIcons[row][col], x, y, iconSize, iconSize, null);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                if(!skillAvailable[row][col]) {
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.85f));
+                    g2.drawImage(lockIcon, x, y, iconSize, iconSize, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                }
+
+                if(!gp.ui.onArtifacts && row == gp.ui.skillRow && col == gp.ui.skillCol){
+                    g2.setColor(Color.WHITE);
+                    g2.setStroke(new BasicStroke(3));
+                    g2.drawRoundRect(x, y, iconSize, iconSize, 10,10);
+                }
+            }
+        }
+
+        int frameWidth = gp.tileSize*5;
+        int frameHeight = gp.tileSize*6;
+        int frameX = gp.screenWidth - frameWidth - 20;
+        int frameY = startY;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        g2.setFont(g2.getFont().deriveFont(28F));
+        g2.setColor(Color.WHITE);
+        int textX = frameX + 20;
+        int textY = frameY + gp.tileSize;
+
+        String name = "";
+        String desc = "";
+
+        if (gp.ui.onArtifacts) {
+            name = gp.ui.artifactName[gp.ui.artifactRow][gp.ui.artifactCol];
+            desc = gp.ui.artifactDescription[gp.ui.artifactRow][gp.ui.artifactCol];
+        } else {
+            name = gp.ui.skillName[gp.ui.skillRow][gp.ui.skillCol];
+            desc = gp.ui.skillDescription[gp.ui.skillRow][gp.ui.skillCol];
+        }
+
+        if (name != null && !name.isEmpty()) {
+            g2.drawString(name, textX, textY);
+            textY += 40;
+
+            if (desc != null && !desc.isEmpty()) {
+                for (String line : desc.split("\n")) {
+                    g2.drawString(line, textX, textY);
+                    textY += 32;
+                }
+            }
+        }
+
+        int spFrameY = frameY + frameHeight + 20;
+        drawSubWindow(frameX, spFrameY, frameWidth, gp.tileSize*2);
+        g2.drawString("Skill Points: " + gp.player.skillPoints, frameX+20, spFrameY + gp.tileSize);
+    }
+    private void setInactiveAlpha(boolean inactive) {
+        if (inactive) {
+            g2.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, 0.35f));
+        } else {
+            g2.setComposite(AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, 1f));
+        }
+    }
+    public void unlockSkill(int row, int col) {
+
+        if(!skillAvailable[row][col]) return;
+        if(skillUnlocked[row][col]) return;
+        if(gp.player.skillPoints <= 0) return;
+
+        skillUnlocked[row][col] = true;
+        gp.player.skillPoints--;
+
+        // unlock next skill in row
+        if(col < 3) {
+            skillAvailable[row][col + 1] = true;
         }
     }
     private void drawSleepScreen() {
@@ -683,14 +996,11 @@ public class UI {
                 }
             }
         }
-
-
-
     }
     private void drawMessage() {
 
-        int messageX = (int)(gp.tileSize*1.5);
-        int messageY = gp.tileSize*2;
+        float messageX = (float)(gp.tileSize*0.5);
+        float messageY = (float)(gp.tileSize*2.5);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
 
         for (int i = 0; i < message.size(); i++) {
@@ -715,37 +1025,84 @@ public class UI {
     }
     private void drawPlayerLife() {
 
-        //gp.player.life = 7;
-
         int x = gp.tileSize/2;
-        int y = gp.tileSize/2;
+        int y = gp.tileSize/4;
         int i = 0;
 
-        // MAX LIFE
-        while (i < gp.player.maxLife/2) {
+        //  DRAW MAX LIFE (BACKGROUND - FIXED TO 5 HEARTS)
+        while (i < 5) {
             g2.drawImage(heart03, x, y, null);
             i++;
-            x += gp.tileSize + 5;
+            x += gp.tileSize;
         }
 
+        // DRAW RED HEARTS (BASE LAYER)
+        int redLife = Math.min(gp.player.life, 10);
+
         x = gp.tileSize/2;
-        y = gp.tileSize/2;
+        y = gp.tileSize/4;
         i = 0;
 
-        // CURRENT LIFE
-        while (i < gp.player.life) {
+        while (i < redLife) {
             g2.drawImage(heart02, x, y, null);
             i++;
-            if (i < gp.player.life){
+            if (i < redLife) {
                 g2.drawImage(heart01, x, y, null);
             }
             i++;
-            x += gp.tileSize + 5;
+            x += gp.tileSize;
         }
 
-        // DRAW Max MANA
+        // DRAW GOLD HEARTS (OVERLAY LAYER)
+        int goldLife = gp.player.life - 10;
+
+        if (goldLife > 0) {
+            x = gp.tileSize/2;
+            y = gp.tileSize/4;
+            i = 0;
+
+            while (i < goldLife) {
+                g2.drawImage(heart05, x, y, null);
+                i++;
+                if (i < goldLife) {
+                    g2.drawImage(heart04, x, y, null);
+                }
+                i++;
+                x += gp.tileSize;
+            }
+        }
+
+        // DRAW DEFENCE (SECOND ROW)
         x = gp.tileSize / 2;
-        y = (int)(gp.tileSize * 1.5);
+        y = gp.tileSize;
+        i = 0;
+
+        // DRAW EMPTY DEFENCE SLOTS (BACKGROUND)
+        while (i < 5) {
+            g2.drawImage(defence03, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+
+        x = gp.tileSize / 2;
+        y = gp.tileSize;
+        i = 0;
+
+        // DRAW CURRENT DEFENCE (FILLED)
+        while (i < gp.player.defence) {
+            g2.drawImage(defence02, x, y, null);
+            i++;
+            if (i < gp.player.defence) {
+                g2.drawImage(defence01, x, y, null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+
+
+        // DRAW MANA (UNCHANGED)
+        x = gp.tileSize*18 - 16;
+        y = (gp.tileSize/8);
         i = 0;
         while (i < gp.player.maxMana) {
             g2.drawImage(manaEmpty, x, y, null);
@@ -753,9 +1110,8 @@ public class UI {
             y += gp.tileSize;
         }
 
-// DRAW MANA
-        x = gp.tileSize / 2;
-        y = (int)(gp.tileSize * 1.5);
+        x = gp.tileSize*18 - 16;
+        y = (gp.tileSize/8);
         i = 0;
         while (i < gp.player.mana) {
             g2.drawImage(manaFull, x, y, null);

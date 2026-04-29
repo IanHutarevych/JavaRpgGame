@@ -1,0 +1,6 @@
+Mana Upgrade
+
++1 Mana.
+Increases total
+magic power.
+Permanent bonus.

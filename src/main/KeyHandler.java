@@ -7,7 +7,7 @@ import java.io.IOException;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, shotKeyPressed, spacePressed, shiftPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, shotKeyPressed, spacePressed, shiftPressed, qPressed;;
 
     // DEBUG
     boolean showDebugText = false;
@@ -65,6 +65,9 @@ public class KeyHandler implements KeyListener {
          // MAP STATE
          else if (gp.gameState == gp.mapState){
              mapState(code);
+         }
+         else if (gp.gameState == gp.skillTreeState){
+             skillTreeState(code);
          }
 
     }
@@ -267,6 +270,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_SPACE)  {
             spacePressed = true;
         }
+        if (code == KeyEvent.VK_Q)  {
+            gp.gameState = gp.skillTreeState;
+        }
         if (code == KeyEvent.VK_J)  {
             if (!gp.map.miniMapOn){
                 gp.map.miniMapOn = true;
@@ -275,7 +281,6 @@ public class KeyHandler implements KeyListener {
                 gp.map.miniMapOn = false;
             }
         }
-
 
         // DEBUG
         if (code == KeyEvent.VK_T) {
@@ -316,6 +321,111 @@ public class KeyHandler implements KeyListener {
         }
         playerInventory(code);
     }
+    private void skillTreeState(int code) {
+
+        if (code == KeyEvent.VK_Q || code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+
+        // --- РУХ КУРСОРОМ ---
+        if (!gp.ui.onArtifacts) {
+            // рух по скілах
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                if (gp.ui.skillRow > 0) gp.ui.skillRow--;
+                gp.playSE(9);
+            }
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                if (gp.ui.skillRow < 3) gp.ui.skillRow++;
+                gp.playSE(9);
+            }
+
+            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                if (gp.ui.skillCol > 0) {
+                    gp.ui.skillCol--;
+                } else {
+                    // Перехід на артефакти з останньої колонки скілів
+                    gp.ui.onArtifacts = true;
+                    gp.ui.artifactRow = gp.ui.skillRow;
+                    gp.ui.artifactCol = 1; // перша права колонка артефактів
+                }
+                gp.playSE(9);
+            }
+
+            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                if (gp.ui.skillCol < 3) {
+                    gp.ui.skillCol++;
+                } else {
+                    // Перехід на артефакти з останньої колонки скілів
+                    gp.ui.onArtifacts = true;
+                    gp.ui.artifactRow = gp.ui.skillRow;
+                    gp.ui.artifactCol = 0; // перша ліва колонка артефактів
+                }
+                gp.playSE(9);
+            }
+
+        } else {
+            // рух по артефактах
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                if (gp.ui.artifactRow > 0) gp.ui.artifactRow--;
+                gp.playSE(9);
+            }
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                if (gp.ui.artifactRow < 3) gp.ui.artifactRow++;
+                gp.playSE(9);
+            }
+
+            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                if (gp.ui.artifactCol > 0) {
+                    gp.ui.artifactCol--;
+                } else {
+                    // Перехід на скіли з лівої колонки артефактів
+                    gp.ui.onArtifacts = false;
+                    gp.ui.skillRow = gp.ui.artifactRow;
+                    gp.ui.skillCol = 3; // остання колонка скілів
+                }
+                gp.playSE(9);
+            }
+
+            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                if (gp.ui.artifactCol < 1) {
+                    gp.ui.artifactCol++;
+                } else {
+                    // Перехід на скіли з правої колонки артефактів
+                    gp.ui.onArtifacts = false;
+                    gp.ui.skillRow = gp.ui.artifactRow;
+                    gp.ui.skillCol = 0; // перша колонка скілів
+                }
+                gp.playSE(9);
+            }
+        }
+
+        // --- UNLOCK SKILLS ---
+        if (!gp.ui.onArtifacts && code == KeyEvent.VK_ENTER) {
+
+            int row = gp.ui.skillRow;
+            int col = gp.ui.skillCol;
+
+            if (!gp.ui.skillAvailable[row][col]) {
+                gp.playSE(10);
+                return;
+            }
+
+            if (!gp.ui.skillUnlocked[row][col] && gp.player.skillPoints > 0) {
+                gp.ui.unlockSkill(row, col);
+                gp.playSE(5);
+
+                switch (row) {
+                    case 0 -> gp.player.maxLife += 2;
+                    case 1 -> gp.player.attack += 1;
+                    case 2 -> gp.player.defence += 2;
+                    case 3 -> gp.player.maxMana += 1;
+                }
+
+                gp.player.life = gp.player.maxLife;
+                gp.player.mana = gp.player.maxMana;
+            }
+        }
+    }
     public void playerInventory(int code){
         if (code == KeyEvent.VK_W) {
             if (gp.ui.playerSlotRow != 0) {
@@ -342,7 +452,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     public void npcInventory(int code){
         if (code == KeyEvent.VK_W) {
             if (gp.ui.npcSlotRow != 0) {
