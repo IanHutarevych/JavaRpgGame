@@ -57,6 +57,7 @@ public class UI {
     public BufferedImage[][] artifactIcons = new BufferedImage[4][2];
     String[][] artifactName = new String[4][2];
     String[][] artifactDescription = new String[4][2];
+    BufferedImage[] skinImages = new BufferedImage[2];
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -123,6 +124,13 @@ public class UI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // LOAD SKIN IMAGES
+        try {
+            skinImages[0] = ImageIO.read(getClass().getResourceAsStream("/player/right2.png"));
+            skinImages[1] = ImageIO.read(getClass().getResourceAsStream("/player/right2Crown.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void addMessage(String text) {
 
@@ -182,8 +190,13 @@ public class UI {
         if (gp.gameState == gp.sleepState){
             drawSleepScreen();
         }
+        // SKILL TREE STATE
         if (gp.gameState == gp.skillTreeState){
             drawSkillTree();
+        }
+        // SKIN MENU STATE
+        if (gp.gameState == gp.SkinMenuState) {
+            drawSkinMenu();
         }
     }
     private void loadSkillData() {
@@ -406,6 +419,64 @@ public class UI {
         int spFrameY = frameY + frameHeight + 20;
         drawSubWindow(frameX, spFrameY, frameWidth, gp.tileSize*2);
         g2.drawString("Skill Points: " + gp.player.skillPoints, frameX+20, spFrameY + gp.tileSize);
+    }
+    private void drawSkinMenu() {
+
+        g2.setColor(new Color(0, 0, 0, 220));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80F));
+        String title = "Choose Character";
+
+        int titleX = getXforCenterText(title);
+        int titleY = gp.tileSize * 2;
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(title, titleX + 5, titleY + 5);
+
+        g2.setColor(Color.WHITE);
+        g2.drawString(title, titleX, titleY);
+
+        int imgSize = gp.tileSize * 4;
+        int imgX = gp.screenWidth / 2 - imgSize / 2;
+        int imgY = gp.screenHeight / 2 - imgSize / 2;
+
+        if (skinImages[gp.selectedSkinIndex] != null) {
+            g2.drawImage(skinImages[gp.selectedSkinIndex], imgX, imgY, imgSize, imgSize, null);
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 100F));
+        int arrowY = gp.screenHeight / 2 + 35;
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString("<", imgX - gp.tileSize * 2 + 5, arrowY + 5);
+        g2.setColor(Color.WHITE);
+        g2.drawString("<", imgX - gp.tileSize * 2, arrowY);
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(">", imgX + imgSize + gp.tileSize + 5, arrowY + 5);
+        g2.setColor(Color.WHITE);
+        g2.drawString(">", imgX + imgSize + gp.tileSize, arrowY);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 52F));
+        String skinName = gp.playerSkins[gp.selectedSkinIndex];
+        int nameX = getXforCenterText(skinName);
+        int nameY = imgY + imgSize + 55;
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(skinName, nameX + 4, nameY + 4);
+        g2.setColor(Color.WHITE);
+        g2.drawString(skinName, nameX, nameY);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+        String hint = "[A/D] Browse   [ENTER] Select   [ESC] Back";
+        int hintX = getXforCenterText(hint);
+        int hintY = gp.screenHeight - 30;
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(hint, hintX + 3, hintY + 3);
+        g2.setColor(new Color(200, 200, 200));
+        g2.drawString(hint, hintX, hintY);
     }
     private void setInactiveAlpha(boolean inactive) {
         if (inactive) {

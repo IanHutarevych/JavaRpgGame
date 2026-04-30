@@ -66,8 +66,13 @@ public class KeyHandler implements KeyListener {
          else if (gp.gameState == gp.mapState){
              mapState(code);
          }
+         // SKILL TREE STATE
          else if (gp.gameState == gp.skillTreeState){
              skillTreeState(code);
+         }
+         // SKIN MENU STATE
+         else if (gp.gameState == gp.SkinMenuState) {
+             skinMenuState(code);
          }
 
     }
@@ -273,6 +278,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_Q)  {
             gp.gameState = gp.skillTreeState;
         }
+        if (code == KeyEvent.VK_L) {
+            gp.gameState = gp.SkinMenuState;
+        }
         if (code == KeyEvent.VK_J)  {
             if (!gp.map.miniMapOn){
                 gp.map.miniMapOn = true;
@@ -424,6 +432,24 @@ public class KeyHandler implements KeyListener {
                 gp.player.life = gp.player.maxLife;
                 gp.player.mana = gp.player.maxMana;
             }
+        }
+    }
+    private void skinMenuState(int code) {
+        if (code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_L) {
+            gp.gameState = gp.playState;
+        }
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+            gp.selectedSkinIndex = (gp.selectedSkinIndex + 1) % gp.playerSkins.length;
+            gp.playSE(9);
+        }
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+            gp.selectedSkinIndex = (gp.selectedSkinIndex - 1 + gp.playerSkins.length) % gp.playerSkins.length;
+            gp.playSE(9);
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            gp.player.applySkin();
+            gp.playSE(5);
+            gp.gameState = gp.playState;
         }
     }
     public void playerInventory(int code){

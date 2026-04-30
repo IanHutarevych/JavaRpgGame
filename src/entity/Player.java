@@ -139,6 +139,34 @@ public class Player extends Entity {
             head = setup("/player/head", gp.tileSize, gp.tileSize);
 
     }
+    public void getImageCrown() {
+        up1 = setup("/player/up1Crown",    gp.tileSize, gp.tileSize);
+        up2 = setup("/player/up2Crown",    gp.tileSize, gp.tileSize);
+        down1 = setup("/player/down1Crown",  gp.tileSize, gp.tileSize);
+        down2 = setup("/player/down2Crown",  gp.tileSize, gp.tileSize);
+        left1 = setup("/player/left1Crown",  gp.tileSize, gp.tileSize);
+        left2 = setup("/player/left2Crown",  gp.tileSize, gp.tileSize);
+        right1 = setup("/player/right1Crown", gp.tileSize, gp.tileSize);
+        right2 = setup("/player/right2Crown", gp.tileSize, gp.tileSize);
+
+        idleUp1 = setup("/player/idleUp1Crown",    gp.tileSize, gp.tileSize);
+        idleUp2 = setup("/player/idleUp2Crown",    gp.tileSize, gp.tileSize);
+        idleDown1 = setup("/player/idleDown1Crown",  gp.tileSize, gp.tileSize);
+        idleDown2 = setup("/player/idleDown2Crown",  gp.tileSize, gp.tileSize);
+        idleLeft1 = setup("/player/idleLeft1Crown",  gp.tileSize, gp.tileSize);
+        idleLeft2 = setup("/player/idleLeft2Crown",  gp.tileSize, gp.tileSize);
+        idleRight1 = setup("/player/idleRight1Crown", gp.tileSize, gp.tileSize);
+        idleRight2 = setup("/player/idleRight2Crown", gp.tileSize, gp.tileSize);
+
+        head = setup("/player/headCrown", gp.tileSize, gp.tileSize);
+    }
+    public void applySkin() {
+        if (gp.selectedSkinIndex == 0) {
+            getImage();
+        } else if (gp.selectedSkinIndex == 1) {
+            getImageCrown();
+        }
+    }
     public void getAttackImage(){
         if (currentWeapon.type == type_sword) {
         attackUp1 = setup("/player/upAttack1",gp.tileSize, gp.tileSize*2);

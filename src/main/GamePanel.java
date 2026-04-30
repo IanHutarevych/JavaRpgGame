@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
-    EnvironmentManager eManager = new EnvironmentManager(this);
+    public EnvironmentManager eManager = new EnvironmentManager(this);
     Map map = new Map(this);
     SaveLoad sl = new SaveLoad(this);
     public EntityGenerator eGenerator = new EntityGenerator(this);
@@ -92,6 +92,11 @@ public class GamePanel extends JPanel implements Runnable {
     public final int mapState = 10;
     public final int cutSceneState = 11;
     public final int skillTreeState = 12;
+    public final int SkinMenuState = 13;
+
+    // SKIN SELECTION
+    public String[] playerSkins = {"Default", "Crown"};
+    public int selectedSkinIndex = 0;
 
     // OTHERS
     public boolean bossBattleOn = false;

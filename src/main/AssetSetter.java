@@ -255,6 +255,12 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldX = gp.tileSize*25;
         gp.npc[mapNum][i].worldY = gp.tileSize*23;
 
+        mapNum = 14;
+        i = 0;
+        gp.npc[mapNum][i] = new AOBJ_Fire(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*17;
+        gp.npc[mapNum][i].worldY = gp.tileSize*25;
+
     }
 
     public void setMonster(){

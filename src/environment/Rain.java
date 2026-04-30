@@ -11,11 +11,15 @@ public class Rain {
     int rainCounter = 0;
     Random random = new Random();
 
-    int maxPossibleDrops = 250;
+    int maxPossibleDrops = 300;
     int currentMaxDrops = 150;
-    int[] dropX = new int[maxPossibleDrops];
-    int[] dropY = new int[maxPossibleDrops];
-    int[] dropSpeed = new int[maxPossibleDrops];
+    float[] dropX = new float[maxPossibleDrops];
+    float[] dropY = new float[maxPossibleDrops];
+    float[] dropSpeed = new float[maxPossibleDrops];
+    int[] dropLength = new int[maxPossibleDrops];
+    int[] dropAlpha = new int[maxPossibleDrops];
+
+    float windAngle = 2f;
 
     public Rain(GamePanel gp) {
         this.gp = gp;
@@ -24,49 +28,73 @@ public class Rain {
 
     private void prepareDrops() {
         for (int i = 0; i < maxPossibleDrops; i++) {
-            dropX[i] = random.nextInt(gp.screenWidth);
-            dropY[i] = random.nextInt(gp.screenHeight);
-            dropSpeed[i] = random.nextInt(5) + 10;
+            resetDrop(i, true);
         }
+    }
+
+    private void resetDrop(int i, boolean randomStart) {
+        dropX[i] = random.nextInt(gp.screenWidth + 100);
+        dropY[i] = randomStart ? random.nextInt(gp.screenHeight) : -random.nextInt(50) - 10;
+        dropSpeed[i] = random.nextFloat() * 6 + 10;
+        dropLength[i] = random.nextInt(12) + 8;
+        dropAlpha[i] = random.nextInt(80) + 100;
     }
 
     public void update() {
         rainCounter++;
 
-        if (rainCounter > 2200) {
+        if (rainCounter > 600) {
             rainCounter = 0;
             int chance = random.nextInt(100);
 
-            if (!isRaining && chance < 10) {
+            if (!isRaining && chance < 60) {
                 isRaining = true;
                 currentMaxDrops = random.nextInt(151) + 100;
-            } else if (isRaining && chance < 30) {
+            } else if (isRaining && chance < 15) {
                 isRaining = false;
             }
+        }
+
+        if (gp.eManager.wind.isWindy) {
+            windAngle += 0.05f;
+            if (windAngle > 5f) windAngle = 5f;
+        } else {
+            windAngle -= 0.05f;
+            if (windAngle < 1.5f) windAngle = 1.5f;
         }
 
         if (isRaining) {
             for (int i = 0; i < currentMaxDrops; i++) {
                 dropY[i] += dropSpeed[i];
-                dropX[i] += 1;
+                dropX[i] += windAngle;
 
-                if (dropY[i] > gp.screenHeight) {
-                    dropY[i] = -20;
-                    dropX[i] = random.nextInt(gp.screenWidth);
-                    dropSpeed[i] = random.nextInt(5) + 10;
+                if (dropY[i] > gp.screenHeight + 20 || dropX[i] > gp.screenWidth + 20) {
+                    resetDrop(i, false);
                 }
             }
         }
     }
 
     public void draw(Graphics2D g2) {
-         if (isRaining && gp.currentArea == gp.outside) {
-            g2.setColor(new Color(150, 150, 255, 150));
-            g2.setStroke(new BasicStroke(2f));
+        if (!isRaining || gp.currentArea != gp.outside) return;
 
-            for (int i = 0; i < currentMaxDrops; i++) {
-                g2.drawLine(dropX[i], dropY[i], dropX[i] + 1, dropY[i] + 15);
-            }
+        if (currentMaxDrops > 200) {
+            g2.setColor(new Color(100, 120, 160, 20));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        }
+
+        for (int i = 0; i < currentMaxDrops; i++) {
+            int alpha = dropAlpha[i];
+
+            g2.setColor(new Color(160, 180, 255, alpha));
+            g2.setStroke(new BasicStroke(1.2f));
+            int endX = (int)(dropX[i] + windAngle * 1.5f);
+            int endY = (int)(dropY[i] + dropLength[i]);
+            g2.drawLine((int)dropX[i], (int)dropY[i], endX, endY);
+
+            g2.setColor(new Color(220, 235, 255, alpha / 3));
+            g2.setStroke(new BasicStroke(0.6f));
+            g2.drawLine((int)dropX[i], (int)dropY[i], (int)dropX[i], (int)dropY[i] + dropLength[i] / 3);
         }
     }
 }
