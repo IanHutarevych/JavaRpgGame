@@ -51,6 +51,7 @@ public class Entity {
     public boolean inRage = false;
     public boolean sleep = false;
     public boolean drawing = true;
+    public boolean isLightSource = false;
 
     // COUNTER
     public int actionLockCounter = 0;

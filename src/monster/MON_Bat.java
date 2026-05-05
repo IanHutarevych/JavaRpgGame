@@ -78,6 +78,7 @@ public class MON_Bat extends Entity {
     }
     @Override
     public void checkDrop(){
+        gp.achManager.onMonsterKilled();
         int i = new Random().nextInt(100)+1;
         if (i < 50){
             dropItem(new OBJ_Coin_Bronze(gp));
@@ -88,5 +89,6 @@ public class MON_Bat extends Entity {
         if (i >=75 && i < 100){
             dropItem(new OBJ_Key(gp));
         }
+
     }
 }

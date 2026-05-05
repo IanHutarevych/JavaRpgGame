@@ -74,6 +74,11 @@ public class KeyHandler implements KeyListener {
          else if (gp.gameState == gp.SkinMenuState) {
              skinMenuState(code);
          }
+         else if (gp.gameState == gp.achievementState) {
+             if (code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_E) {
+                 gp.gameState = gp.playState;
+             }
+         }
 
     }
 
@@ -281,6 +286,14 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_L) {
             gp.gameState = gp.SkinMenuState;
         }
+        if (gp.gameState == gp.playState) {
+            if (code == KeyEvent.VK_E) {
+                gp.gameState = gp.SkinMenuState;
+            }
+            if (code == KeyEvent.VK_E) {
+                gp.gameState = gp.achievementState;
+            }
+        }
         if (code == KeyEvent.VK_J)  {
             if (!gp.map.miniMapOn){
                 gp.map.miniMapOn = true;
@@ -314,6 +327,9 @@ public class KeyHandler implements KeyListener {
                 godModOn = false;
             }
         }
+        if (code == KeyEvent.VK_E) {
+            gp.gameState = gp.achievementState;
+        }
     }
     public void pauseState(int code){
         if (code == KeyEvent.VK_P) {
@@ -335,9 +351,7 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.playState;
         }
 
-        // --- РУХ КУРСОРОМ ---
         if (!gp.ui.onArtifacts) {
-            // рух по скілах
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 if (gp.ui.skillRow > 0) gp.ui.skillRow--;
                 gp.playSE(9);
@@ -351,10 +365,9 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.skillCol > 0) {
                     gp.ui.skillCol--;
                 } else {
-                    // Перехід на артефакти з останньої колонки скілів
                     gp.ui.onArtifacts = true;
                     gp.ui.artifactRow = gp.ui.skillRow;
-                    gp.ui.artifactCol = 1; // перша права колонка артефактів
+                    gp.ui.artifactCol = 1;
                 }
                 gp.playSE(9);
             }
@@ -363,16 +376,14 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.skillCol < 3) {
                     gp.ui.skillCol++;
                 } else {
-                    // Перехід на артефакти з останньої колонки скілів
                     gp.ui.onArtifacts = true;
                     gp.ui.artifactRow = gp.ui.skillRow;
-                    gp.ui.artifactCol = 0; // перша ліва колонка артефактів
+                    gp.ui.artifactCol = 0;
                 }
                 gp.playSE(9);
             }
 
         } else {
-            // рух по артефактах
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 if (gp.ui.artifactRow > 0) gp.ui.artifactRow--;
                 gp.playSE(9);
@@ -386,10 +397,9 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.artifactCol > 0) {
                     gp.ui.artifactCol--;
                 } else {
-                    // Перехід на скіли з лівої колонки артефактів
                     gp.ui.onArtifacts = false;
                     gp.ui.skillRow = gp.ui.artifactRow;
-                    gp.ui.skillCol = 3; // остання колонка скілів
+                    gp.ui.skillCol = 3;
                 }
                 gp.playSE(9);
             }
@@ -398,10 +408,9 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.artifactCol < 1) {
                     gp.ui.artifactCol++;
                 } else {
-                    // Перехід на скіли з правої колонки артефактів
                     gp.ui.onArtifacts = false;
                     gp.ui.skillRow = gp.ui.artifactRow;
-                    gp.ui.skillCol = 0; // перша колонка скілів
+                    gp.ui.skillCol = 0;
                 }
                 gp.playSE(9);
             }

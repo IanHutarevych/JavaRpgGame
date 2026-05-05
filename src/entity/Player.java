@@ -296,24 +296,21 @@ public class Player extends Entity {
                 speed = 4;
                 handleMovement();
         }
-        // Якщо натискаються клавіші для руху або атаки
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
             animationCounter = 20;
             speed = 3;
-                handleMovement();  // обробляємо рух
+                handleMovement();
 
 
         } else {
-            idle = true; // Якщо нічого не натискається - в стан idle
-            idleAnimation();  // Викликаємо idle анімацію
+            idle = true;
+            idleAnimation();
         }
 
-        // Перевірка пострілів
         if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30 && projectile.haveResources(this)) {
             shootProjectile();
         }
 
-        // Інші перевірки і стан "невразливості"
         handleInvincibility();
         handleResources();
         checkGameOver();
@@ -325,7 +322,7 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                if (attacking) { // Якщо атакує
+                if (attacking) {
                     tempScreenY = screenY - gp.tileSize;
                     if (spriteNum == 1) { image = attackUp1; }
                     if (spriteNum == 2) { image = attackUp2; }
@@ -333,11 +330,11 @@ public class Player extends Entity {
                 else if (guarding){
                     image = guardUp;
                 }
-                else if (idle) { // Якщо персонаж в стані idle
+                else if (idle) {
                     if (spriteNum == 1) { image = idleUp1; }
                     if (spriteNum == 2) { image = idleUp2; }
                 }
-                else { // Якщо рухається
+                else {
                     if (spriteNum == 1) { image = up1; }
                     if (spriteNum == 2) { image = up2; }
                 }
@@ -345,14 +342,14 @@ public class Player extends Entity {
 
             case "down":
 
-                if (attacking) { // Якщо атакує
+                if (attacking) {
                     if (spriteNum == 1) { image = attackDown1; }
                     if (spriteNum == 2) { image = attackDown2; }
                 }
                 else if (guarding){
                     image = guardDown;
                 }
-                else if (idle) { // Якщо персонаж в стані idle
+                else if (idle) {
                     if (spriteNum == 1) {
                         image = idleDown1;
                     }
@@ -360,14 +357,14 @@ public class Player extends Entity {
                         image = idleDown2;
                     }
                 }
-                else { // Якщо рухається
+                else {
                     if (spriteNum == 1) { image = down1; }
                     if (spriteNum == 2) { image = down2; }
                 }
                 break;
 
             case "left":
-                if (attacking) { // Якщо атакує
+                if (attacking) {
                     tempScreenX = screenX - gp.tileSize;
                     if (spriteNum == 1) { image = attackLeft1; }
                     if (spriteNum == 2) { image = attackLeft2; }
@@ -375,29 +372,29 @@ public class Player extends Entity {
                 else if (guarding){
                     image = guardLeft;
                 }
-                else if (idle) { // Якщо персонаж в стані idle
+                else if (idle) {
                     if (spriteNum == 1) { image = idleLeft1; }
                     if (spriteNum == 2) { image = idleLeft2; }
                 }
-                else { // Якщо рухається
+                else {
                     if (spriteNum == 1) { image = left1; }
                     if (spriteNum == 2) { image = left2; }
                 }
                 break;
 
             case "right":
-            if (attacking) { // Якщо атакує
+            if (attacking) {
                 if (spriteNum == 1) { image = attackRight1; }
                 if (spriteNum == 2) { image = attackRight2; }
             }
             else if (guarding){
                 image = guardRight;
             }
-            else if (idle) { // Якщо персонаж в стані idle
+            else if (idle) {
                 if (spriteNum == 1) { image = idleRight1; }
                 if (spriteNum == 2) { image = idleRight2; }
             }
-            else { // Якщо рухається
+            else {
                 if (spriteNum == 1) { image = right1; }
                 if (spriteNum == 2) { image = right2; }
             }
@@ -433,10 +430,8 @@ public class Player extends Entity {
             idle = false;
         }
 
-        // Перевірка на зіткнення
         checkCollisions();
 
-        // Якщо немає зіткнень - можна рухатись
         if (!collisionOn && !keyH.enterPressed) {
             moveCharacter();
         }
@@ -451,7 +446,6 @@ public class Player extends Entity {
         guarding = false;
         guardCounter = 0;
 
-        // Анімація
         spriteCounter++;
         if (spriteCounter > animationCounter) {
             spriteNum = (spriteNum == 1) ? 2 : 1;

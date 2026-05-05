@@ -22,6 +22,7 @@ public class UI {
     public Font maruMonica;
     BufferedImage heart01, heart02, heart03, heart04, heart05, defence01, defence02, defence03, manaFull, manaEmpty, coin;
     public boolean showSkillPointWarning = false;
+    BufferedImage achKillIcon, achNightIcon, achLevelIcon;
 
     public boolean messageOn = false;
     ArrayList<String> message = new ArrayList<>();
@@ -38,6 +39,16 @@ public class UI {
     public Entity npc;
     int charIndex = 0;
     String combinedText = "";
+
+    // TITLE SCREEN STARS
+    private final int STAR_COUNT = 80;
+    private float[] starX = new float[STAR_COUNT];
+    private float[] starY = new float[STAR_COUNT];
+    private float[] starSize = new float[STAR_COUNT];
+    private float[] starAlpha = new float[STAR_COUNT];
+    private float[] starAlphaSpeed = new float[STAR_COUNT];
+    private boolean starsInitialized = false;
+    private int titleCounter = 0;
 
     int skillCol = 0;
     int skillRow = 0;
@@ -69,6 +80,13 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
+
+        // ACHIEVEMENT ICONS
+        try {
+            achKillIcon  = ImageIO.read(getClass().getResourceAsStream("/achive/achive1.png"));
+            achNightIcon = ImageIO.read(getClass().getResourceAsStream("/achive/achive2.png"));
+            achLevelIcon = ImageIO.read(getClass().getResourceAsStream("/achive/achive3.png"));
+        } catch (Exception e) { e.printStackTrace(); }
 
         // CREATE HUD OBJECT
         Entity heart = new OBJ_Heart(gp);
@@ -131,6 +149,17 @@ public class UI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // INIT STARS
+        java.util.Random r = new java.util.Random();
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starX[i] = r.nextInt(960);
+            starY[i] = r.nextInt(576);
+            starSize[i] = r.nextFloat() * 3 + 1;
+            starAlpha[i] = r.nextFloat();
+            starAlphaSpeed[i] = r.nextFloat() * 0.015f + 0.005f;
+        }
+        starsInitialized = true;
     }
     public void addMessage(String text) {
 
@@ -197,6 +226,10 @@ public class UI {
         // SKIN MENU STATE
         if (gp.gameState == gp.SkinMenuState) {
             drawSkinMenu();
+        }
+        // ACHIVEMENT STATE
+        if (gp.gameState == gp.achievementState) {
+            drawAchievementMenu();
         }
     }
     private void loadSkillData() {
@@ -477,6 +510,81 @@ public class UI {
         g2.drawString(hint, hintX + 3, hintY + 3);
         g2.setColor(new Color(200, 200, 200));
         g2.drawString(hint, hintX, hintY);
+    }
+    private void drawAchievementMenu() {
+        int frameX = gp.tileSize * 2;
+        int frameY = gp.tileSize;
+        int frameW = gp.screenWidth - gp.tileSize * 4;
+        int frameH = gp.screenHeight - gp.tileSize * 2;
+
+        g2.setColor(new Color(0, 0, 0, 220));
+        g2.fillRoundRect(frameX, frameY, frameW, frameH, 25, 25);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(frameX, frameY, frameW, frameH, 25, 25);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
+        String title = "ACHIEVEMENTS";
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(title, getXforCenterText(title) + 3, frameY + 55 + 3);
+        g2.setColor(Color.WHITE);
+        g2.drawString(title, getXforCenterText(title), frameY + 55);
+
+        g2.setColor(new Color(255, 255, 255, 80));
+        g2.fillRect(frameX + 20, frameY + 70, frameW - 40, 2);
+
+        int startY = frameY + 100;
+        int spacing = (frameH - 120) / 3;
+
+        drawAchievement(frameX, startY, frameW, achKillIcon, "Monster Slayer", "Kill 20 monsters", gp.achManager.mobsKilled, 20, gp.achManager.killsDone);
+        drawAchievement(frameX, startY + spacing, frameW, achNightIcon, "Night Survivor", "Survive 3 nights", gp.achManager.nightsSurvived, 3, gp.achManager.nightsDone);
+        drawAchievement(frameX, startY + spacing * 2, frameW, achLevelIcon, "Rising Hero", "Reach level 3", gp.player.level, 3, gp.achManager.levelDone);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+        g2.setColor(new Color(180, 180, 180));
+        String hint = "[E] or [ESC] Close";
+        g2.drawString(hint, getXforCenterText(hint), frameY + frameH - 20);
+    }
+
+    private void drawAchievement(int frameX, int y, int frameW, BufferedImage icon, String name, String desc, int current, int max, boolean done) {
+        int iconSize = gp.tileSize + 10;
+        int iconX = frameX + 25;
+        int textX = iconX + iconSize + 20;
+        int barY = y + 45;
+        int barW = frameW - iconSize - 110;
+        int barH = 14;
+
+        if (icon != null) {
+            if (!done) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
+            g2.drawImage(icon, iconX, y, iconSize, iconSize, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 26F));
+        g2.setColor(done ? new Color(255, 215, 0) : Color.WHITE);
+        g2.drawString(name, textX, y + 22);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
+        g2.setColor(new Color(180, 180, 180));
+        g2.drawString(desc, textX, y + 42);
+
+        g2.setColor(new Color(60, 60, 60));
+        g2.fillRoundRect(textX, barY, barW, barH, 8, 8);
+
+        int filled = (int)((Math.min(current, max) / (float) max) * barW);
+        Color barColor = done ? new Color(255, 200, 0) : new Color(80, 160, 255);
+        g2.setColor(barColor);
+        g2.fillRoundRect(textX, barY, filled, barH, 8, 8);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 18F));
+        g2.setColor(Color.WHITE);
+        String progress = done ? "DONE!" : current + " / " + max;
+        g2.drawString(progress, textX + barW + 10, barY + 12);
+
+        g2.setColor(new Color(255, 255, 255, 30));
+        g2.fillRect(frameX + 20, y + iconSize + 10, frameW - 40, 1);
     }
     private void setInactiveAlpha(boolean inactive) {
         if (inactive) {
@@ -1380,52 +1488,94 @@ public class UI {
         g2.setColor(Color.black);
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-        // TITLE NAME
+        titleCounter++;
+
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starAlpha[i] += starAlphaSpeed[i];
+            if (starAlpha[i] > 1f || starAlpha[i] < 0f) {
+                starAlphaSpeed[i] = -starAlphaSpeed[i];
+                starAlpha[i] = Math.max(0f, Math.min(1f, starAlpha[i]));
+            }
+            int a = (int)(starAlpha[i] * 255);
+            g2.setColor(new Color(255, 255, 255, a));
+            g2.fillOval((int)starX[i], (int)starY[i], (int)starSize[i], (int)starSize[i]);
+        }
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
         String text = "Cloverfall";
         int x = getXforCenterText(text);
-        int y = gp.tileSize*3;
+        int y = gp.tileSize * 3;
 
-        // SHADOW
+        float glowPulse = (float)(Math.sin(titleCounter * 0.05f) * 0.3f + 0.5f);
+        g2.setColor(new Color(1f, 0.8f, 0f, glowPulse * 0.4f));
+        for (int offset = 6; offset >= 1; offset--) {
+            g2.drawString(text, x - offset, y);
+            g2.drawString(text, x + offset, y);
+            g2.drawString(text, x, y - offset);
+            g2.drawString(text, x, y + offset);
+        }
+
         g2.setColor(Color.darkGray);
-        g2.drawString(text, x+5 , y+5);
+        g2.drawString(text, x + 5, y + 5);
 
-        // MAIN COLOR
         g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // CHARACTER IMAGE
-        x = gp.screenWidth/2- (gp.tileSize*2)/2;
-        y += gp.tileSize*2;
-        g2.drawImage(gp.goldClever.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+        float pulse = (float)(Math.sin(titleCounter * 0.06f) * 0.08f + 1.0f);
+        int imgBase = gp.tileSize * 2;
+        int imgSize = (int)(imgBase * pulse);
+        int imgX = gp.screenWidth / 2 - imgSize / 2;
+        int imgY = y + gp.tileSize * 2 - (imgSize - imgBase) / 2;
+        g2.drawImage(gp.goldClever.down1, imgX, imgY, imgSize, imgSize, null);
 
-        // MENU
+        int cx = gp.screenWidth / 2;
+        int cy = imgY + imgSize / 2;
+        RadialGradientPaint glow = new RadialGradientPaint(
+                cx, cy, imgSize,
+                new float[]{0f, 1f},
+                new Color[]{
+                        new Color(255, 200, 0, (int)(40 * glowPulse)),
+                        new Color(255, 200, 0, 0)
+                }
+        );
+        g2.setPaint(glow);
+        g2.fillOval(cx - imgSize, cy - imgSize, imgSize * 2, imgSize * 2);
+
+        // МЕНЮ
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+        g2.setPaint(null);
+
+        int menuY = imgY + imgSize + gp.tileSize + 10;
 
         text = "NEW GAME";
         x = getXforCenterText(text);
-        y += gp.tileSize*3.5;
-        g2.drawString(text, x, y);
-        if (commandNum == 0) {
-            g2.drawString(">", x-gp.tileSize, y);
-        }
 
+        if (commandNum == 0) {
+            g2.setColor(new Color(255, 220, 80));
+            g2.drawString(">", x - gp.tileSize, menuY);
+        }
+        g2.setColor(commandNum == 0 ? new Color(255, 220, 80) : Color.WHITE);
+        g2.drawString(text, x, menuY);
+
+        menuY += gp.tileSize;
         text = "LOAD GAME";
         x = getXforCenterText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
         if (commandNum == 1) {
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.setColor(new Color(255, 220, 80));
+            g2.drawString(">", x - gp.tileSize, menuY);
         }
+        g2.setColor(commandNum == 1 ? new Color(255, 220, 80) : Color.WHITE);
+        g2.drawString(text, x, menuY);
 
+        menuY += gp.tileSize;
         text = "QUIT";
         x = getXforCenterText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
         if (commandNum == 2) {
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.setColor(new Color(255, 220, 80));
+            g2.drawString(">", x - gp.tileSize, menuY);
         }
-
+        g2.setColor(commandNum == 2 ? new Color(255, 220, 80) : Color.WHITE);
+        g2.drawString(text, x, menuY);
     }
     public void drawPausedScreen (){
 

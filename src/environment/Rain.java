@@ -43,11 +43,11 @@ public class Rain {
     public void update() {
         rainCounter++;
 
-        if (rainCounter > 600) {
+        if (rainCounter > 200) {
             rainCounter = 0;
             int chance = random.nextInt(100);
 
-            if (!isRaining && chance < 60) {
+            if (!isRaining && chance < 15) {
                 isRaining = true;
                 currentMaxDrops = random.nextInt(151) + 100;
             } else if (isRaining && chance < 15) {

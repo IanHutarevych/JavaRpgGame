@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     SaveLoad sl = new SaveLoad(this);
     public EntityGenerator eGenerator = new EntityGenerator(this);
     public CutSceneManager csManager = new CutSceneManager(this);
+    public AchievementManager achManager = new AchievementManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -93,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int cutSceneState = 11;
     public final int skillTreeState = 12;
     public final int SkinMenuState = 13;
+    public final int achievementState = 14;
 
     // SKIN SELECTION
     public String[] playerSkins = {"Default", "Crown"};
@@ -256,6 +258,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             eManager.update();
+            achManager.update();
         }
         if(gameState == skillTreeState) {
 
