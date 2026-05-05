@@ -79,6 +79,12 @@ public class KeyHandler implements KeyListener {
                  gp.gameState = gp.playState;
              }
          }
+         // QUEST STATE
+         else if (gp.gameState == gp.questState) {
+             if (code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_TAB) {
+                 gp.gameState = gp.playState;
+             }
+         }
 
     }
 
@@ -285,6 +291,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_L) {
             gp.gameState = gp.SkinMenuState;
+        }
+        if (code == KeyEvent.VK_TAB) {
+            gp.gameState = gp.questState;
         }
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_E) {

@@ -26,10 +26,6 @@ public class EnvironmentManager {
         if (rain.isRaining && wind.isSandstorm) {
             rain.isRaining = false;
         }
-        if (wind.isSandstorm && rain.isRaining) {
-            wind.isSandstorm = false;
-            wind.isWindy = false;
-        }
     }
     public void draw(Graphics2D g2) {
         lightning.draw(g2);

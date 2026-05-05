@@ -228,17 +228,17 @@ public class AssetSetter {
 
     }
     public void setNPC() throws IOException {
-        int i = 0;
 
+        int i = 0;
         int mapNum = 0;
         // MAP 0
-        gp.npc[mapNum][i] = new NPC_PumpkinHead(gp);
+        /*gp.npc[mapNum][i] = new NPC_PumpkinHead(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*23;
-        gp.npc[mapNum][i].worldY = gp.tileSize*19;
+        gp.npc[mapNum][i].worldY = gp.tileSize*19;*/
 
-        gp.npc[mapNum][i] = new NPC_Helmart(gp);
+        /*gp.npc[mapNum][i] = new NPC_Helmart(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*23;
-        gp.npc[mapNum][i].worldY = gp.tileSize*10;
+        gp.npc[mapNum][i].worldY = gp.tileSize*10;*/
 
 
         // MAP 1
@@ -255,6 +255,12 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldX = gp.tileSize*25;
         gp.npc[mapNum][i].worldY = gp.tileSize*23;
 
+        mapNum = 14;
+        i = 0;
+        // MAP 14
+        gp.npc[mapNum][i] = new NPC_PumpkinHead(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*15;
+        gp.npc[mapNum][i].worldY = gp.tileSize*27;
     }
 
     public void setMonster(){
@@ -400,6 +406,16 @@ public class AssetSetter {
         i = 0;
         gp.iTile[mapNum][i] = new IT_Vase1(gp,29,28);i++;
         gp.iTile[mapNum][i] = new IT_Vase1(gp,21,23);i++;
+
+        mapNum = 14;
+        i = 0;
+        gp.iTile[mapNum][i] = new IT_Rock2(gp,18,23);i++;
+        gp.iTile[mapNum][i] = new IT_Rock2(gp,17,19);i++;
+        gp.iTile[mapNum][i] = new IT_Rock2(gp,16,30);i++;
+        gp.iTile[mapNum][i] = new IT_Rock2(gp,23,31);i++;
+        gp.iTile[mapNum][i] = new IT_Rock2(gp,26,26);i++;
+        gp.iTile[mapNum][i] = new IT_Rock1(gp,29,29);i++;
+        gp.iTile[mapNum][i] = new IT_Rock1(gp,33,25);i++;
     }
 
 }

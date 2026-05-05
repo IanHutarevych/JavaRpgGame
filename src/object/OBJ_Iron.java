@@ -17,10 +17,12 @@ public class OBJ_Iron extends Entity {
         price = 20;
         stackable = true;
         idle = false;
+        use(this);
     }
-    /*public void use(Entity e) {
-
+    public boolean use(Entity e) {
         gp.playSE(1);
-        gp.ui.addMessage("Gold + 1");
-    }*/
+        gp.ui.addMessage("Iron +1");
+        gp.questManager.onIronCollected();
+        return true;
+    }
 }

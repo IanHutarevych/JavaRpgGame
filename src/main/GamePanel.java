@@ -63,7 +63,8 @@ public class GamePanel extends JPanel implements Runnable {
     public EntityGenerator eGenerator = new EntityGenerator(this);
     public CutSceneManager csManager = new CutSceneManager(this);
     public AchievementManager achManager = new AchievementManager(this);
-    Thread gameThread;
+    public QuestManager questManager = new QuestManager(this);
+    public final int questState = 15;    Thread gameThread;
 
     // ENTITY AND OBJECT
     public Player player = new Player(this,keyH);
@@ -118,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
+        this.setFocusTraversalKeysEnabled(false);
     }
     public void setupGame() throws IOException {
 
@@ -259,6 +260,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             eManager.update();
             achManager.update();
+            //questManager.update();
         }
         if(gameState == skillTreeState) {
 

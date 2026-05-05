@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import object.OBJ_PickaxeNormal;
 
 import java.awt.*;
 import java.util.Random;
@@ -24,6 +25,8 @@ public class NPC_PumpkinHead extends Entity {
 
         dialogueSet = -1;
 
+        idle = false;
+
         getImage();
         setDialogue();
     }
@@ -38,7 +41,6 @@ public class NPC_PumpkinHead extends Entity {
             right1 = setup("/npc/pumpkinHeadRight1", gp.tileSize, gp.tileSize);
             right2 = setup("/npc/pumpkinHeadRight2", gp.tileSize, gp.tileSize);
 
-            // Перевірка
             if (up1 == null || up2 == null || down1 == null || down2 == null ||
                     left1 == null || left2 == null || right1 == null || right2 == null) {
                 throw new NullPointerException("Error: Missing sprite(s) for NPC 'Old Man'");
@@ -93,23 +95,37 @@ public class NPC_PumpkinHead extends Entity {
             }
         }
     }
-    public void speak(){
+    public void speak() {
         facePlayer();
-        startDialogue(this,dialogueSet);
 
-        dialogueSet++;
+        if (!gp.questManager.quest1Active && !gp.questManager.quest1Done && !gp.questManager.quest1Rewarded) {
+            dialogues[0][0] = "Hey traveler! I need your help.\nFind me 3 iron nuggets in the mines.\nI'll reward you well!";
+            startDialogue(this, 0);
+            gp.questManager.startQuest1();
 
-        if (dialogues[dialogueSet][0] == null){
-            //dialogueSet = 0;
-
-            dialogueSet--;
+            OBJ_PickaxeNormal pickaxe = new OBJ_PickaxeNormal(gp);
+            if (gp.player.canObtainItem(pickaxe)) {
+                gp.player.inventory.add(pickaxe);
+            }
+            gp.ui.triggerItemGet(pickaxe.down1, "Pickaxe");
+            return;
         }
 
-        // OR YOU CAN WRITE SPECIFIC CONDITION example
-        /*if (gp.player.life < gp.player.maxLife/3){
-            dialogueSet = 1;
-        }*/
+        if (gp.questManager.canClaimReward()) {
+            dialogues[0][0] = "You found the iron! Thank you!\nHere are 50 coins for your trouble.";
+            startDialogue(this, 0);
+            gp.questManager.claimReward();
+            return;
+        }
 
-        onPath = true;
+        if (gp.questManager.quest1Active) {
+            int left = gp.questManager.ironRequired - gp.questManager.ironCollected;
+            dialogues[0][0] = "Keep looking! You still need\n" + left + " more iron nugget(s).";
+            startDialogue(this, 0);
+            return;
+        }
+
+        dialogues[0][0] = "Thanks again, traveler!\nYou've been a great help.";
+        startDialogue(this, 0);
     }
 }

@@ -50,6 +50,15 @@ public class UI {
     private boolean starsInitialized = false;
     private int titleCounter = 0;
 
+    // ITEM GET ANIMATION
+    public boolean showItemGet = false;
+    private java.awt.image.BufferedImage itemGetImage;
+    private String itemGetName = "";
+    private int itemGetCounter = 0;
+    private final int ITEM_GET_DURATION = 120;
+    private int prevGameState = 1;
+    private float itemGetBarOffset = 0f;
+
     int skillCol = 0;
     int skillRow = 0;
 
@@ -184,6 +193,9 @@ public class UI {
             drawPlayerLife();
             drawMonsterLife();
             drawMessage();
+            if (showItemGet) {
+                drawItemGetScreen();
+            }
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -230,6 +242,10 @@ public class UI {
         // ACHIVEMENT STATE
         if (gp.gameState == gp.achievementState) {
             drawAchievementMenu();
+        }
+        // QUEST STATE
+        if (gp.gameState == gp.questState) {
+            drawQuestScreen();
         }
     }
     private void loadSkillData() {
@@ -1647,6 +1663,163 @@ public class UI {
             g2.drawString(line, x, y);
             y += 40;
         }
+    }
+    public void triggerItemGet(java.awt.image.BufferedImage img, String name) {
+        itemGetImage = img;
+        itemGetName = name;
+        itemGetCounter = 0;
+        itemGetBarOffset = 0f;
+        showItemGet = true;
+        prevGameState = gp.gameState;
+    }
+    private void drawItemGetScreen() {
+        itemGetCounter++;
+
+        float alpha;
+        if (itemGetCounter < 20) {
+            alpha = itemGetCounter / 20f;
+        } else if (itemGetCounter > ITEM_GET_DURATION - 20) {
+            alpha = (ITEM_GET_DURATION - itemGetCounter) / 20f;
+        } else {
+            alpha = 1f;
+        }
+        alpha = Math.max(0f, Math.min(1f, alpha));
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.55f));
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int cx = gp.screenWidth / 2;
+        int cy = gp.screenHeight / 2;
+
+        double rotation = itemGetCounter * 0.015;
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.35f));
+        g2.setColor(Color.WHITE);
+
+        int rayCount = 10;
+        int rayInner = 90;
+        int rayOuter = 280;
+
+        g2.setStroke(new BasicStroke(14f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+
+        for (int i = 0; i < rayCount; i++) {
+            double angle = rotation + (2 * Math.PI / rayCount) * i;
+            int x1 = cx + (int)(Math.cos(angle) * rayInner);
+            int y1 = cy + (int)(Math.sin(angle) * rayInner);
+            int x2 = cx + (int)(Math.cos(angle) * rayOuter);
+            int y2 = cy + (int)(Math.sin(angle) * rayOuter);
+            g2.drawLine(x1, y1, x2, y2);
+        }
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        int imgSize = gp.tileSize * 3;
+        int imgX = cx - imgSize / 2;
+        int imgY = cy - imgSize / 2 - 20;
+        if (itemGetImage != null) {
+            g2.drawImage(itemGetImage, imgX, imgY, imgSize, imgSize, null);
+        }
+
+        g2.setStroke(new BasicStroke(1f));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 26F));
+        String header = "ITEM RECEIVED";
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(header, getXforCenterText(header) + 2, imgY - 16 + 2);
+        g2.setColor(Color.WHITE);
+        g2.drawString(header, getXforCenterText(header), imgY - 16);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 34F));
+        g2.setColor(new Color(255, 220, 80));
+        g2.drawString(itemGetName, getXforCenterText(itemGetName), imgY + imgSize + 38);
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        if (itemGetCounter >= ITEM_GET_DURATION) {
+            showItemGet = false;
+        }
+    }
+    private void drawQuestScreen() {
+        int frameX = gp.tileSize * 2;
+        int frameY = gp.tileSize;
+        int frameW = gp.screenWidth - gp.tileSize * 4;
+        int frameH = gp.screenHeight - gp.tileSize * 2;
+
+        g2.setColor(new Color(0, 0, 0, 220));
+        g2.fillRoundRect(frameX, frameY, frameW, frameH, 25, 25);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(frameX, frameY, frameW, frameH, 25, 25);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
+        String title = "QUEST LOG";
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawString(title, getXforCenterText(title) + 3, frameY + 55 + 3);
+        g2.setColor(Color.WHITE);
+        g2.drawString(title, getXforCenterText(title), frameY + 55);
+
+        g2.setColor(new Color(255, 255, 255, 80));
+        g2.fillRect(frameX + 20, frameY + 70, frameW - 40, 2);
+
+        if (!gp.questManager.quest1Active && !gp.questManager.quest1Done && !gp.questManager.quest1Rewarded) {
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+            g2.setColor(new Color(150, 150, 150));
+            String empty = "No active quests.";
+            g2.drawString(empty, getXforCenterText(empty), gp.screenHeight / 2);
+        } else {
+            int qX = frameX + 30;
+            int qY = frameY + 110;
+
+            String status;
+            Color statusColor;
+            if (gp.questManager.quest1Rewarded) {
+                status = "[COMPLETED]";
+                statusColor = new Color(100, 220, 100);
+            } else if (gp.questManager.quest1Done) {
+                status = "[RETURN TO NPC]";
+                statusColor = new Color(255, 220, 80);
+            } else {
+                status = "[IN PROGRESS]";
+                statusColor = new Color(100, 180, 255);
+            }
+
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 26F));
+            g2.setColor(statusColor);
+            g2.drawString(status, qX, qY);
+
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 34F));
+            g2.setColor(Color.WHITE);
+            g2.drawString("Find 3 Iron Nuggets", qX, qY + 38);
+
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 24F));
+            g2.setColor(new Color(180, 180, 180));
+            g2.drawString("Help the mysterious stranger collect iron.", qX, qY + 68);
+            g2.drawString("Reward: 50 coins + Pickaxe", qX, qY + 95);
+
+            int barY = qY + 115;
+            int barW = frameW - 80;
+            int barH = 16;
+            int current = Math.min(gp.questManager.ironCollected, gp.questManager.ironRequired);
+            int filled = (int)((current / (float)gp.questManager.ironRequired) * barW);
+
+            g2.setColor(new Color(60, 60, 60));
+            g2.fillRoundRect(qX, barY, barW, barH, 8, 8);
+
+            Color barColor = gp.questManager.quest1Rewarded
+                    ? new Color(100, 220, 100)
+                    : new Color(80, 160, 255);
+            g2.setColor(barColor);
+            g2.fillRoundRect(qX, barY, filled, barH, 8, 8);
+
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
+            g2.setColor(Color.WHITE);
+            String prog = gp.questManager.quest1Rewarded ? "DONE!" : current + " / " + gp.questManager.ironRequired;
+            g2.drawString(prog, qX + barW + 10, barY + 13);
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 24F));
+        g2.setColor(new Color(180, 180, 180));
+        String hint = "[TAB] or [ESC] Close";
+        g2.drawString(hint, getXforCenterText(hint), frameY + frameH - 20);
     }
     public int getItemIndexOnSlot(int slotCol, int slotRow) {
         int ItemIndex = slotCol + slotRow *5;
