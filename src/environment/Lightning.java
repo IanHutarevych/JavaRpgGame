@@ -164,8 +164,7 @@ public class Lightning {
                 int cy = screenY + half;
                 int radius = obj.lightRadius;
 
-                RadialGradientPaint glow = new RadialGradientPaint(
-                        cx, cy, radius, GLOW_FRACTIONS, GLOW_COLORS);
+                RadialGradientPaint glow = new RadialGradientPaint(cx, cy, radius, GLOW_FRACTIONS, GLOW_COLORS);
                 g2.setPaint(glow);
                 g2.fillOval(cx - radius, cy - radius, radius * 2, radius * 2);
             }
