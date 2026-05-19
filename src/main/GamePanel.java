@@ -19,6 +19,9 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
 
+    private static final Comparator<Entity> Y_COMPARATOR =
+            (e1, e2) -> Integer.compare(e1.worldY, e2.worldY);
+
     // SCREEN SETTINGS
     final int originalTileSize = 16; //16x16 tile
     final int scale = 3;
@@ -347,12 +350,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             // SORT
-            entityList.sort(new Comparator<Entity>() {
-                @Override
-                public int compare(Entity e1, Entity e2) {
-                    return Integer.compare(e1.worldY, e2.worldY);
-                }
-            });
+            entityList.sort(Y_COMPARATOR);
 
             // DRAW ENTITIES
             for (Entity entity : entityList) {
@@ -394,10 +392,17 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("God Mode: " + keyH.godModOn, x, y);
         }
     }
-    public void drawToScreen(){
-        Graphics g = getGraphics();
-        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        g.dispose();
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (tempScreen != null) {
+            g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        }
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    public void drawToScreen() {
+        repaint();
     }
     public void playMusic(int i){
         music.setFile(i);

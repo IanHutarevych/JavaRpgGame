@@ -51,30 +51,14 @@ public class MON_Bat extends Entity {
         right2 = setup("/monster/bat_2",gp.tileSize, gp.tileSize);
     }
     public void setAction(){
-
         if (onPath){
-
-/*            // check if it stops chasing
-            checkStopChasingOrNot(gp.player, 15, 100);
-
-            // search the direction to go
-            searchPathToPlayer(getGoalCol(gp.player), getGoalRow(gp.player));
-
-            // check if it shoots a projectile
-            checkShootOrNot(200, 30);*/
         }
         else {
-            // check if it starts chasing
-            /*checkStartChasingOrNot(gp.player, 5, 100);*/
-
-            // get a random direction
             getRandomDirection();
         }
     }
     public void damageReaction(){
-
         actionLockCounter = 0;
-        //onPath = true;
     }
     @Override
     public void checkDrop(){

@@ -15,7 +15,7 @@ public class OBJ_Torch extends Entity{
         down1 = setup("/objects/torch1", gp.tileSize, gp.tileSize);
         description = "[Torch]\nIlluminates you \nsurroundings";
         price = 10;
-        lightRadius = 350;
+        lightRadius = 260;
         idle = false;
     }
 }

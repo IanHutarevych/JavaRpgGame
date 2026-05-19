@@ -7,28 +7,36 @@ public class Main {
 
     public static JFrame window;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        System.setProperty("apple.awt.application.name", "Cloverfall");
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("apple.awt.application.appearance", "system");
 
-        window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Cloverfall");
+        SwingUtilities.invokeLater(() -> {
+            try {
+                window = new JFrame();
+                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                window.setResizable(false);
+                window.setTitle("Cloverfall");
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+                GamePanel gamePanel = new GamePanel();
+                window.add(gamePanel);
 
-        gamePanel.config.loadConfig();
-        if (gamePanel.fullScreenOn){
-            window.setUndecorated(true);
-        }
+                gamePanel.config.loadConfig();
+                if (gamePanel.fullScreenOn) {
+                    window.setUndecorated(true);
+                }
 
+                window.pack();
+                window.setLocationRelativeTo(null);
+                window.setVisible(true);
 
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-        gamePanel.setupGame();
-        gamePanel.startGameThread();
-        }
+                gamePanel.setupGame();
+                gamePanel.startGameThread();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        });
     }
+}

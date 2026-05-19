@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Cloverfall" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="main.Main" />
+    <option name="VM_PARAMETERS" value="-Dapple.awt.application.name=Cloverfall -Dapple.laf.useScreenMenuBar=true -Dapple.awt.application.appearance=system" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <module name="My2DGame" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
